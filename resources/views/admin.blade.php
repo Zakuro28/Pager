@@ -222,12 +222,13 @@
         /* ── KPI grid ── */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(5, minmax(0, 1fr));
             gap: 1rem;
             margin-bottom: 1.25rem;
         }
 
-        @media (max-width: 1024px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 1200px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 720px)  { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 400px)  { .kpi-grid { grid-template-columns: 1fr; } }
 
         .kpi-card {
@@ -780,6 +781,13 @@
                 <a class="kpi-link" href="#manage">View →</a>
             </div>
         </div>
+        <div class="card kpi-card">
+            <div class="kpi-label">Journal Entries</div>
+            <div class="kpi-value" id="kpi-entries" data-to="{{ $stats['total_entries'] }}">0</div>
+            <div class="kpi-footer">
+                <span class="kpi-tag up">+{{ $stats['entries_this_week'] }} this week</span>
+            </div>
+        </div>
     </div>
 
     <!-- Parent type breakdown -->
@@ -893,6 +901,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Type</th>
+                            <th>Entries</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -905,6 +914,11 @@
                                 <td>
                                     @php $tl = $typeLabels[$user->parent_type ?? ''] ?? ['—','','',''] @endphp
                                     <span style="font-size:0.8rem;">{{ $tl[1] }} {{ $tl[0] }}</span>
+                                </td>
+                                <td>
+                                    <span style="font-size:0.8rem;font-weight:700;color:var(--purple);">
+                                        {{ $user->journal_entries_count }}
+                                    </span>
                                 </td>
                                 <td>
                                     @if ($user->email_verified_at)
@@ -921,7 +935,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="5" class="empty-row">No accounts found.</td></tr>
+                            <tr><td colspan="6" class="empty-row">No accounts found.</td></tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -978,7 +992,7 @@
         const to = +el.dataset.to;
         const obj = { v: 0 };
         anime({ targets: obj, v: to, round: 1, duration: 1600, easing: 'easeOutExpo', delay: 600,
-            update() { el.textContent = obj.v; }
+            update() { el.textContent = obj.v.toLocaleString(); }
         });
     });
 
