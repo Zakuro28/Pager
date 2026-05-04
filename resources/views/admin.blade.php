@@ -707,10 +707,18 @@
             <span class="pulse-dot"></span>
             <span id="liveClock">--:--:--</span>
         </span>
-        <a class="nav-return" href="{{ url('/') }}">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-            Back to site
-        </a>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+            <a class="nav-return" href="{{ url('/') }}">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Back to site
+            </a>
+            <form method="POST" action="{{ route('admin.logout') }}" style="margin:0;">
+                @csrf
+                <button type="submit" style="font-size:0.8rem;font-weight:600;color:var(--danger);background:none;border:1px solid var(--danger-bdr);border-radius:6px;padding:0.3rem 0.7rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.15s;" onmouseover="this.style.background='var(--danger-bg)'" onmouseout="this.style.background='none'">
+                    Log out
+                </button>
+            </form>
+        </div>
     </div>
 </nav>
 

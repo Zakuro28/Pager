@@ -10,8 +10,47 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    public function index(): View
+    private function requireAdminAuth(): ?RedirectResponse
     {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+        return null;
+    }
+
+    public function showLogin(): View|RedirectResponse
+    {
+        if (session('admin_logged_in')) {
+            return redirect()->route('admin.index');
+        }
+        return view('admin.login');
+    }
+
+    public function login(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if ($request->username === 'admin' && $request->password === 'admin123') {
+            $request->session()->put('admin_logged_in', true);
+            return redirect()->route('admin.index');
+        }
+
+        return back()->withErrors(['username' => 'Invalid username or password.'])->onlyInput('username');
+    }
+
+    public function logout(Request $request): RedirectResponse
+    {
+        $request->session()->forget('admin_logged_in');
+        return redirect()->route('admin.login');
+    }
+
+    public function index(): View|RedirectResponse
+    {
+        if ($redirect = $this->requireAdminAuth()) return $redirect;
+
         $users = User::query()->latest()->get();
 
         $totalUsers = $users->count();
@@ -37,8 +76,10 @@ class AdminController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse|View
     {
+        if ($redirect = $this->requireAdminAuth()) return $redirect;
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -58,6 +99,8 @@ class AdminController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
+        if ($redirect = $this->requireAdminAuth()) return $redirect;
+
         $user->delete();
 
         return redirect()

@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin routes
+Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.post');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::post('/admin/users', [AdminController::class, 'store'])->name('admin.users.store');
 Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
