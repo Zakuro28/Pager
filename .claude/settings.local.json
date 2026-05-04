@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.teammobina.com)",
+      "Bash(php artisan *)",
+      "PowerShell(php --version)",
+      "PowerShell(& \"C:\\\\laragon\\\\bin\\\\php\\\\php-8.3.30-Win32-vs16-x64\\\\php.exe\" \"C:\\\\Users\\\\Zacc\\\\Pager\\\\artisan\" config:clear 2>&1)",
+      "PowerShell(& \"C:\\\\laragon\\\\bin\\\\php\\\\php-8.3.30-Win32-vs16-x64\\\\php.exe\" \"C:\\\\Users\\\\Zacc\\\\Pager\\\\artisan\" cache:clear 2>&1)",
+      "PowerShell(Get-Process -Id 21848 -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Process -Id 3880 -ErrorAction SilentlyContinue)"
+    ]
+  }
+}

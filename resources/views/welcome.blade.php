@@ -3,936 +3,1089 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PAGER | Business Website</title>
+    <title>PAGER — The Parenting Manager</title>
+
+    <!-- Inter font — same family used by professional SaaS sites -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=mali:400,500,600,700|manjari:400,700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet">
+    <!-- Anime.js — professional animation library -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+
     <style>
+        /* ── Reset ─────────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        /* ── Tokens ─────────────────────────────────────────── */
         :root {
-            --sun: #ffdd8b;
-            --cream: #f5f0e6;
-            --lavender: #d4bcff;
-            --ink: #2e2242;
-            --muted: #5f4f7f;
-            --card: rgba(255, 255, 255, 0.72);
-            --line: rgba(124, 96, 179, 0.2);
-            --shadow: 0 20px 55px rgba(70, 45, 118, 0.2);
-            --bg-start: #fffcf7;
-            --bg-end: #f5f0e6;
-            --glow-a: rgba(255, 221, 139, 0.55);
-            --glow-b: rgba(212, 188, 255, 0.6);
-            --surface-soft: rgba(255, 255, 255, 0.76);
-            --surface-muted: rgba(255, 255, 255, 0.7);
-            --cta-grad-a: #8b67c7;
-            --cta-grad-b: #c6a6ff;
-            --cta-text: #f5f0e6;
+            --white:      #ffffff;
+            --ink:        #111827;
+            --sub:        #6b7280;
+            --border:     #e5e7eb;
+            --purple:     #7c3aed;
+            --purple-dim: #6d28d9;
+            --purple-bg:  #f5f3ff;
+            --purple-mid: #ede9fe;
         }
 
-        [data-theme="dark"] {
-            --sun: #a892d4;
-            --cream: #151221;
-            --lavender: #8166b8;
-            --ink: #f2edff;
-            --muted: #c4b4e6;
-            --card: rgba(31, 26, 46, 0.78);
-            --line: rgba(212, 188, 255, 0.28);
-            --shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
-            --bg-start: #1c162d;
-            --bg-end: #0f0c18;
-            --glow-a: rgba(168, 146, 212, 0.25);
-            --glow-b: rgba(129, 102, 184, 0.3);
-            --surface-soft: rgba(41, 34, 61, 0.8);
-            --surface-muted: rgba(47, 39, 70, 0.82);
-            --cta-grad-a: #6f56a3;
-            --cta-grad-b: #8d73c2;
-            --cta-text: #e9dcff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* ── Base ─────────────────────────────────────────── */
         body {
-            font-family: "Manjari", sans-serif;
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            background: var(--white);
             color: var(--ink);
-            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            background:
-                radial-gradient(circle at 10% 8%, var(--glow-a), transparent 30%),
-                radial-gradient(circle at 90% 15%, var(--glow-b), transparent 35%),
-                linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
-            transition: background 0.35s ease, color 0.35s ease;
         }
 
-        .ambient {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 0;
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Layout ─────────────────────────────────────────── */
+        .wrap {
+            width: min(1100px, 88vw);
+            margin-inline: auto;
         }
 
-        .orb {
-            position: absolute;
-            border-radius: 999px;
-            filter: blur(12px);
-            opacity: 0.5;
-            animation: float 8s ease-in-out infinite;
+        /* ── Nav ─────────────────────────────────────────── */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
         }
 
-        .orb-one {
-            width: 220px;
-            height: 220px;
-            background: var(--sun);
-            left: -40px;
-            top: 120px;
-        }
-
-        .orb-two {
-            width: 280px;
-            height: 280px;
-            background: var(--lavender);
-            right: -70px;
-            top: 210px;
-            animation-delay: 1.8s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-18px); }
-        }
-
-        .container {
-            width: min(1120px, 92vw);
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .topbar {
-            padding: 1.2rem 0;
+        .nav-inner {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            height: 60px;
+            gap: 2rem;
         }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.65rem;
-            font-family: "Mali", sans-serif;
+        .nav-logo {
+            font-size: 1rem;
             font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: 0.04em;
-        }
-
-        .logo-mark {
-            width: 54px;
-            height: 54px;
-            display: block;
-            flex-shrink: 0;
-            filter: drop-shadow(0 6px 12px rgba(92, 64, 145, 0.2));
-        }
-
-        .logo-mark text {
-            font-family: "Mali", sans-serif;
-            font-weight: 700;
-        }
-
-        .nav {
-            display: flex;
-            gap: 0.55rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .chip {
-            text-decoration: none;
+            letter-spacing: -0.01em;
             color: var(--ink);
-            border: 1px solid var(--line);
-            background: var(--surface-soft);
-            padding: 0.48rem 0.95rem;
-            border-radius: 999px;
-            font-weight: 700;
-            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
         }
 
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--purple);
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.25rem;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--sub);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+            background: var(--purple-bg);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            flex-shrink: 0;
+        }
+
+        .btn-nav-ghost {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--sub);
+            padding: 0.4rem 0.875rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
+        }
+
+        .btn-nav-ghost:hover {
+            color: var(--ink);
+            border-color: #d1d5db;
+            background: #f9fafb;
+        }
+
+        .btn-nav-solid {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--white);
+            background: var(--purple);
+            padding: 0.4rem 0.875rem;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: background 0.15s;
+        }
+
+        .btn-nav-solid:hover { background: var(--purple-dim); }
+
+        /* Mobile hamburger */
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            color: var(--ink);
+        }
+
+        .nav-mobile {
+            display: none;
+            border-top: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .nav-mobile.open { display: block; }
+
+        .nav-mobile a {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--sub);
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.15s;
+        }
+
+        .nav-mobile a:last-child { border-bottom: none; }
+        .nav-mobile a:hover { color: var(--ink); }
+
+        @media (max-width: 680px) {
+            .nav-links, .nav-actions { display: none; }
+            .nav-hamburger { display: flex; }
+        }
+
+        /* ── Hero ─────────────────────────────────────────── */
         .hero {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 1rem;
-            margin-top: 1.1rem;
+            padding: 5.5rem 0 5rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        .panel {
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: 24px;
-            padding: 1.25rem;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-        }
-
-        h1, h2, h3 {
-            font-family: "Mali", sans-serif;
-            line-height: 1.2;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 3.6rem);
-            margin-bottom: 0.7rem;
-        }
-
-        .kicker {
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #7b56ba;
-        }
-
-        .lead {
-            color: var(--muted);
-            margin: 0.8rem 0 1rem;
-            max-width: 60ch;
-        }
-
-        .hero-brand {
+        .hero-label {
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.5rem;
-            color: #7b56ba;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-label::before {
+            content: "";
+            width: 20px;
+            height: 1.5px;
+            background: var(--purple);
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5.5vw, 4rem);
             font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.035em;
+            color: var(--ink);
+            max-width: 16ch;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--purple);
+        }
+
+        .hero-sub {
+            font-size: 1.0625rem;
+            color: var(--sub);
+            max-width: 50ch;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
         }
 
         .hero-actions {
             display: flex;
-            gap: 0.65rem;
-            flex-wrap: wrap;
             align-items: center;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .uiverse-btn {
-            position: relative;
-            border: 0;
-            border-radius: 14px;
-            padding: 0.75rem 1.15rem;
-            font-weight: 700;
-            color: #2e2242;
-            background: linear-gradient(120deg, #c6a6ff, #ffdd8b);
-            box-shadow: 0 10px 20px rgba(117, 86, 176, 0.25);
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            overflow: hidden;
-            text-decoration: none;
+        .btn-solid {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--white);
+            background: var(--purple);
+            padding: 0.7rem 1.5rem;
+            border-radius: 7px;
+            border: 1px solid transparent;
+            transition: background 0.15s, transform 0.15s;
         }
 
-        .uiverse-btn:before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
-            transform: translateX(-120%);
-            transition: transform 0.45s ease;
+        .btn-solid:hover { background: var(--purple-dim); transform: translateY(-1px); }
+
+        .btn-text {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--sub);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: color 0.15s;
         }
 
-        .uiverse-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 28px rgba(117, 86, 176, 0.3);
-        }
+        .btn-text:hover { color: var(--ink); }
 
-        .uiverse-btn:hover:before {
-            transform: translateX(120%);
-        }
+        .arrow { transition: transform 0.15s; }
+        .btn-text:hover .arrow { transform: translateX(3px); }
 
-        .ghost-btn {
-            text-decoration: none;
-            border: 1px solid var(--line);
-            color: var(--ink);
-            background: var(--surface-muted);
-            border-radius: 12px;
-            padding: 0.7rem 1rem;
-            font-weight: 700;
-        }
-
+        /* ── Stats ─────────────────────────────────────────── */
         .stats {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.75rem;
+            grid-template-columns: repeat(4, 1fr);
         }
 
         .stat {
-            background: var(--surface-muted);
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 0.75rem;
+            padding: 2.25rem 0;
+            padding-right: 2rem;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
-        .stat strong {
-            display: block;
-            font-family: "Mali", sans-serif;
-            font-size: 1.15rem;
-        }
+        .stat:first-child { padding-left: 0; }
+        .stat:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
+        .stat:nth-child(2), .stat:nth-child(3) { padding-left: 2rem; }
 
-        .section {
-            margin-top: 1rem;
-            padding-bottom: 0.5rem;
-        }
-
-        .section-title {
-            margin-bottom: 0.7rem;
-            font-size: clamp(1.45rem, 2.6vw, 2rem);
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.85rem;
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            padding: 1rem;
-            backdrop-filter: blur(9px);
-            box-shadow: 0 10px 22px rgba(93, 66, 142, 0.12);
-            transition: transform 0.22s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-        }
-
-        .card p {
-            color: var(--muted);
-            margin-top: 0.35rem;
-        }
-
-        .footer-cta {
-            margin: 1.1rem 0 2.2rem;
-            border-radius: 22px;
-            padding: 1.2rem;
-            background: linear-gradient(140deg, var(--cta-grad-a), var(--cta-grad-b));
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .footer-cta p {
-            color: var(--cta-text);
-        }
-
-        .settings-corner {
-            position: fixed;
-            top: 14px;
-            right: 14px;
-            z-index: 30;
-        }
-
-        .settings-trigger {
-            width: 48px;
-            height: 48px;
-            border-radius: 999px;
-            border: 1px solid var(--line);
-            background: var(--surface-soft);
-            color: var(--ink);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 12px 22px rgba(72, 49, 121, 0.2);
-            backdrop-filter: blur(8px);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .settings-trigger:hover {
-            transform: translateY(-2px) rotate(12deg);
-            box-shadow: 0 16px 28px rgba(72, 49, 121, 0.25);
-        }
-
-        .settings-popover {
-            position: absolute;
-            top: 58px;
-            right: 0;
-            width: min(280px, 86vw);
-            border: 1px solid var(--line);
-            background: var(--card);
-            border-radius: 16px;
-            padding: 0.9rem;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-        }
-
-        .settings-popover[hidden] {
-            display: none;
-        }
-
-        .settings-head {
-            font-family: "Mali", sans-serif;
-            font-size: 1rem;
-            margin-bottom: 0.15rem;
-        }
-
-        .settings-note {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.7rem;
-        }
-
-        .toggle-wrap {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            color: var(--ink);
+        .stat-num {
+            font-size: 1.875rem;
             font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
         }
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
+        .stat-desc {
+            font-size: 0.875rem;
+            color: var(--sub);
+            line-height: 1.5;
         }
 
-        .switch #themeToggle {
-            opacity: 0;
-            width: 0;
-            height: 0;
+        @media (max-width: 700px) {
+            .stats { grid-template-columns: 1fr 1fr; }
+            .stat:nth-child(2) { border-right: none; }
+            .stat:nth-child(3) { border-right: 1px solid var(--border); padding-left: 0; }
+            .stat:last-child { padding-left: 0; }
+            .stat { padding: 1.75rem 0; padding-right: 1.5rem; }
+            .stat:nth-child(2n) { padding-right: 0; padding-left: 1.5rem; }
         }
 
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #2196f3;
-            transition: 0.4s;
-            z-index: 0;
+        @media (max-width: 400px) {
+            .stats { grid-template-columns: 1fr; }
+            .stat, .stat:last-child, .stat:nth-child(2), .stat:nth-child(3) {
+                padding: 1.5rem 0;
+                padding-right: 0;
+                padding-left: 0;
+                border-right: none;
+            }
+        }
+
+        /* ── Sections ─────────────────────────────────────────── */
+        .section {
+            padding: 5.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .eyebrow {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 20px;
+            height: 1.5px;
+            background: var(--purple);
+        }
+
+        .section-h {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            color: var(--ink);
+            max-width: 22ch;
+            margin-bottom: 1rem;
+        }
+
+        .section-p {
+            font-size: 1rem;
+            color: var(--sub);
+            max-width: 54ch;
+            line-height: 1.7;
+            margin-bottom: 3.5rem;
+        }
+
+        /* ── Feature cards ─────────────────────────────────────────── */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             overflow: hidden;
         }
 
-        .sun-moon {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: yellow;
-            transition: 0.4s;
+        @media (max-width: 780px) { .cards { grid-template-columns: 1fr; } }
+
+        .card {
+            padding: 2rem 1.875rem;
+            border-right: 1px solid var(--border);
+            transition: background 0.18s;
         }
 
-        .switch #themeToggle:checked + .slider {
-            background-color: black;
+        .card:last-child { border-right: none; }
+
+        @media (max-width: 780px) {
+            .card { border-right: none; border-bottom: 1px solid var(--border); }
+            .card:last-child { border-bottom: none; }
         }
 
-        .switch #themeToggle:focus + .slider {
-            box-shadow: 0 0 1px #2196f3;
+        .card:hover { background: var(--purple-bg); }
+
+        .card-num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 1.25rem;
         }
 
-        .switch #themeToggle:checked + .slider .sun-moon {
-            transform: translateX(26px);
-            background-color: white;
-            animation: rotate-center 0.6s ease-in-out both;
+        .card h3 {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            margin-bottom: 0.625rem;
         }
 
-        @keyframes rotate-center {
-            0% { transform: translateX(26px) rotate(0); }
-            100% { transform: translateX(26px) rotate(360deg); }
+        .card p {
+            font-size: 0.9rem;
+            color: var(--sub);
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
         }
 
-        .moon-dot {
-            opacity: 0;
-            transition: 0.4s;
-            fill: gray;
+        .link-arrow {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--purple);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: gap 0.15s;
         }
 
-        .switch #themeToggle:checked + .slider .sun-moon .moon-dot {
-            opacity: 1;
+        .link-arrow:hover { gap: 0.5rem; }
+
+        /* ── About / Mission ─────────────────────────────────────────── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
         }
 
-        .slider.round {
-            border-radius: 34px;
+        @media (max-width: 740px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+        .about-text p {
+            font-size: 0.9375rem;
+            color: var(--sub);
+            line-height: 1.75;
+            margin-bottom: 1rem;
         }
 
-        .slider.round .sun-moon {
-            border-radius: 50%;
+        .about-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
         }
 
-        #moon-dot-1 {
-            left: 10px;
-            top: 3px;
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            z-index: 4;
+        .values {
+            list-style: none;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        #moon-dot-2 {
-            left: 2px;
-            top: 10px;
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            z-index: 4;
+        .value {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
         }
 
-        #moon-dot-3 {
-            left: 16px;
-            top: 18px;
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            z-index: 4;
+        .value:last-child { border-bottom: none; }
+        .value:hover { background: var(--purple-bg); }
+
+        .value-n {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--purple);
+            min-width: 1.5rem;
+            padding-top: 2px;
         }
 
-        #light-ray-1 {
-            left: -8px;
-            top: -8px;
-            position: absolute;
-            width: 43px;
-            height: 43px;
-            z-index: -1;
-            fill: white;
-            opacity: 10%;
+        .value-body strong {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.2rem;
         }
 
-        #light-ray-2 {
-            left: -50%;
-            top: -50%;
-            position: absolute;
-            width: 55px;
-            height: 55px;
-            z-index: -1;
-            fill: white;
-            opacity: 10%;
+        .value-body span {
+            font-size: 0.855rem;
+            color: var(--sub);
+            line-height: 1.55;
         }
 
-        #light-ray-3 {
-            left: -18px;
-            top: -18px;
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            z-index: -1;
-            fill: white;
-            opacity: 10%;
+        /* ── CTA Banner ─────────────────────────────────────────── */
+        .cta-band {
+            padding: 5.5rem 0;
         }
 
-        .cloud-light {
-            position: absolute;
-            fill: #eee;
-            animation-name: cloud-move;
-            animation-duration: 6s;
-            animation-iteration-count: infinite;
+        .cta-inner {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            background: var(--purple-bg);
         }
 
-        .cloud-dark {
-            position: absolute;
-            fill: #ccc;
-            animation-name: cloud-move;
-            animation-duration: 6s;
-            animation-iteration-count: infinite;
-            animation-delay: 1s;
+        .cta-inner h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--ink);
+            max-width: 30ch;
+            line-height: 1.2;
         }
 
-        #cloud-1 {
-            left: 30px;
-            top: 15px;
-            width: 40px;
+        .cta-inner h2 span { color: var(--purple); }
+
+        /* ── Footer ─────────────────────────────────────────── */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
         }
 
-        #cloud-2 {
-            left: 44px;
-            top: 10px;
-            width: 20px;
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
-        #cloud-3 {
-            left: 18px;
-            top: 24px;
-            width: 30px;
+        .footer-logo {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
-        #cloud-4 {
-            left: 36px;
-            top: 18px;
-            width: 40px;
+        .footer-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
         }
 
-        #cloud-5 {
-            left: 48px;
-            top: 14px;
-            width: 20px;
+        .footer-links a {
+            font-size: 0.875rem;
+            color: var(--sub);
+            transition: color 0.15s;
         }
 
-        #cloud-6 {
-            left: 22px;
-            top: 26px;
-            width: 30px;
-        }
+        .footer-links a:hover { color: var(--ink); }
 
-        @keyframes cloud-move {
-            0% { transform: translateX(0px); }
-            40% { transform: translateX(4px); }
-            80% { transform: translateX(-4px); }
-            100% { transform: translateX(0px); }
-        }
-
-        .stars {
-            transform: translateY(-32px);
-            opacity: 0;
-            transition: 0.4s;
-        }
-
-        .star {
-            fill: white;
-            position: absolute;
-            transition: 0.4s;
-            animation-name: star-twinkle;
-            animation-duration: 2s;
-            animation-iteration-count: infinite;
-        }
-
-        .switch #themeToggle:checked + .slider .stars {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        #star-1 {
-            width: 20px;
-            top: 2px;
-            left: 3px;
-            animation-delay: 0.3s;
-        }
-
-        #star-2 {
-            width: 6px;
-            top: 16px;
-            left: 3px;
-        }
-
-        #star-3 {
-            width: 12px;
-            top: 20px;
-            left: 10px;
-            animation-delay: 0.6s;
-        }
-
-        #star-4 {
-            width: 18px;
-            top: 0px;
-            left: 18px;
-            animation-delay: 1.3s;
-        }
-
-        @keyframes star-twinkle {
-            0% { transform: scale(1); }
-            40% { transform: scale(1.2); }
-            80% { transform: scale(0.8); }
-            100% { transform: scale(1); }
-        }
-
-        .theme-toggle {
-            position: relative;
-            width: 56px;
-            height: 32px;
-            background: var(--surface-muted);
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        #themeToggle {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @media (max-width: 960px) {
-            .hero,
-            .grid-3,
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .topbar {
-                padding-top: 4.1rem;
-            }
-
-            .nav {
-                width: 100%;
-                justify-content: flex-start;
-            }
+        .footer-copy {
+            font-size: 0.8125rem;
+            color: #9ca3af;
         }
 
         @media (max-width: 640px) {
-            .container {
-                width: min(1120px, 94vw);
-            }
-
-            .brand {
-                width: 100%;
-                font-size: 1rem;
-            }
-
-            .logo-mark {
-                width: 44px;
-                height: 44px;
-            }
-
-            .nav {
-                gap: 0.45rem;
-            }
-
-            .chip,
-            .uiverse-btn,
-            .ghost-btn {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-
-            .panel {
-                padding: 1rem;
-            }
-
-            .hero-actions {
-                display: grid;
-                grid-template-columns: 1fr;
-            }
-
-            .settings-corner {
-                top: auto;
-                right: 12px;
-                bottom: 12px;
-            }
-
-            .settings-popover {
-                top: auto;
-                bottom: 58px;
-            }
+            .footer-inner { flex-direction: column; align-items: flex-start; }
+            .cta-inner { padding: 2rem 1.5rem; }
+            .hero { padding: 3.5rem 0 3rem; }
+            .section { padding: 3.5rem 0; }
+            .cta-band { padding: 3.5rem 0; }
         }
+
+        /* ── Ticker ──────────────────────────────────────────── */
+        .ticker-wrap {
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            padding: 0.9rem 0;
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 0;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .ticker-item {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--sub);
+            padding: 0 1.75rem;
+            flex-shrink: 0;
+        }
+
+        .ticker-sep {
+            color: var(--purple);
+            font-size: 0.78rem;
+            flex-shrink: 0;
+            padding: 0 0.25rem;
+            opacity: 0.5;
+        }
+
+        /* ── Hero elements start hidden for anime.js ── */
+        .hero-label,
+        .hero h1,
+        .hero-sub,
+        .hero-actions { opacity: 0; }
+
+        /* ── Scroll-animated elements start hidden ── */
+        .anim-up { opacity: 0; transform: translateY(24px); }
     </style>
 </head>
 <body>
+
 @php
-    $loginUrl = Route::has('login') ? route('login') : url('/login');
+    $loginUrl    = Route::has('login')    ? route('login')    : url('/login');
     $registerUrl = Route::has('register') ? route('register') : url('/register');
 @endphp
 
-<div class="ambient" aria-hidden="true">
-    <div class="orb orb-one"></div>
-    <div class="orb orb-two"></div>
-</div>
+<!-- ── Nav ──────────────────────────────────────────────────── -->
+<header class="site-nav" id="top">
+    <div class="wrap nav-inner">
+        <a class="nav-logo" href="/">
+            <span class="logo-dot"></span>
+            PAGER
+        </a>
 
-<div class="settings-corner">
-    <button id="settingsTrigger" class="settings-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="settingsPanel" aria-label="Open settings">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 8.25a3.75 3.75 0 1 0 0 7.5a3.75 3.75 0 0 0 0-7.5Z" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M19.5 13.5v-3l-2.03-.34a6.95 6.95 0 0 0-.6-1.45l1.2-1.68l-2.12-2.12l-1.68 1.2c-.46-.25-.95-.45-1.45-.6L12.5 3h-3l-.34 2.03c-.5.15-.99.35-1.45.6L6.03 4.43L3.9 6.55l1.2 1.68c-.25.46-.45.95-.6 1.45L2.5 10.5v3l2.03.34c.15.5.35.99.6 1.45l-1.2 1.68l2.12 2.12l1.68-1.2c.46.25.95.45 1.45.6L9.5 21h3l.34-2.03c.5-.15.99-.35 1.45-.6l1.68 1.2l2.12-2.12l-1.2-1.68c.25-.46.45-.95.6-1.45L19.5 13.5Z" stroke="currentColor" stroke-width="1.2"/>
-        </svg>
-    </button>
-    <div id="settingsPanel" class="settings-popover" hidden>
-        <p class="settings-head">Settings</p>
-        <p class="settings-note">Choose your preferred appearance.</p>
-        <div class="toggle-wrap">
-            <span>Dark Mode</span>
-            <label class="switch">
-                <input id="themeToggle" type="checkbox" aria-label="Toggle dark mode">
-                <div class="slider round">
-                    <div class="sun-moon">
-                        <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="moon-dot-2" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="moon-dot-3" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="light-ray-1" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="light-ray-2" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="light-ray-3" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="cloud-1" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="cloud-2" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="cloud-3" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="cloud-4" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="cloud-5" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg id="cloud-6" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-                    </div>
-                    <div class="stars">
-                        <svg id="star-1" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-                        <svg id="star-2" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-                        <svg id="star-3" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-                        <svg id="star-4" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-                    </div>
-                </div>
-            </label>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            @auth
+                <a class="btn-nav-solid" href="{{ route('dashboard') }}">Dashboard</a>
+            @else
+                <a class="btn-nav-ghost" href="{{ $loginUrl }}">Log in</a>
+                <a class="btn-nav-solid" href="{{ $registerUrl }}">Get started</a>
+            @endauth
         </div>
-    </div>
-</div>
 
-<header class="container topbar">
-    <div class="brand">
-        <svg class="logo-mark" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PAGER logo">
-            <ellipse cx="60" cy="57" rx="53" ry="41" fill="none" stroke="#d4bcff" stroke-width="6"/>
-            <path d="M18 78c14 3 29 2 40-2 3-1 5-1 8 0 12 4 27 5 41 2" fill="none" stroke="#d4bcff" stroke-width="5" stroke-linecap="round"/>
-            <path d="M53 80l-10 13m12-12l-11 14m24-14l11 14m-12-13l10 13" fill="none" stroke="#d4bcff" stroke-width="5" stroke-linecap="round"/>
-            <text x="60" y="63" text-anchor="middle" font-size="24" fill="#ffdd8b">PAGER</text>
-        </svg>
-        <span>PAGER | Parenting Manager</span>
+        <button class="nav-hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+            <svg id="iconMenu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+            <svg id="iconClose" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
     </div>
-    <nav class="nav">
-        <a class="chip" href="#features">Features</a>
-        <a class="chip" href="#plan">Business Plan</a>
+
+    <div class="wrap nav-mobile" id="mobileMenu">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#shop">Shop</a>
+        <a href="#contact">Contact</a>
         @auth
-            <a class="uiverse-btn" href="{{ url('/dashboard') }}">Dashboard</a>
+            <a href="{{ route('dashboard') }}">Dashboard</a>
         @else
-            <a class="chip" href="{{ $loginUrl }}">Login</a>
-            <a class="uiverse-btn" href="{{ $registerUrl }}">Register</a>
+            <a href="{{ $loginUrl }}">Log in</a>
+            <a href="{{ $registerUrl }}">Get started</a>
         @endauth
-    </nav>
+    </div>
 </header>
 
-<main class="container">
-    <section class="hero">
-        <article class="panel">
-            <p class="kicker">Uiverse-inspired Business UI</p>
-            <div class="hero-brand">
-                <svg class="logo-mark" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-                    <ellipse cx="60" cy="57" rx="53" ry="41" fill="none" stroke="#d4bcff" stroke-width="6"/>
-                    <path d="M18 78c14 3 29 2 40-2 3-1 5-1 8 0 12 4 27 5 41 2" fill="none" stroke="#d4bcff" stroke-width="5" stroke-linecap="round"/>
-                    <path d="M53 80l-10 13m12-12l-11 14m24-14l11 14m-12-13l10 13" fill="none" stroke="#d4bcff" stroke-width="5" stroke-linecap="round"/>
-                    <text x="60" y="63" text-anchor="middle" font-size="24" fill="#ffdd8b">PAGER</text>
-                </svg>
-                <span>Official PAGER Brand</span>
-            </div>
-            <h1>Build PAGER into a trusted parenting business brand.</h1>
-            <p class="lead">A premium and responsive website experience designed to convert visitors into users, with strong identity, modern interactions, and clear access to Login/Register.</p>
-            <div class="hero-actions">
-                <a class="uiverse-btn" href="{{ $registerUrl }}">Start Free</a>
-                <a class="ghost-btn" href="#plan">View Strategy</a>
-            </div>
-            <div class="stats">
-                <div class="stat"><strong>10-Year Vision</strong>Trusted global companion</div>
-                <div class="stat"><strong>AI Guidance</strong>Personalized parenting support</div>
-                <div class="stat"><strong>Platforms</strong>Mobile and desktop ready</div>
-            </div>
-        </article>
-
-        <aside class="panel" id="plan">
-            <h2>Business Direction</h2>
-            <p style="color: var(--muted); margin-top: .35rem;">PAGER combines practical parenting tools, guided insights, and a digital journey tracker to support modern families.</p>
-            <div class="grid-3" style="margin-top: .9rem; grid-template-columns: 1fr;">
-                <article class="card">
-                    <h3>Mission</h3>
-                    <p>Simplify and enrich parenting through personalized guidance and secure tools.</p>
-                </article>
-                <article class="card">
-                    <h3>Growth</h3>
-                    <p>Professional partnerships, stronger retention loops, and scalable global rollout.</p>
-                </article>
-                <article class="card">
-                    <h3>Monetization</h3>
-                    <p>Balance affordability and premium value without harming core user trust.</p>
-                </article>
-            </div>
-        </aside>
-    </section>
-
-    <section class="section" id="features">
-        <h2 class="section-title">Product Highlights</h2>
-        <div class="grid-3">
-            <article class="card">
-                <h3>Personalized Parenting Support</h3>
-                <p>AI-driven guidance tailored to unique family needs across parenting stages.</p>
-            </article>
-            <article class="card">
-                <h3>Interactive Digital Journal</h3>
-                <p>Track milestones, challenges, and progress in one clear timeline.</p>
-            </article>
-            <article class="card">
-                <h3>Privacy and Security</h3>
-                <p>Built with strong safeguards to protect sensitive caregiver and child data.</p>
-            </article>
-            <article class="card">
-                <h3>Caregiving Toolbox</h3>
-                <p>Expert resources from pregnancy through adolescence in a single library.</p>
-            </article>
-            <article class="card">
-                <h3>Community and Partnerships</h3>
-                <p>Guided by experts and councils to maintain credibility and quality.</p>
-            </article>
-            <article class="card">
-                <h3>Data-Driven Improvements</h3>
-                <p>Continuous product refinement based on real usage and family feedback.</p>
-            </article>
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="hero">
+    <div class="wrap">
+        <div class="hero-label">The Parenting Manager</div>
+        <h1>We support caregivers.<br>Because parenting<br>is <span>hard.</span></h1>
+        <p class="hero-sub">
+            PAGER is an all-in-one caregiving platform — a personalized journal,
+            milestone guide, and resource library that grows alongside your family.
+        </p>
+        <div class="hero-actions">
+            <a class="btn-solid" href="{{ $registerUrl }}">
+                Get started free
+                <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a class="btn-text" href="#features">
+                See what's included
+                <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
         </div>
-    </section>
 
-    <section class="footer-cta">
-        <div>
-            <h2>Launch-ready, conversion-focused business UI.</h2>
-            <p>Use the new auth actions now to onboard users quickly.</p>
+        <!-- Scrolling trust ticker -->
+        <div class="ticker-wrap">
+            <div class="ticker-track" id="tickerTrack">
+                <span class="ticker-item">Personalized Guidance</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Secure &amp; Private</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Expert-Backed Content</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Always Free Core</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">AI-Driven</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Mobile Ready</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Milestone Tracking</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Digital Journal</span><span class="ticker-sep">·</span>
+            </div>
         </div>
-        <a class="uiverse-btn" href="{{ $registerUrl }}">Create Account</a>
-    </section>
-</main>
+    </div>
+</section>
+
+<!-- ── Stats ──────────────────────────────────────────────────── -->
+<div class="wrap">
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-num">10-yr</div>
+            <div class="stat-desc">Vision to be the trusted global<br>parenting companion</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">4 types</div>
+            <div class="stat-desc">Expecting, new, working,<br>and solo parents supported</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">$0 upfront</div>
+            <div class="stat-desc">Free core journal and<br>milestone tracking always</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">1 platform</div>
+            <div class="stat-desc">Web and mobile —<br>access anywhere, anytime</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Features ──────────────────────────────────────────────────── -->
+<section class="section" id="features">
+    <div class="wrap">
+        <div class="eyebrow">What you'll get</div>
+        <h2 class="section-h">Everything a caregiver needs, in one place.</h2>
+        <p class="section-p">From tracking your baby's first smile to finding expert-backed advice at 3am — PAGER is built for real parenting moments.</p>
+
+        <div class="cards">
+            <div class="card anim-up">
+                <div class="card-num">01</div>
+                <h3>Parenting Journal</h3>
+                <p>Document milestones, memories, and moments. A personal timeline that evolves as your child grows.</p>
+                <a class="link-arrow" href="{{ $registerUrl }}">Start journaling <span>→</span></a>
+            </div>
+            <div class="card anim-up">
+                <div class="card-num">02</div>
+                <h3>Milestone Guide</h3>
+                <p>Age-by-age checklists and activity suggestions backed by early childhood development research.</p>
+                <a class="link-arrow" href="{{ $registerUrl }}">View milestones <span>→</span></a>
+            </div>
+            <div class="card anim-up">
+                <div class="card-num">03</div>
+                <h3>Resource Library</h3>
+                <p>Curated articles, videos, and expert tips on sleep, feeding, and wellness from pregnancy onwards.</p>
+                <a class="link-arrow" href="{{ $registerUrl }}">Browse resources <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── About ──────────────────────────────────────────────────── -->
+<section class="section" id="about">
+    <div class="wrap">
+        <div class="about-grid">
+            <div class="about-text">
+                <div class="eyebrow">Our mission</div>
+                <h2 class="section-h">Simplify and enrich the parenting experience.</h2>
+                <p>PAGER was built for the caregivers who carry the weight of love and responsibility every single day. We believe every family deserves personalized support — not generic advice.</p>
+                <p>Our platform combines a smart digital journal with professional-grade guidance to help you feel capable and confident in every stage of parenthood.</p>
+                <div class="about-ctas">
+                    <a class="btn-solid" href="{{ $registerUrl }}">Get started free</a>
+                    <a class="btn-text" href="#contact">Talk to us <span class="arrow">→</span></a>
+                </div>
+            </div>
+
+            <ul class="values">
+                <li class="value anim-up">
+                    <span class="value-n">01</span>
+                    <div class="value-body">
+                        <strong>Family First</strong>
+                        <span>Every feature is designed around what families actually need, not what looks good on a pitch deck.</span>
+                    </div>
+                </li>
+                <li class="value anim-up">
+                    <span class="value-n">02</span>
+                    <div class="value-body">
+                        <strong>Empowered Caregiving</strong>
+                        <span>Informed caregivers raise confident children. We turn uncertainty into capability.</span>
+                    </div>
+                </li>
+                <li class="value anim-up">
+                    <span class="value-n">03</span>
+                    <div class="value-body">
+                        <strong>Accessible for All</strong>
+                        <span>Every caregiver deserves support regardless of background, device, or circumstance.</span>
+                    </div>
+                </li>
+                <li class="value anim-up">
+                    <span class="value-n">04</span>
+                    <div class="value-body">
+                        <strong>Trust &amp; Privacy</strong>
+                        <span>Families share their most intimate milestones with PAGER. We protect that completely.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ── Shop ──────────────────────────────────────────────────── -->
+<section class="section" id="shop">
+    <div class="wrap">
+        <div class="eyebrow">Shop</div>
+        <h2 class="section-h">Parenting resources, curated for you.</h2>
+        <p class="section-p">Books, tools, and expert-recommended products to support every stage of your caregiving journey.</p>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-num">Expecting</div>
+                <h3>For Expecting Parents</h3>
+                <p>Pregnancy journals, prenatal guides, and preparation tools for the journey ahead of you.</p>
+                <a class="link-arrow" href="#">Notify me <span>→</span></a>
+            </div>
+            <div class="card">
+                <div class="card-num">0–12 months</div>
+                <h3>For New Parents</h3>
+                <p>Newborn essentials, sleep aids, and guidance for navigating the precious first year.</p>
+                <a class="link-arrow" href="#">Notify me <span>→</span></a>
+            </div>
+            <div class="card">
+                <div class="card-num">Growing up</div>
+                <h3>For Growing Families</h3>
+                <p>Development tools, activity kits, and expert resources as your child continues to grow.</p>
+                <a class="link-arrow" href="#">Notify me <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ──────────────────────────────────────────────────── -->
+<section class="cta-band" id="contact">
+    <div class="wrap">
+        <div class="cta-inner">
+            <h2>Ready to start your parenting journey with <span>confidence?</span></h2>
+            <a class="btn-solid" href="{{ $registerUrl }}">
+                Create a free account
+                <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────────── -->
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="footer-logo">
+            <span class="logo-dot"></span>
+            PAGER
+        </div>
+
+        <ul class="footer-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#contact">Contact</a></li>
+            @auth
+                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            @else
+                <li><a href="{{ $loginUrl }}">Log in</a></li>
+            @endauth
+        </ul>
+
+        <p class="footer-copy">© {{ date('Y') }} PAGER. All rights reserved.</p>
+    </div>
+</footer>
+
 <script>
 (() => {
-    const storageKey = "pager-theme";
-    const root = document.documentElement;
-    const toggle = document.getElementById("themeToggle");
-    const settingsTrigger = document.getElementById("settingsTrigger");
-    const settingsPanel = document.getElementById("settingsPanel");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem(storageKey);
-    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+    /* ─────────────────────────────────────────────────────────
+       1. HERO ENTRANCE — staggered timeline on page load
+    ───────────────────────────────────────────────────────── */
+    const heroTl = anime.timeline({ easing: 'easeOutExpo' });
 
-    root.setAttribute("data-theme", initialTheme);
+    heroTl
+        .add({
+            targets: '.hero-label',
+            opacity: [0, 1],
+            translateY: [-16, 0],
+            duration: 600
+        })
+        .add({
+            targets: '.hero h1',
+            opacity: [0, 1],
+            translateY: [32, 0],
+            duration: 800
+        }, '-=300')
+        .add({
+            targets: '.hero-sub',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 700
+        }, '-=400')
+        .add({
+            targets: '.hero-actions',
+            opacity: [0, 1],
+            translateY: [16, 0],
+            duration: 600
+        }, '-=400');
 
-    if (toggle) {
-        toggle.checked = initialTheme === "dark";
-        toggle.addEventListener("change", () => {
-            const nextTheme = toggle.checked ? "dark" : "light";
-            root.setAttribute("data-theme", nextTheme);
-            localStorage.setItem(storageKey, nextTheme);
-        });
+    /* ─────────────────────────────────────────────────────────
+       2. TICKER — continuous loop using setInterval (W3Schools
+          frame technique) to move the track left indefinitely
+    ───────────────────────────────────────────────────────── */
+    const track = document.getElementById('tickerTrack');
+    if (track) {
+        /* Duplicate content so the seam is invisible */
+        track.innerHTML += track.innerHTML;
+        const fullWidth = track.scrollWidth / 2;
+        let pos = 0;
+        const speed = 0.5; /* px per frame — tune for desired pace */
+
+        function tickerFrame() {
+            pos -= speed;
+            if (pos <= -fullWidth) pos = 0;
+            track.style.transform = 'translateX(' + pos + 'px)';
+            requestAnimationFrame(tickerFrame);
+        }
+        requestAnimationFrame(tickerFrame);
     }
 
-    if (settingsTrigger && settingsPanel) {
-        const closePanel = () => {
-            settingsPanel.hidden = true;
-            settingsTrigger.setAttribute("aria-expanded", "false");
-        };
+    /* ─────────────────────────────────────────────────────────
+       3. SCROLL-TRIGGERED ANIMATIONS — anime.js + IntersectionObserver
+          Cards, values, stats and section headers fade + slide up
+          with a stagger when they enter the viewport
+    ───────────────────────────────────────────────────────── */
+    const seen = new WeakSet();
 
-        settingsTrigger.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const willOpen = settingsPanel.hidden;
-            settingsPanel.hidden = !willOpen;
-            settingsTrigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
-        });
+    const scrollObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting || seen.has(entry.target)) return;
+            seen.add(entry.target);
+            scrollObs.unobserve(entry.target);
 
-        settingsPanel.addEventListener("click", (event) => {
-            event.stopPropagation();
-        });
+            const el = entry.target;
 
-        document.addEventListener("click", closePanel);
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                closePanel();
+            /* Groups — animate all children together with stagger */
+            if (el.classList.contains('cards') || el.classList.contains('stats')) {
+                anime({
+                    targets: el.querySelectorAll('.anim-up, .stat'),
+                    opacity: [0, 1],
+                    translateY: [28, 0],
+                    duration: 700,
+                    easing: 'easeOutExpo',
+                    delay: anime.stagger(90)
+                });
+                return;
             }
+
+            if (el.classList.contains('values')) {
+                anime({
+                    targets: el.querySelectorAll('.anim-up'),
+                    opacity: [0, 1],
+                    translateX: [-20, 0],
+                    duration: 600,
+                    easing: 'easeOutExpo',
+                    delay: anime.stagger(80)
+                });
+                return;
+            }
+
+            /* Section headings */
+            if (el.classList.contains('section-h') || el.classList.contains('eyebrow')) {
+                anime({
+                    targets: el,
+                    opacity: [0, 1],
+                    translateY: [18, 0],
+                    duration: 650,
+                    easing: 'easeOutExpo'
+                });
+                return;
+            }
+
+            /* Generic .anim-up elements */
+            anime({
+                targets: el,
+                opacity: [0, 1],
+                translateY: [24, 0],
+                duration: 650,
+                easing: 'easeOutExpo'
+            });
         });
+    }, { threshold: 0.1 });
+
+    /* Observe containers so stagger fires all children at once */
+    document.querySelectorAll('.cards, .values, .stats').forEach(el => scrollObs.observe(el));
+    /* Observe individual headings */
+    document.querySelectorAll('.section-h, .eyebrow, .section-p, .about-ctas, .cta-inner').forEach(el => {
+        el.style.opacity = '0';
+        scrollObs.observe(el);
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       4. STAT NUMBERS — count-up using anime's number tweening
+          Fires once when the stats bar scrolls into view
+    ───────────────────────────────────────────────────────── */
+    const statData = [
+        { el: null, from: 0, to: 10, suffix: '-yr' },
+        { el: null, from: 0, to: 4,  suffix: ' types' },
+        { el: null, from: 0, to: 0,  prefix: '$', suffix: ' upfront' },
+        { el: null, from: 0, to: 1,  suffix: ' platform' },
+    ];
+
+    document.querySelectorAll('.stat-num').forEach((el, i) => {
+        if (statData[i]) statData[i].el = el;
+    });
+
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) {
+        const countObs = new IntersectionObserver(entries => {
+            if (!entries[0].isIntersecting) return;
+            countObs.disconnect();
+
+            statData.forEach(({ el, from, to, prefix = '', suffix = '' }) => {
+                if (!el || to === 0) return;
+                const obj = { val: from };
+                anime({
+                    targets: obj,
+                    val: to,
+                    round: 1,
+                    duration: 1400,
+                    easing: 'easeOutExpo',
+                    update() {
+                        el.textContent = prefix + obj.val + suffix;
+                    }
+                });
+            });
+        }, { threshold: 0.5 });
+        countObs.observe(statsSection);
     }
+
+    /* ─────────────────────────────────────────────────────────
+       5. MOBILE NAV TOGGLE
+    ───────────────────────────────────────────────────────── */
+    const menuBtn   = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const iconMenu   = document.getElementById('iconMenu');
+    const iconClose  = document.getElementById('iconClose');
+
+    menuBtn.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', open);
+        iconMenu.style.display  = open ? 'none'  : 'block';
+        iconClose.style.display = open ? 'block' : 'none';
+
+        if (open) {
+            anime({
+                targets: mobileMenu.querySelectorAll('a'),
+                opacity: [0, 1],
+                translateX: [-12, 0],
+                duration: 300,
+                easing: 'easeOutExpo',
+                delay: anime.stagger(40)
+            });
+        }
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            iconMenu.style.display  = 'block';
+            iconClose.style.display = 'none';
+        });
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       6. SMOOTH SCROLL with nav offset
+    ───────────────────────────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            const top = target.getBoundingClientRect().top + window.scrollY - 68;
+            window.scrollTo({ top, behavior: 'smooth' });
+        });
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       7. NAV SCROLL SHADOW — subtle depth when page scrolled
+    ───────────────────────────────────────────────────────── */
+    const nav = document.querySelector('.site-nav');
+    window.addEventListener('scroll', () => {
+        nav.style.boxShadow = window.scrollY > 10
+            ? '0 1px 16px rgba(0,0,0,0.06)'
+            : 'none';
+    }, { passive: true });
+
 })();
 </script>
+
 </body>
 </html>
