@@ -172,13 +172,6 @@
             margin-top: 0.5rem;
         }
 
-        .greeting-time {
-            font-size: 0.8rem;
-            color: var(--sub);
-            font-weight: 500;
-            margin-top: 0.25rem;
-        }
-
         /* ── Toast ── */
         .toast {
             background: var(--ok-bg);
@@ -203,6 +196,12 @@
         }
 
         @media (max-width: 800px) { .grid-dash { grid-template-columns: 1fr; } }
+
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.125rem;
+        }
 
         /* ── Panel ── */
         .panel {
@@ -243,7 +242,7 @@
             display: flex;
             gap: 0.375rem;
             flex-wrap: wrap;
-            margin-bottom: 0.875rem;
+            margin-bottom: 0.625rem;
         }
 
         .mood-pill {
@@ -268,6 +267,46 @@
         }
 
         #mood-val { display: none; }
+
+        /* ── Tag pills ── */
+        .tag-row-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--sub);
+            margin-bottom: 0.45rem;
+        }
+
+        .tag-row {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.875rem;
+        }
+
+        .tag-pill-wrap { cursor: pointer; }
+
+        .tag-pill {
+            display: inline-block;
+            padding: 0.22rem 0.6rem;
+            border: 1.5px solid var(--border);
+            border-radius: 999px;
+            font-size: 0.73rem;
+            font-weight: 600;
+            color: var(--sub);
+            background: var(--white);
+            transition: border-color 0.15s, background 0.15s, color 0.15s;
+            user-select: none;
+        }
+
+        .tag-pill:hover { border-color: #c4b5fd; color: var(--purple); }
+
+        .tag-pill.active {
+            border-color: var(--purple);
+            background: var(--purple-bg);
+            color: var(--purple);
+        }
 
         .journal-area {
             width: 100%;
@@ -361,6 +400,7 @@
             gap: 0.5rem;
             font-size: 0.75rem;
             color: var(--sub);
+            flex-wrap: wrap;
         }
 
         .entry-mood {
@@ -378,6 +418,24 @@
             font-size: 0.875rem;
             color: var(--ink);
             line-height: 1.6;
+            margin-bottom: 0.45rem;
+        }
+
+        .entry-tags {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .entry-tag {
+            padding: 0.1rem 0.45rem;
+            border-radius: 999px;
+            background: #f3f4f6;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--sub);
+            text-transform: capitalize;
+            letter-spacing: 0.04em;
         }
 
         .btn-del {
@@ -455,13 +513,53 @@
         .ms-item label { cursor: pointer; line-height: 1.45; color: var(--ink); transition: color 0.15s; }
         .ms-item input:checked + label { text-decoration: line-through; color: var(--sub); }
 
+        /* ── AI Tips panel ── */
+        .tips-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .tip-card {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            transition: border-color 0.18s, background 0.18s;
+            opacity: 0;
+        }
+
+        .tip-card:hover { border-color: #c4b5fd; background: var(--purple-bg); }
+
+        .tip-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .tip-body strong {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.18rem;
+        }
+
+        .tip-body p {
+            font-size: 0.75rem;
+            color: var(--sub);
+            line-height: 1.5;
+        }
+
         /* ── Resources ── */
         .sec-hd {
             display: flex;
             align-items: baseline;
             justify-content: space-between;
             gap: 0.75rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.875rem;
         }
 
         .sec-hd h2 {
@@ -472,10 +570,67 @@
 
         .sec-hd span { font-size: 0.75rem; color: var(--sub); }
 
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .filter-input {
+            flex: 1;
+            min-width: 180px;
+            padding: 0.45rem 0.85rem;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: "Inter", sans-serif;
+            font-size: 0.8rem;
+            color: var(--ink);
+            outline: none;
+            background: var(--white);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .filter-input:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+        }
+
+        .filter-input::placeholder { color: #9ca3af; }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.35rem 0.7rem;
+            border: 1.5px solid var(--border);
+            border-radius: 999px;
+            font-family: "Inter", sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--sub);
+            background: var(--white);
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s, color 0.15s;
+        }
+
+        .filter-tab:hover { border-color: #c4b5fd; color: var(--purple); }
+
+        .filter-tab.active {
+            border-color: var(--purple);
+            background: var(--purple-bg);
+            color: var(--purple);
+        }
+
         .res-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0.875rem;
+            margin-bottom: 1.125rem;
         }
 
         @media (max-width: 860px) { .res-grid { grid-template-columns: 1fr 1fr; } }
@@ -494,6 +649,8 @@
             position: relative;
             overflow: hidden;
         }
+
+        .res-card.hidden { display: none; }
 
         .res-card::before {
             content: '';
@@ -534,6 +691,61 @@
 
         .res-card p { font-size: 0.8rem; color: var(--sub); line-height: 1.55; }
 
+        /* ── Expert section ── */
+        .expert-section { margin-top: 2.5rem; }
+
+        .expert-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 860px) { .expert-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 520px) { .expert-grid { grid-template-columns: 1fr; } }
+
+        .expert-card {
+            padding: 1.25rem;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            opacity: 0;
+            transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expert-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple), #a78bfa);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .expert-card:hover {
+            border-color: #c4b5fd;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(124,58,237,0.1);
+        }
+
+        .expert-card:hover::after { transform: scaleX(1); }
+
+        .expert-icon { font-size: 1.5rem; margin-bottom: 0.625rem; display: block; }
+
+        .expert-card h3 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.01em;
+        }
+
+        .expert-card p { font-size: 0.78rem; color: var(--sub); line-height: 1.5; }
+
         /* ── CTA strip ── */
         .cta-strip {
             display: flex;
@@ -545,7 +757,6 @@
             border: 1.5px solid var(--purple-mid);
             border-radius: 12px;
             background: linear-gradient(135deg, var(--purple-bg), #faf5ff);
-            margin-top: 1.125rem;
             opacity: 0;
             position: relative;
             overflow: hidden;
@@ -583,6 +794,21 @@
             transform: translateY(-1px);
             box-shadow: 0 6px 18px rgba(124,58,237,0.3);
         }
+
+        .coming-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #92400e;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
@@ -596,7 +822,9 @@
         <div class="nav-links">
             <a class="nav-link active" href="#journal">Journal</a>
             <a class="nav-link" href="#milestones">Milestones</a>
+            <a class="nav-link" href="#ai-tips">AI Tips</a>
             <a class="nav-link" href="#resources">Resources</a>
+            <a class="nav-link" href="#experts">Experts</a>
         </div>
 
         <div class="nav-right">
@@ -622,6 +850,35 @@
 
         $hour = now()->hour;
         $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good evening');
+
+        $tipsByType = [
+            'expecting' => [
+                ['icon' => '🥦', 'title' => 'Prenatal Nutrition', 'tip' => 'Focus on folate-rich foods, iron, and DHA. Small, frequent meals help with nausea.'],
+                ['icon' => '🏥', 'title' => 'Hospital Bag', 'tip' => 'Pack essentials by week 36: documents, baby clothes, toiletries, snacks, and your birth plan.'],
+                ['icon' => '🤝', 'title' => 'Partner Support', 'tip' => 'Involve your partner in prenatal visits and birth planning to build shared confidence.'],
+                ['icon' => '😴', 'title' => 'Rest Well', 'tip' => 'Sleep on your left side to improve blood flow. A pregnancy pillow makes a big difference.'],
+            ],
+            'new_parent' => [
+                ['icon' => '🍼', 'title' => 'Feeding Cues', 'tip' => 'Watch for rooting, sucking motions, and hand-to-mouth movement — feed before crying starts.'],
+                ['icon' => '😴', 'title' => 'Safe Sleep', 'tip' => 'Always place baby on their back on a firm, flat surface with no pillows or loose bedding.'],
+                ['icon' => '🌅', 'title' => 'Tummy Time', 'tip' => '2–3 minutes, 3–5 times daily from day one helps build neck and shoulder strength.'],
+                ['icon' => '👩‍⚕️', 'title' => 'Checkup Prep', 'tip' => 'Schedule visits at 1, 2, 4, 6, and 9 months. Bring a written list of questions each time.'],
+            ],
+            'working_parent' => [
+                ['icon' => '⚖️', 'title' => 'Work-Life Balance', 'tip' => 'Set a hard stop time each day and protect family moments. Boundaries reduce long-term guilt.'],
+                ['icon' => '🏫', 'title' => 'Daycare Transition', 'tip' => 'Start with short visits before full days. A consistent drop-off routine reduces anxiety for both of you.'],
+                ['icon' => '📞', 'title' => 'Caregiver Comms', 'tip' => 'Share your baby\'s schedule, preferences, and health notes clearly with your care team every week.'],
+                ['icon' => '🧘', 'title' => 'Micro Self-Care', 'tip' => '5–10 minutes of intentional rest — breathing, walking, or stretching — can reset your entire day.'],
+            ],
+            'solo_parent' => [
+                ['icon' => '🫂', 'title' => 'Build Your Village', 'tip' => 'Identify 3 people you can call in an emergency — friends, family, neighbours, or a community group.'],
+                ['icon' => '💰', 'title' => 'Financial Help', 'tip' => 'Check eligibility for childcare subsidies, parental tax credits, and local support programmes.'],
+                ['icon' => '💪', 'title' => 'You\'re Enough', 'tip' => 'Solo parenting is demanding. One present, loving parent is exactly what children need most.'],
+                ['icon' => '🌐', 'title' => 'Community', 'tip' => 'Parent groups — online or local — reduce isolation and open doors to shared resources and friendships.'],
+            ],
+        ];
+        $parentType = auth()->user()->parent_type ?? 'new_parent';
+        $tips = $tipsByType[$parentType] ?? $tipsByType['new_parent'];
     @endphp
 
     <div class="welcome" id="welcome">
@@ -660,6 +917,16 @@
                     @endforeach
                 </div>
 
+                <div class="tag-row-label">Tag this entry</div>
+                <div class="tag-row" id="tagRow">
+                    @foreach(['milestone','emotion','health','routine','feeding','sleep','growth','behaviour'] as $tag)
+                        <label class="tag-pill-wrap">
+                            <input type="checkbox" name="tags[]" value="{{ $tag }}" class="tag-check" style="display:none">
+                            <span class="tag-pill">{{ ucfirst($tag) }}</span>
+                        </label>
+                    @endforeach
+                </div>
+
                 <textarea class="journal-area" name="content" id="journalText"
                     placeholder="How are you feeling today? Write about a milestone, a moment, or anything on your mind…"
                     maxlength="2000"
@@ -691,6 +958,13 @@
                             </form>
                         </div>
                         <div class="entry-text">{{ $entry->content }}</div>
+                        @if ($entry->tags && count($entry->tags))
+                            <div class="entry-tags">
+                                @foreach ($entry->tags as $t)
+                                    <span class="entry-tag">{{ ucfirst($t) }}</span>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 @empty
                     <div class="empty">
@@ -701,35 +975,59 @@
             </div>
         </div>
 
-        <!-- Milestones -->
-        <div class="panel" id="milestones">
-            <div class="panel-title">Milestones</div>
+        <!-- Right column: Milestones + AI Tips -->
+        <div class="right-col">
 
-            <div class="ms-progress">
-                <div class="ms-progress-fill" id="msProgress"></div>
+            <!-- Milestones -->
+            <div class="panel" id="milestones">
+                <div class="panel-title">Milestones</div>
+
+                <div class="ms-progress">
+                    <div class="ms-progress-fill" id="msProgress"></div>
+                </div>
+
+                @php
+                    $milestones = [
+                        '0–2 months'  => ['Responds to sounds','Focuses on faces','Follows moving objects','First smile'],
+                        '2–4 months'  => ['Holds head steady','Pushes up (tummy time)','Coos and babbles','Laughs out loud'],
+                        '4–6 months'  => ['Rolls over','Sits with support','Reaches for objects','Recognizes familiar faces'],
+                        '6–9 months'  => ['Sits without support','Says "mama" or "dada"','Picks up small objects','Crawls or scoots'],
+                    ];
+                @endphp
+
+                @foreach ($milestones as $group => $items)
+                    <div class="ms-group">
+                        <div class="ms-group-label">{{ $group }}</div>
+                        @foreach ($items as $i => $item)
+                            @php $id = 'ms-' . Str::slug($group) . '-' . $i; @endphp
+                            <div class="ms-item">
+                                <input type="checkbox" id="{{ $id }}" class="ms-check">
+                                <label for="{{ $id }}">{{ $item }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
 
-            @php
-                $milestones = [
-                    '0–2 months'  => ['Responds to sounds','Focuses on faces','Follows moving objects','First smile'],
-                    '2–4 months'  => ['Holds head steady','Pushes up (tummy time)','Coos and babbles','Laughs out loud'],
-                    '4–6 months'  => ['Rolls over','Sits with support','Reaches for objects','Recognizes familiar faces'],
-                    '6–9 months'  => ['Sits without support','Says "mama" or "dada"','Picks up small objects','Crawls or scoots'],
-                ];
-            @endphp
-
-            @foreach ($milestones as $group => $items)
-                <div class="ms-group">
-                    <div class="ms-group-label">{{ $group }}</div>
-                    @foreach ($items as $i => $item)
-                        @php $id = 'ms-' . Str::slug($group) . '-' . $i; @endphp
-                        <div class="ms-item">
-                            <input type="checkbox" id="{{ $id }}" class="ms-check">
-                            <label for="{{ $id }}">{{ $item }}</label>
+            <!-- AI Tips -->
+            <div class="panel" id="ai-tips">
+                <div class="panel-title">
+                    AI Tips
+                    <span class="tag">{{ ucfirst(str_replace('_', ' ', $parentType)) }}</span>
+                </div>
+                <div class="tips-grid">
+                    @foreach ($tips as $tip)
+                        <div class="tip-card">
+                            <span class="tip-icon">{{ $tip['icon'] }}</span>
+                            <div class="tip-body">
+                                <strong>{{ $tip['title'] }}</strong>
+                                <p>{{ $tip['tip'] }}</p>
+                            </div>
                         </div>
                     @endforeach
                 </div>
-            @endforeach
+            </div>
+
         </div>
     </div>
 
@@ -740,24 +1038,69 @@
             <span>Expert-backed content</span>
         </div>
 
-        <div class="res-grid">
+        <div class="filter-row">
+            <input class="filter-input" id="resSearch" type="text" placeholder="Search resources…" autocomplete="off">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="Article">Article</button>
+                <button class="filter-tab" data-filter="Video">Video</button>
+                <button class="filter-tab" data-filter="Checklist">Checklist</button>
+                <button class="filter-tab" data-filter="Guide">Guide</button>
+            </div>
+        </div>
+
+        <div class="res-grid" id="resGrid">
             @php
                 $resources = [
-                    ['Article',   'Newborn Sleep Guide',    'Evidence-based strategies to help your baby (and you) sleep better in the first months.'],
-                    ['Article',   'Responsive Feeding',      'Understanding hunger cues and building a healthy feeding relationship with your baby.'],
-                    ['Video',     'Tummy Time Tips',         'Short exercises to help strengthen your baby\'s neck and shoulder muscles safely.'],
-                    ['Checklist', 'Well-Baby Checkup Prep', 'Questions to ask your pediatrician at every routine visit from birth to 12 months.'],
-                    ['Article',   'Caregiver Self-Care',    'Why caring for yourself is one of the best things you can do for your child.'],
-                    ['Guide',     'Baby-Proofing Your Home','Room-by-room safety checklist as your baby starts to move and explore.'],
+                    ['Article',   'Newborn Sleep Guide',        'Evidence-based strategies to help your baby (and you) sleep better in the first months.'],
+                    ['Article',   'Responsive Feeding',          'Understanding hunger cues and building a healthy feeding relationship with your baby.'],
+                    ['Video',     'Tummy Time Tips',             'Short exercises to help strengthen your baby\'s neck and shoulder muscles safely.'],
+                    ['Checklist', 'Well-Baby Checkup Prep',      'Questions to ask your pediatrician at every routine visit from birth to 12 months.'],
+                    ['Article',   'Caregiver Self-Care',         'Why caring for yourself is one of the best things you can do for your child.'],
+                    ['Guide',     'Baby-Proofing Your Home',     'Room-by-room safety checklist as your baby starts to move and explore.'],
+                    ['Video',     'Reading Baby\'s Cues',        'Learn to decode your baby\'s body language, sounds, and signals in real time.'],
+                    ['Checklist', 'Hospital Bag Essentials',     'Everything to pack before your due date — for you, your partner, and baby.'],
+                    ['Guide',     'Returning to Work Guide',     'Practical steps to plan your return, manage childcare, and ease the transition.'],
                 ];
             @endphp
             @foreach ($resources as $res)
-                <a class="res-card" href="#">
+                <a class="res-card" href="#" data-type="{{ $res[0] }}" data-title="{{ strtolower($res[1]) }}">
                     <div class="res-type">{{ $res[0] }}</div>
                     <h3>{{ $res[1] }}</h3>
                     <p>{{ $res[2] }}</p>
                 </a>
             @endforeach
+        </div>
+    </div>
+
+    <!-- Expert Guidance -->
+    <div class="expert-section" id="experts">
+        <div class="sec-hd">
+            <h2>Expert Guidance</h2>
+            <span class="coming-badge">Phase 2 — Coming Soon</span>
+        </div>
+
+        <div class="expert-grid">
+            <div class="expert-card">
+                <span class="expert-icon">🧠</span>
+                <h3>Child Psychologists</h3>
+                <p>Behavioural, emotional, and developmental support tailored to your child's needs.</p>
+            </div>
+            <div class="expert-card">
+                <span class="expert-icon">👶</span>
+                <h3>ECD Specialists</h3>
+                <p>Early childhood development guidance from trained professionals for ages 0–6.</p>
+            </div>
+            <div class="expert-card">
+                <span class="expert-icon">🖐️</span>
+                <h3>Occupational Therapists</h3>
+                <p>Sensory, motor, and developmental interventions to support healthy growth.</p>
+            </div>
+            <div class="expert-card">
+                <span class="expert-icon">📋</span>
+                <h3>Care Plan Builders</h3>
+                <p>Personalized care roadmaps that evolve alongside your child's development.</p>
+            </div>
         </div>
 
         <div class="cta-strip" id="ctaStrip">
@@ -790,7 +1133,8 @@
     const tl = anime.timeline({ easing: 'easeOutExpo' });
     tl.add({ targets: '#welcome',    opacity:[0,1], translateY:[20,0], duration:700 })
       .add({ targets: '#journal',    opacity:[0,1], translateY:[24,0], duration:650 }, '-=400')
-      .add({ targets: '#milestones', opacity:[0,1], translateY:[24,0], duration:650 }, '-=500');
+      .add({ targets: '#milestones', opacity:[0,1], translateY:[24,0], duration:650 }, '-=500')
+      .add({ targets: '#ai-tips',    opacity:[0,1], translateY:[24,0], duration:650 }, '-=400');
 
     /* ── Journal entry stagger ── */
     const entries = document.querySelectorAll('[data-entry]');
@@ -804,19 +1148,32 @@
     });
 
     /* ── Scroll-triggered ── */
-    const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
+    const obs = new IntersectionObserver(els => {
+        els.forEach(e => {
             if (!e.isIntersecting) return;
             obs.unobserve(e.target);
-            if (e.target.classList.contains('res-grid')) {
-                anime({ targets: e.target.querySelectorAll('.res-card'), opacity:[0,1], translateY:[20,0], duration:550, easing:'easeOutExpo', delay:anime.stagger(80) });
-            } else {
+            if (e.target.id === 'resGrid') {
+                anime({ targets: e.target.querySelectorAll('.res-card:not(.hidden)'), opacity:[0,1], translateY:[20,0], duration:550, easing:'easeOutExpo', delay:anime.stagger(70) });
+            } else if (e.target.classList.contains('expert-grid')) {
+                anime({ targets: e.target.querySelectorAll('.expert-card'), opacity:[0,1], translateY:[20,0], duration:550, easing:'easeOutExpo', delay:anime.stagger(80) });
+            } else if (e.target.id === 'ctaStrip') {
                 anime({ targets: e.target, opacity:[0,1], translateY:[18,0], duration:550, easing:'easeOutExpo' });
             }
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.res-grid, #ctaStrip').forEach(el => obs.observe(el));
+    document.querySelectorAll('#resGrid, .expert-grid, #ctaStrip').forEach(el => obs.observe(el));
+
+    /* ── AI tips stagger (scroll-triggered) ── */
+    const tipsObs = new IntersectionObserver(els => {
+        els.forEach(e => {
+            if (!e.isIntersecting) return;
+            tipsObs.unobserve(e.target);
+            anime({ targets: e.target.querySelectorAll('.tip-card'), opacity:[0,1], translateX:[-14,0], duration:450, easing:'easeOutExpo', delay:anime.stagger(70) });
+        });
+    }, { threshold: 0.15 });
+    const tipsPanel = document.getElementById('ai-tips');
+    if (tipsPanel) tipsObs.observe(tipsPanel);
 
     /* ── Mood pills with bounce ── */
     const moodVal = document.getElementById('mood-val');
@@ -831,6 +1188,17 @@
             } else {
                 moodVal.value = '';
             }
+        });
+    });
+
+    /* ── Tag pills ── */
+    document.querySelectorAll('.tag-pill-wrap').forEach(wrap => {
+        wrap.addEventListener('click', () => {
+            const cb   = wrap.querySelector('.tag-check');
+            const pill = wrap.querySelector('.tag-pill');
+            cb.checked = !cb.checked;
+            pill.classList.toggle('active', cb.checked);
+            anime({ targets: pill, scale:[0.88,1.05,1], duration:300, easing:'easeOutBack' });
         });
     });
 
@@ -856,8 +1224,7 @@
     function updateProgress() {
         const total   = checks.length;
         const checked = [...checks].filter(c => c.checked).length;
-        const pct = total > 0 ? (checked / total) * 100 : 0;
-        progressBar.style.width = pct + '%';
+        progressBar.style.width = (total > 0 ? (checked / total) * 100 : 0) + '%';
     }
 
     checks.forEach(cb => {
@@ -869,15 +1236,46 @@
             updateProgress();
         });
     });
+
     updateProgress();
 
-    /* Animate progress bar on load */
     setTimeout(() => {
         const total   = checks.length;
         const checked = [...checks].filter(c => c.checked).length;
         const pct = total > 0 ? (checked / total) * 100 : 0;
         anime({ targets: progressBar, width: pct + '%', duration: 1000, easing: 'easeOutExpo', delay: 500 });
     }, 0);
+
+    /* ── Resource search + filter ── */
+    const resCards   = document.querySelectorAll('.res-card');
+    const searchInput = document.getElementById('resSearch');
+    const filterTabs  = document.querySelectorAll('.filter-tab');
+    let activeFilter = 'all';
+
+    function applyFilter() {
+        const q = searchInput.value.toLowerCase().trim();
+        let visible = [];
+        resCards.forEach(card => {
+            const typeMatch  = activeFilter === 'all' || card.dataset.type === activeFilter;
+            const titleMatch = !q || card.dataset.title.includes(q) || card.querySelector('p').textContent.toLowerCase().includes(q);
+            const show = typeMatch && titleMatch;
+            card.classList.toggle('hidden', !show);
+            if (show) visible.push(card);
+        });
+        anime({ targets: visible, opacity:[0,1], translateY:[8,0], duration:300, easing:'easeOutExpo', delay:anime.stagger(40) });
+    }
+
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            filterTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeFilter = tab.dataset.filter;
+            anime({ targets: tab, scale:[0.9,1.04,1], duration:250, easing:'easeOutBack' });
+            applyFilter();
+        });
+    });
+
+    searchInput.addEventListener('input', applyFilter);
 
     /* ── Smooth scroll ── */
     document.querySelectorAll('a[href^="#"]').forEach(a => {

@@ -9,7 +9,9 @@ class JournalEntry extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'content', 'mood'];
+    protected $fillable = ['user_id', 'content', 'mood', 'tags'];
+
+    protected $casts = ['tags' => 'array'];
 
     public function user()
     {

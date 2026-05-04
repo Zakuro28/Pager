@@ -13,6 +13,8 @@ class JournalController extends Controller
         $validated = $request->validate([
             'content' => ['required', 'string', 'max:2000'],
             'mood'    => ['nullable', 'string', 'in:happy,okay,tired,overwhelmed'],
+            'tags'    => ['nullable', 'array'],
+            'tags.*'  => ['string', 'in:milestone,emotion,health,routine,feeding,sleep,growth,behaviour'],
         ]);
 
         $request->user()->journalEntries()->create($validated);
