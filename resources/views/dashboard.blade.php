@@ -527,6 +527,9 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 9px;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
             transition: border-color 0.18s, background 0.18s;
             opacity: 0;
         }
@@ -853,28 +856,28 @@
 
         $tipsByType = [
             'expecting' => [
-                ['icon' => '🥦', 'title' => 'Prenatal Nutrition', 'tip' => 'Focus on folate-rich foods, iron, and DHA. Small, frequent meals help with nausea.'],
-                ['icon' => '🏥', 'title' => 'Hospital Bag', 'tip' => 'Pack essentials by week 36: documents, baby clothes, toiletries, snacks, and your birth plan.'],
-                ['icon' => '🤝', 'title' => 'Partner Support', 'tip' => 'Involve your partner in prenatal visits and birth planning to build shared confidence.'],
-                ['icon' => '😴', 'title' => 'Rest Well', 'tip' => 'Sleep on your left side to improve blood flow. A pregnancy pillow makes a big difference.'],
+                ['icon' => '🥦', 'title' => 'Prenatal Nutrition', 'tip' => 'Focus on folate-rich foods, iron, and DHA. Small, frequent meals help with nausea.', 'url' => 'https://kidshealth.org/en/parents/moms-nutrients.html'],
+                ['icon' => '🏥', 'title' => 'Hospital Bag', 'tip' => 'Pack essentials by week 36: documents, baby clothes, toiletries, snacks, and your birth plan.', 'url' => 'https://healthy.kaiserpermanente.org/health-wellness/maternity/third-trimester/packing-for-hospital'],
+                ['icon' => '🤝', 'title' => 'Partner Support', 'tip' => 'Involve your partner in prenatal visits and birth planning to build shared confidence.', 'url' => 'https://www.acog.org/womens-health/faqs/a-partners-guide-to-pregnancy'],
+                ['icon' => '😴', 'title' => 'Rest Well', 'tip' => 'Sleep on your left side to improve blood flow. A pregnancy pillow makes a big difference.', 'url' => 'https://www.nhs.uk/pregnancy/common-symptoms/tiredness/'],
             ],
             'new_parent' => [
-                ['icon' => '🍼', 'title' => 'Feeding Cues', 'tip' => 'Watch for rooting, sucking motions, and hand-to-mouth movement — feed before crying starts.'],
-                ['icon' => '😴', 'title' => 'Safe Sleep', 'tip' => 'Always place baby on their back on a firm, flat surface with no pillows or loose bedding.'],
-                ['icon' => '🌅', 'title' => 'Tummy Time', 'tip' => '2–3 minutes, 3–5 times daily from day one helps build neck and shoulder strength.'],
-                ['icon' => '👩‍⚕️', 'title' => 'Checkup Prep', 'tip' => 'Schedule visits at 1, 2, 4, 6, and 9 months. Bring a written list of questions each time.'],
+                ['icon' => '🍼', 'title' => 'Feeding Cues', 'tip' => 'Watch for rooting, sucking motions, and hand-to-mouth movement — feed before crying starts.', 'url' => 'https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html'],
+                ['icon' => '😴', 'title' => 'Safe Sleep', 'tip' => 'Always place baby on their back on a firm, flat surface with no pillows or loose bedding.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/a-parents-guide-to-safe-sleep.aspx'],
+                ['icon' => '🌅', 'title' => 'Tummy Time', 'tip' => '2–3 minutes, 3–5 times daily from day one helps build neck and shoulder strength.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/back-to-sleep-tummy-to-play.aspx'],
+                ['icon' => '👩‍⚕️', 'title' => 'Checkup Prep', 'tip' => 'Schedule visits at 1, 2, 4, 6, and 9 months. Bring a written list of questions each time.', 'url' => 'https://www.healthychildren.org/English/family-life/health-management/Pages/Well-Child-Care-A-Check-Up-for-Success.aspx'],
             ],
             'working_parent' => [
-                ['icon' => '⚖️', 'title' => 'Work-Life Balance', 'tip' => 'Set a hard stop time each day and protect family moments. Boundaries reduce long-term guilt.'],
-                ['icon' => '🏫', 'title' => 'Daycare Transition', 'tip' => 'Start with short visits before full days. A consistent drop-off routine reduces anxiety for both of you.'],
-                ['icon' => '📞', 'title' => 'Caregiver Comms', 'tip' => 'Share your baby\'s schedule, preferences, and health notes clearly with your care team every week.'],
-                ['icon' => '🧘', 'title' => 'Micro Self-Care', 'tip' => '5–10 minutes of intentional rest — breathing, walking, or stretching — can reset your entire day.'],
+                ['icon' => '⚖️', 'title' => 'Work-Life Balance', 'tip' => 'Set a hard stop time each day and protect family moments. Boundaries reduce long-term guilt.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/paid-family-and-medical-leave-caring-for-a-new-baby-or-sick-family-member.aspx'],
+                ['icon' => '🏫', 'title' => 'Daycare Transition', 'tip' => 'Start with short visits before full days. A consistent drop-off routine reduces anxiety for both of you.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/preparing-your-child-for-child-care.aspx'],
+                ['icon' => '📞', 'title' => 'Caregiver Comms', 'tip' => 'Share your baby\'s schedule, preferences, and health notes clearly with your care team every week.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/choosing-a-child-care-center.aspx'],
+                ['icon' => '🧘', 'title' => 'Micro Self-Care', 'tip' => '5–10 minutes of intentional rest — breathing, walking, or stretching — can reset your entire day.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/Pages/Importance-of-Self-Care.aspx'],
             ],
             'solo_parent' => [
-                ['icon' => '🫂', 'title' => 'Build Your Village', 'tip' => 'Identify 3 people you can call in an emergency — friends, family, neighbours, or a community group.'],
-                ['icon' => '💰', 'title' => 'Financial Help', 'tip' => 'Check eligibility for childcare subsidies, parental tax credits, and local support programmes.'],
-                ['icon' => '💪', 'title' => 'You\'re Enough', 'tip' => 'Solo parenting is demanding. One present, loving parent is exactly what children need most.'],
-                ['icon' => '🌐', 'title' => 'Community', 'tip' => 'Parent groups — online or local — reduce isolation and open doors to shared resources and friendships.'],
+                ['icon' => '🫂', 'title' => 'Build Your Village', 'tip' => 'Identify 3 people you can call in an emergency — friends, family, neighbours, or a community group.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/types-of-families/Pages/Stresses-of-Single-Parenting.aspx'],
+                ['icon' => '💰', 'title' => 'Financial Help', 'tip' => 'Check eligibility for childcare subsidies, parental tax credits, and local support programmes.', 'url' => 'https://childcare.gov/consumer-education/get-help-paying-for-child-care/child-care-financial-assistance-options'],
+                ['icon' => '💪', 'title' => 'You\'re Enough', 'tip' => 'Solo parenting is demanding. One present, loving parent is exactly what children need most.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/Pages/Challenges-of-Being-a-New-Mom.aspx'],
+                ['icon' => '🌐', 'title' => 'Community', 'tip' => 'Parent groups — online or local — reduce isolation and open doors to shared resources and friendships.', 'url' => 'https://www.healthychildren.org/English/family-life/Community/Pages/default.aspx'],
             ],
         ];
         $parentType = auth()->user()->parent_type ?? 'new_parent';
@@ -1017,13 +1020,13 @@
                 </div>
                 <div class="tips-grid">
                     @foreach ($tips as $tip)
-                        <div class="tip-card">
+                        <a class="tip-card" href="{{ $tip['url'] }}" target="_blank" rel="noopener noreferrer">
                             <span class="tip-icon">{{ $tip['icon'] }}</span>
                             <div class="tip-body">
                                 <strong>{{ $tip['title'] }}</strong>
                                 <p>{{ $tip['tip'] }}</p>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -1052,19 +1055,19 @@
         <div class="res-grid" id="resGrid">
             @php
                 $resources = [
-                    ['Article',   'Newborn Sleep Guide',        'Evidence-based strategies to help your baby (and you) sleep better in the first months.'],
-                    ['Article',   'Responsive Feeding',          'Understanding hunger cues and building a healthy feeding relationship with your baby.'],
-                    ['Video',     'Tummy Time Tips',             'Short exercises to help strengthen your baby\'s neck and shoulder muscles safely.'],
-                    ['Checklist', 'Well-Baby Checkup Prep',      'Questions to ask your pediatrician at every routine visit from birth to 12 months.'],
-                    ['Article',   'Caregiver Self-Care',         'Why caring for yourself is one of the best things you can do for your child.'],
-                    ['Guide',     'Baby-Proofing Your Home',     'Room-by-room safety checklist as your baby starts to move and explore.'],
-                    ['Video',     'Reading Baby\'s Cues',        'Learn to decode your baby\'s body language, sounds, and signals in real time.'],
-                    ['Checklist', 'Hospital Bag Essentials',     'Everything to pack before your due date — for you, your partner, and baby.'],
-                    ['Guide',     'Returning to Work Guide',     'Practical steps to plan your return, manage childcare, and ease the transition.'],
+                    ['Article',   'Newborn Sleep Guide',        'Evidence-based strategies to help your baby (and you) sleep better in the first months.', 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/a-parents-guide-to-safe-sleep.aspx'],
+                    ['Article',   'Responsive Feeding',          'Understanding hunger cues and building a healthy feeding relationship with your baby.', 'https://www.healthychildren.org/English/ages-stages/baby/feeding-nutrition/Pages/Is-Your-Baby-Hungry-or-Full-Responsive-Feeding-Explained.aspx'],
+                    ['Video',     'Tummy Time Tips',             'Short exercises to help strengthen your baby\'s neck and shoulder muscles safely.', 'https://safetosleep.nichd.nih.gov/reduce-risk/tummy-time'],
+                    ['Checklist', 'Well-Baby Checkup Prep',      'Questions to ask your pediatrician at every routine visit from birth to 12 months.', 'https://www.healthychildren.org/English/ages-stages/Your-Childs-Checkups/Pages/Your-Checkup-Checklist-1-month-old.aspx'],
+                    ['Article',   'Caregiver Self-Care',         'Why caring for yourself is one of the best things you can do for your child.', 'https://kidshealth.org/en/parents/caregiver-burnout.html'],
+                    ['Guide',     'Baby-Proofing Your Home',     'Room-by-room safety checklist as your baby starts to move and explore.', 'https://www.cpsc.gov/safety-education/safety-guides/kids-and-babies/Childproofing-Your-Home'],
+                    ['Video',     'Reading Baby\'s Cues',        'Learn to decode your baby\'s body language, sounds, and signals in real time.', 'https://raisingchildren.net.au/newborns/connecting-communicating/communicating/baby-cues'],
+                    ['Checklist', 'Hospital Bag Essentials',     'Everything to pack before your due date — for you, your partner, and baby.', 'https://americanpregnancy.org/giving-birth/hospital-bag-packing-list/'],
+                    ['Guide',     'Returning to Work Guide',     'Practical steps to plan your return, manage childcare, and ease the transition.', 'https://aspe.hhs.gov/parents-guide-choosing-safe-healthy-child-care'],
                 ];
             @endphp
             @foreach ($resources as $res)
-                <a class="res-card" href="#" data-type="{{ $res[0] }}" data-title="{{ strtolower($res[1]) }}">
+                <a class="res-card" href="{{ $res[3] }}" target="_blank" rel="noopener noreferrer" data-type="{{ $res[0] }}" data-title="{{ strtolower($res[1]) }}">
                     <div class="res-type">{{ $res[0] }}</div>
                     <h3>{{ $res[1] }}</h3>
                     <p>{{ $res[2] }}</p>
