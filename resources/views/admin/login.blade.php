@@ -7,23 +7,11 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; }
 
-        :root {
-            --white:      #ffffff;
-            --ink:        #111827;
-            --sub:        #6b7280;
-            --border:     #e5e7eb;
-            --purple:     #7c3aed;
-            --purple-dim: #6d28d9;
-            --purple-bg:  #f5f3ff;
-            --purple-mid: #ede9fe;
-            --danger:     #dc2626;
-            --danger-bg:  #fef2f2;
-            --danger-bdr: #fecaca;
-        }
 
         body {
             font-family: "Inter", system-ui, sans-serif;
