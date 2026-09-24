@@ -185,7 +185,7 @@
         .feat-icon {
             width: 48px; height: 48px; border-radius: 12px;
             display: grid; place-items: center;
-            font-size: 1.4rem; margin-bottom: 1.25rem;
+            color: var(--accent, var(--purple)); margin-bottom: 1.25rem;
             background: var(--icon-bg, var(--purple-bg));
         }
         .feat-num { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent, var(--purple)); margin-bottom: 0.5rem; opacity: 0.8; }
@@ -324,7 +324,7 @@
             transition: border-color 0.15s, background 0.15s;
         }
         .expert-card:hover { border-color: var(--purple-mid); background: var(--purple-bg); }
-        .expert-card-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .expert-card-icon { color: var(--purple); flex-shrink: 0; display: flex; align-items: center; }
         .expert-card h4 { font-size: 0.825rem; font-weight: 700; color: var(--ink); }
         .expert-card p { font-size: 0.75rem; color: var(--sub); line-height: 1.4; }
 
@@ -335,7 +335,7 @@
             background: var(--white); transition: background 0.15s;
         }
         .expert-cap:hover { background: var(--purple-bg); }
-        .cap-icon { font-size: 1.1rem; flex-shrink: 0; }
+        .cap-icon { color: var(--purple); flex-shrink: 0; display: flex; align-items: center; }
         .expert-cap h4 { font-size: 0.875rem; font-weight: 700; color: var(--ink); margin-bottom: 0.15rem; }
         .expert-cap p { font-size: 0.8rem; color: var(--sub); line-height: 1.45; }
 
@@ -433,12 +433,12 @@
             </a>
         </div>
         <div class="hero-chips">
-            <span class="hero-chip">📔 Journal</span>
-            <span class="hero-chip">🤖 AI Advice</span>
-            <span class="hero-chip">📚 Resources</span>
-            <span class="hero-chip">🎯 Milestones</span>
-            <span class="hero-chip">👨‍⚕️ Expert Guidance</span>
-            <span class="hero-chip">🔒 Privacy-First</span>
+            <span class="hero-chip"><x-icon name="book-open" :size="14" /> Journal</span>
+            <span class="hero-chip"><x-icon name="bot" :size="14" /> AI Advice</span>
+            <span class="hero-chip"><x-icon name="library" :size="14" /> Resources</span>
+            <span class="hero-chip"><x-icon name="target" :size="14" /> Milestones</span>
+            <span class="hero-chip"><x-icon name="stethoscope" :size="14" /> Expert Guidance</span>
+            <span class="hero-chip"><x-icon name="lock" :size="14" /> Privacy-First</span>
         </div>
         <div class="ticker-wrap">
             <div class="ticker-track" id="tickerTrack">
@@ -476,7 +476,7 @@
             <!-- Journal -->
             <div class="feat-card anim-up" style="--accent:#7c3aed; --icon-bg:#f5f3ff;">
                 <span class="feat-badge">✓ Live in Phase 1</span>
-                <div class="feat-icon">📔</div>
+                <div class="feat-icon"><x-icon name="book-open" :size="22" /></div>
                 <div class="feat-num">01</div>
                 <h3>Parenting Journal</h3>
                 <p>A multimedia diary for documenting your parenting journey — text entries with mood tracking, tags, and a growing timeline of your family's most important moments.</p>
@@ -492,7 +492,7 @@
             <!-- AI Advice -->
             <div class="feat-card anim-up" style="--accent:#2563eb; --icon-bg:#eff6ff;">
                 <span class="feat-badge">✓ Rule-based live · <span class="feat-badge-soon" style="display:inline-flex;margin:0;border:none;padding:0;background:none;font-size:inherit;font-weight:inherit;">AI in Phase 2</span></span>
-                <div class="feat-icon" style="background:#eff6ff;">🤖</div>
+                <div class="feat-icon" style="background:#eff6ff;"><x-icon name="bot" :size="22" /></div>
                 <div class="feat-num">02</div>
                 <h3>AI-Driven Parenting Advice</h3>
                 <p>Personalized recommendations based on your parent type and child's developmental stage. Context-aware guidance covering sleep, feeding, behaviour, and mood.</p>
@@ -506,7 +506,7 @@
             <!-- Resources -->
             <div class="feat-card anim-up" style="--accent:#059669; --icon-bg:#ecfdf5;">
                 <span class="feat-badge">✓ Live in Phase 1</span>
-                <div class="feat-icon" style="background:#ecfdf5;">📚</div>
+                <div class="feat-icon" style="background:#ecfdf5;"><x-icon name="library" :size="22" /></div>
                 <div class="feat-num">03</div>
                 <h3>Resource Library</h3>
                 <p>A searchable, filterable database of expert-backed articles, videos, and guides — covering sleep, feeding, wellness, and development from pregnancy to school age.</p>
@@ -520,7 +520,7 @@
             <!-- Milestones -->
             <div class="feat-card feat-wide anim-up" style="--accent:#d97706; --icon-bg:#fffbeb;">
                 <span class="feat-badge">✓ Live in Phase 1</span>
-                <div class="feat-icon" style="background:#fffbeb;">🎯</div>
+                <div class="feat-icon" style="background:#fffbeb;"><x-icon name="target" :size="22" /></div>
                 <div class="feat-num">04</div>
                 <h3>Milestone Tracking</h3>
                 <p>Structured developmental checklists from 0–9 months, with a visual progress bar tracking how many milestones your child has reached. Alerts and reminders coming in Phase 2.</p>
@@ -535,7 +535,7 @@
             <!-- Expert Guidance -->
             <div class="feat-card anim-up" style="--accent:#db2777; --icon-bg:#fdf2f8;">
                 <span class="feat-badge feat-badge-soon">Coming Phase 2–3</span>
-                <div class="feat-icon" style="background:#fdf2f8;">👨‍⚕️</div>
+                <div class="feat-icon" style="background:#fdf2f8;"><x-icon name="stethoscope" :size="22" /></div>
                 <div class="feat-num">05</div>
                 <h3>Expert Parenting Guidance</h3>
                 <p>Access licensed psychologists, early childhood specialists, and occupational therapists via Ask-an-Expert and live 1:1 video consultations.</p>
@@ -639,18 +639,18 @@
                 <h2 class="section-h anim-up">Human-backed support, beyond AI.</h2>
                 <p class="anim-up" style="font-size:0.9375rem;color:var(--sub);line-height:1.8;margin-bottom:1.5rem;">For complex situations, PAGER connects you with licensed professionals — the people who've dedicated their careers to child development and family wellbeing.</p>
                 <div class="expert-types">
-                    <div class="expert-card anim-up"><span class="expert-card-icon">🧠</span><div><h4>Psychologists</h4><p>Behavioural &amp; emotional support</p></div></div>
-                    <div class="expert-card anim-up"><span class="expert-card-icon">👶</span><div><h4>ECD Specialists</h4><p>Early childhood development</p></div></div>
-                    <div class="expert-card anim-up"><span class="expert-card-icon">🤲</span><div><h4>Occupational Therapists</h4><p>Sensory &amp; physical development</p></div></div>
-                    <div class="expert-card anim-up"><span class="expert-card-icon">📋</span><div><h4>Care Plan Builders</h4><p>Tailored family strategies</p></div></div>
+                    <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="brain" :size="22" /></span><div><h4>Psychologists</h4><p>Behavioural &amp; emotional support</p></div></div>
+                    <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="baby" :size="22" /></span><div><h4>ECD Specialists</h4><p>Early childhood development</p></div></div>
+                    <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="hand-heart" :size="22" /></span><div><h4>Occupational Therapists</h4><p>Sensory &amp; physical development</p></div></div>
+                    <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="clipboard-list" :size="22" /></span><div><h4>Care Plan Builders</h4><p>Tailored family strategies</p></div></div>
                 </div>
             </div>
 
             <ul class="expert-capabilities anim-up">
-                <li class="expert-cap"><span class="cap-icon">🎥</span><div><h4>1:1 Consultations</h4><p>Video, chat, or voice sessions with licensed specialists at your convenience.</p></div></li>
-                <li class="expert-cap"><span class="cap-icon">💬</span><div><h4>Ask-an-Expert</h4><p>Submit questions and receive professional, thoughtful responses within 24 hours.</p></div></li>
-                <li class="expert-cap"><span class="cap-icon">📄</span><div><h4>Personalized Care Plans</h4><p>Tailored strategies for development concerns, co-created with your assigned expert.</p></div></li>
-                <li class="expert-cap"><span class="cap-icon">🔗</span><div><h4>Local Referrals</h4><p>Get connected to verified professionals near you when in-person care is needed.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="video" :size="18" /></span><div><h4>1:1 Consultations</h4><p>Video, chat, or voice sessions with licensed specialists at your convenience.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="message-circle" :size="18" /></span><div><h4>Ask-an-Expert</h4><p>Submit questions and receive professional, thoughtful responses within 24 hours.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="file-text" :size="18" /></span><div><h4>Personalized Care Plans</h4><p>Tailored strategies for development concerns, co-created with your assigned expert.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="link" :size="18" /></span><div><h4>Local Referrals</h4><p>Get connected to verified professionals near you when in-person care is needed.</p></div></li>
             </ul>
         </div>
     </div>

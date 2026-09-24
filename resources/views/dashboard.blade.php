@@ -441,7 +441,7 @@
         .btn-del {
             background: none;
             border: none;
-            font-size: 0.75rem;
+            display: inline-flex;
             color: #d1d5db;
             cursor: pointer;
             padding: 0.2rem 0.35rem;
@@ -459,7 +459,7 @@
             color: var(--sub);
         }
 
-        .empty-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .empty-icon { color: var(--purple, #7c3aed); margin-bottom: 0.5rem; display: flex; justify-content: center; }
 
         /* ── Milestones ── */
         .ms-progress {
@@ -537,9 +537,10 @@
         .tip-card:hover { border-color: #c4b5fd; background: var(--purple-bg); }
 
         .tip-icon {
-            font-size: 1.2rem;
+            color: var(--purple, #7c3aed);
             flex-shrink: 0;
             margin-top: 1px;
+            display: flex;
         }
 
         .tip-body strong {
@@ -737,7 +738,7 @@
 
         .expert-card:hover::after { transform: scaleX(1); }
 
-        .expert-icon { font-size: 1.5rem; margin-bottom: 0.625rem; display: block; }
+        .expert-icon { color: var(--purple, #7c3aed); margin-bottom: 0.625rem; display: block; }
 
         .expert-card h3 {
             font-size: 0.875rem;
@@ -844,40 +845,40 @@
 
     @php
         $typeMap = [
-            'expecting'      => '🤰 Expecting Parent',
-            'new_parent'     => '👶 New Parent',
-            'working_parent' => '💼 Working Parent',
-            'solo_parent'    => '⭐ Solo Parent',
+            'expecting'      => ['heart', 'Expecting Parent'],
+            'new_parent'     => ['baby', 'New Parent'],
+            'working_parent' => ['briefcase', 'Working Parent'],
+            'solo_parent'    => ['sparkles', 'Solo Parent'],
         ];
-        $typeLabel = $typeMap[auth()->user()->parent_type ?? ''] ?? '👋 Parent';
+        [$typeIcon, $typeLabel] = $typeMap[auth()->user()->parent_type ?? ''] ?? [null, 'Parent'];
 
         $hour = now()->hour;
         $greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good evening');
 
         $tipsByType = [
             'expecting' => [
-                ['icon' => '🥦', 'title' => 'Prenatal Nutrition', 'tip' => 'Focus on folate-rich foods, iron, and DHA. Small, frequent meals help with nausea.', 'url' => 'https://kidshealth.org/en/parents/moms-nutrients.html'],
-                ['icon' => '🏥', 'title' => 'Hospital Bag', 'tip' => 'Pack essentials by week 36: documents, baby clothes, toiletries, snacks, and your birth plan.', 'url' => 'https://healthy.kaiserpermanente.org/health-wellness/maternity/third-trimester/packing-for-hospital'],
-                ['icon' => '🤝', 'title' => 'Partner Support', 'tip' => 'Involve your partner in prenatal visits and birth planning to build shared confidence.', 'url' => 'https://www.acog.org/womens-health/faqs/a-partners-guide-to-pregnancy'],
-                ['icon' => '😴', 'title' => 'Rest Well', 'tip' => 'Sleep on your left side to improve blood flow. A pregnancy pillow makes a big difference.', 'url' => 'https://www.nhs.uk/pregnancy/common-symptoms/tiredness/'],
+                ['icon' => 'salad', 'title' => 'Prenatal Nutrition', 'tip' => 'Focus on folate-rich foods, iron, and DHA. Small, frequent meals help with nausea.', 'url' => 'https://kidshealth.org/en/parents/moms-nutrients.html'],
+                ['icon' => 'hospital', 'title' => 'Hospital Bag', 'tip' => 'Pack essentials by week 36: documents, baby clothes, toiletries, snacks, and your birth plan.', 'url' => 'https://healthy.kaiserpermanente.org/health-wellness/maternity/third-trimester/packing-for-hospital'],
+                ['icon' => 'handshake', 'title' => 'Partner Support', 'tip' => 'Involve your partner in prenatal visits and birth planning to build shared confidence.', 'url' => 'https://www.acog.org/womens-health/faqs/a-partners-guide-to-pregnancy'],
+                ['icon' => 'moon', 'title' => 'Rest Well', 'tip' => 'Sleep on your left side to improve blood flow. A pregnancy pillow makes a big difference.', 'url' => 'https://www.nhs.uk/pregnancy/common-symptoms/tiredness/'],
             ],
             'new_parent' => [
-                ['icon' => '🍼', 'title' => 'Feeding Cues', 'tip' => 'Watch for rooting, sucking motions, and hand-to-mouth movement — feed before crying starts.', 'url' => 'https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html'],
-                ['icon' => '😴', 'title' => 'Safe Sleep', 'tip' => 'Always place baby on their back on a firm, flat surface with no pillows or loose bedding.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/a-parents-guide-to-safe-sleep.aspx'],
-                ['icon' => '🌅', 'title' => 'Tummy Time', 'tip' => '2–3 minutes, 3–5 times daily from day one helps build neck and shoulder strength.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/back-to-sleep-tummy-to-play.aspx'],
-                ['icon' => '👩‍⚕️', 'title' => 'Checkup Prep', 'tip' => 'Schedule visits at 1, 2, 4, 6, and 9 months. Bring a written list of questions each time.', 'url' => 'https://www.healthychildren.org/English/family-life/health-management/Pages/Well-Child-Care-A-Check-Up-for-Success.aspx'],
+                ['icon' => 'milk', 'title' => 'Feeding Cues', 'tip' => 'Watch for rooting, sucking motions, and hand-to-mouth movement — feed before crying starts.', 'url' => 'https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html'],
+                ['icon' => 'moon', 'title' => 'Safe Sleep', 'tip' => 'Always place baby on their back on a firm, flat surface with no pillows or loose bedding.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/a-parents-guide-to-safe-sleep.aspx'],
+                ['icon' => 'sunrise', 'title' => 'Tummy Time', 'tip' => '2–3 minutes, 3–5 times daily from day one helps build neck and shoulder strength.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/back-to-sleep-tummy-to-play.aspx'],
+                ['icon' => 'stethoscope', 'title' => 'Checkup Prep', 'tip' => 'Schedule visits at 1, 2, 4, 6, and 9 months. Bring a written list of questions each time.', 'url' => 'https://www.healthychildren.org/English/family-life/health-management/Pages/Well-Child-Care-A-Check-Up-for-Success.aspx'],
             ],
             'working_parent' => [
-                ['icon' => '⚖️', 'title' => 'Work-Life Balance', 'tip' => 'Set a hard stop time each day and protect family moments. Boundaries reduce long-term guilt.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/paid-family-and-medical-leave-caring-for-a-new-baby-or-sick-family-member.aspx'],
-                ['icon' => '🏫', 'title' => 'Daycare Transition', 'tip' => 'Start with short visits before full days. A consistent drop-off routine reduces anxiety for both of you.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/preparing-your-child-for-child-care.aspx'],
-                ['icon' => '📞', 'title' => 'Caregiver Comms', 'tip' => 'Share your baby\'s schedule, preferences, and health notes clearly with your care team every week.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/choosing-a-child-care-center.aspx'],
-                ['icon' => '🧘', 'title' => 'Micro Self-Care', 'tip' => '5–10 minutes of intentional rest — breathing, walking, or stretching — can reset your entire day.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/Pages/Importance-of-Self-Care.aspx'],
+                ['icon' => 'scale', 'title' => 'Work-Life Balance', 'tip' => 'Set a hard stop time each day and protect family moments. Boundaries reduce long-term guilt.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/paid-family-and-medical-leave-caring-for-a-new-baby-or-sick-family-member.aspx'],
+                ['icon' => 'school', 'title' => 'Daycare Transition', 'tip' => 'Start with short visits before full days. A consistent drop-off routine reduces anxiety for both of you.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/preparing-your-child-for-child-care.aspx'],
+                ['icon' => 'phone', 'title' => 'Caregiver Comms', 'tip' => 'Share your baby\'s schedule, preferences, and health notes clearly with your care team every week.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/choosing-a-child-care-center.aspx'],
+                ['icon' => 'wind', 'title' => 'Micro Self-Care', 'tip' => '5–10 minutes of intentional rest — breathing, walking, or stretching — can reset your entire day.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/Pages/Importance-of-Self-Care.aspx'],
             ],
             'solo_parent' => [
-                ['icon' => '🫂', 'title' => 'Build Your Village', 'tip' => 'Identify 3 people you can call in an emergency — friends, family, neighbours, or a community group.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/types-of-families/Pages/Stresses-of-Single-Parenting.aspx'],
-                ['icon' => '💰', 'title' => 'Financial Help', 'tip' => 'Check eligibility for childcare subsidies, parental tax credits, and local support programmes.', 'url' => 'https://childcare.gov/consumer-education/get-help-paying-for-child-care/child-care-financial-assistance-options'],
-                ['icon' => '💪', 'title' => 'You\'re Enough', 'tip' => 'Solo parenting is demanding. One present, loving parent is exactly what children need most.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/Pages/Challenges-of-Being-a-New-Mom.aspx'],
-                ['icon' => '🌐', 'title' => 'Community', 'tip' => 'Parent groups — online or local — reduce isolation and open doors to shared resources and friendships.', 'url' => 'https://www.healthychildren.org/English/family-life/Community/Pages/default.aspx'],
+                ['icon' => 'users', 'title' => 'Build Your Village', 'tip' => 'Identify 3 people you can call in an emergency — friends, family, neighbours, or a community group.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/types-of-families/Pages/Stresses-of-Single-Parenting.aspx'],
+                ['icon' => 'dollar-sign', 'title' => 'Financial Help', 'tip' => 'Check eligibility for childcare subsidies, parental tax credits, and local support programmes.', 'url' => 'https://childcare.gov/consumer-education/get-help-paying-for-child-care/child-care-financial-assistance-options'],
+                ['icon' => 'heart', 'title' => 'You\'re Enough', 'tip' => 'Solo parenting is demanding. One present, loving parent is exactly what children need most.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/Pages/Challenges-of-Being-a-New-Mom.aspx'],
+                ['icon' => 'globe', 'title' => 'Community', 'tip' => 'Parent groups — online or local — reduce isolation and open doors to shared resources and friendships.', 'url' => 'https://www.healthychildren.org/English/family-life/Community/Pages/default.aspx'],
             ],
         ];
         $parentType = auth()->user()->parent_type ?? 'new_parent';
@@ -889,7 +890,7 @@
             <div>
                 <h1>{{ $greeting }}, {{ auth()->user()->name }} 👋</h1>
                 <p class="welcome-sub">Your parenting dashboard — everything in one place.</p>
-                <span class="badge">{{ $typeLabel }}</span>
+                <span class="badge">@if($typeIcon)<x-icon :name="$typeIcon" :size="14" />@endif {{ $typeLabel }}</span>
             </div>
         </div>
     </div>
@@ -957,7 +958,7 @@
                             </div>
                             <form method="POST" action="{{ route('journal.destroy', $entry) }}">
                                 @csrf @method('DELETE')
-                                <button class="btn-del" type="submit" title="Delete">✕</button>
+                                <button class="btn-del" type="submit" title="Delete"><x-icon name="trash-2" :size="14" /></button>
                             </form>
                         </div>
                         <div class="entry-text">{{ $entry->content }}</div>
@@ -971,7 +972,7 @@
                     </div>
                 @empty
                     <div class="empty">
-                        <div class="empty-icon">📝</div>
+                        <div class="empty-icon"><x-icon name="notebook-pen" :size="32" /></div>
                         No entries yet. Write your first one above.
                     </div>
                 @endforelse
@@ -1021,7 +1022,7 @@
                 <div class="tips-grid">
                     @foreach ($tips as $tip)
                         <a class="tip-card" href="{{ $tip['url'] }}" target="_blank" rel="noopener noreferrer">
-                            <span class="tip-icon">{{ $tip['icon'] }}</span>
+                            <span class="tip-icon"><x-icon :name="$tip['icon']" :size="20" /></span>
                             <div class="tip-body">
                                 <strong>{{ $tip['title'] }}</strong>
                                 <p>{{ $tip['tip'] }}</p>
@@ -1085,22 +1086,22 @@
 
         <div class="expert-grid">
             <div class="expert-card">
-                <span class="expert-icon">🧠</span>
+                <span class="expert-icon"><x-icon name="brain" :size="24" /></span>
                 <h3>Child Psychologists</h3>
                 <p>Behavioural, emotional, and developmental support tailored to your child's needs.</p>
             </div>
             <div class="expert-card">
-                <span class="expert-icon">👶</span>
+                <span class="expert-icon"><x-icon name="baby" :size="24" /></span>
                 <h3>ECD Specialists</h3>
                 <p>Early childhood development guidance from trained professionals for ages 0–6.</p>
             </div>
             <div class="expert-card">
-                <span class="expert-icon">🖐️</span>
+                <span class="expert-icon"><x-icon name="hand-heart" :size="24" /></span>
                 <h3>Occupational Therapists</h3>
                 <p>Sensory, motor, and developmental interventions to support healthy growth.</p>
             </div>
             <div class="expert-card">
-                <span class="expert-icon">📋</span>
+                <span class="expert-icon"><x-icon name="clipboard-list" :size="24" /></span>
                 <h3>Care Plan Builders</h3>
                 <p>Personalized care roadmaps that evolve alongside your child's development.</p>
             </div>

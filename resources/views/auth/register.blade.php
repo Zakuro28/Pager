@@ -240,7 +240,7 @@
             background: var(--purple-bg);
         }
 
-        .type-card .t-icon { font-size: 1.1rem; margin-bottom: 0.2rem; display: block; }
+        .type-card .t-icon { color: var(--purple, #7c3aed); margin-bottom: 0.2rem; display: block; }
         .type-card .t-name { font-size: 0.8125rem; font-weight: 600; color: var(--ink); display: block; }
         .type-card .t-desc { font-size: 0.75rem; color: var(--sub); margin-top: 0.1rem; display: block; }
 
@@ -364,7 +364,7 @@
                 <label class="type-opt">
                     <input type="radio" name="parent_type" value="expecting" {{ old('parent_type') === 'expecting' ? 'checked' : '' }} required>
                     <span class="type-card">
-                        <span class="t-icon">🤰</span>
+                        <span class="t-icon"><x-icon name="heart" :size="20" /></span>
                         <span class="t-name">Expecting</span>
                         <span class="t-desc">Currently pregnant</span>
                     </span>
@@ -372,7 +372,7 @@
                 <label class="type-opt">
                     <input type="radio" name="parent_type" value="new_parent" {{ old('parent_type') === 'new_parent' ? 'checked' : '' }}>
                     <span class="type-card">
-                        <span class="t-icon">👶</span>
+                        <span class="t-icon"><x-icon name="baby" :size="20" /></span>
                         <span class="t-name">New Parent</span>
                         <span class="t-desc">Baby 0–12 months</span>
                     </span>
@@ -380,7 +380,7 @@
                 <label class="type-opt">
                     <input type="radio" name="parent_type" value="working_parent" {{ old('parent_type') === 'working_parent' ? 'checked' : '' }}>
                     <span class="type-card">
-                        <span class="t-icon">💼</span>
+                        <span class="t-icon"><x-icon name="briefcase" :size="20" /></span>
                         <span class="t-name">Working Parent</span>
                         <span class="t-desc">Balancing work &amp; family</span>
                     </span>
@@ -388,7 +388,7 @@
                 <label class="type-opt">
                     <input type="radio" name="parent_type" value="solo_parent" {{ old('parent_type') === 'solo_parent' ? 'checked' : '' }}>
                     <span class="type-card">
-                        <span class="t-icon">🌟</span>
+                        <span class="t-icon"><x-icon name="sparkles" :size="20" /></span>
                         <span class="t-name">Solo Parent</span>
                         <span class="t-desc">Doing it on your own</span>
                     </span>

@@ -647,7 +647,6 @@
             border-radius: 10px;
             display: grid;
             place-items: center;
-            font-size: 1.2rem;
             flex-shrink: 0;
         }
 
@@ -683,10 +682,10 @@
 @php
     $parentTypeCounts = collect($users ?? [])->groupBy('parent_type')->map->count();
     $typeLabels = [
-        'expecting'      => ['Expecting',     '🤰', '#fdf4ff', '#a855f7'],
-        'new_parent'     => ['New Parent',     '👶', '#f0fdf4', '#16a34a'],
-        'working_parent' => ['Working Parent', '💼', '#eff6ff', '#2563eb'],
-        'solo_parent'    => ['Solo Parent',    '⭐', '#fff7ed', '#ea580c'],
+        'expecting'      => ['Expecting',     'heart',      '#fdf4ff', '#a855f7'],
+        'new_parent'     => ['New Parent',     'baby',      '#f0fdf4', '#16a34a'],
+        'working_parent' => ['Working Parent', 'briefcase', '#eff6ff', '#2563eb'],
+        'solo_parent'    => ['Solo Parent',    'sparkles',  '#fff7ed', '#ea580c'],
     ];
 @endphp
 
@@ -792,9 +791,9 @@
 
     <!-- Parent type breakdown -->
     <div class="breakdown-grid" id="breakdownGrid">
-        @foreach ($typeLabels as $key => [$label, $emoji, $bg, $color])
+        @foreach ($typeLabels as $key => [$label, $icon, $bg, $color])
             <div class="card type-card" style="background:{{ $bg }};">
-                <div class="type-icon" style="background:white;">{{ $emoji }}</div>
+                <div class="type-icon" style="background:white;color:{{ $color }};"><x-icon :name="$icon" :size="20" /></div>
                 <div>
                     <div class="type-label">{{ $label }}</div>
                     <div class="type-count" data-to="{{ $parentTypeCounts[$key] ?? 0 }}">0</div>
@@ -913,7 +912,10 @@
                                 <td style="color:var(--sub);">{{ $user->email }}</td>
                                 <td>
                                     @php $tl = $typeLabels[$user->parent_type ?? ''] ?? ['—','','',''] @endphp
-                                    <span style="font-size:0.8rem;">{{ $tl[1] }} {{ $tl[0] }}</span>
+                                    <span style="font-size:0.8rem;display:inline-flex;align-items:center;gap:0.3rem;color:{{ $tl[3] }};">
+                                        @if($tl[1])<x-icon :name="$tl[1]" :size="14" />@endif
+                                        {{ $tl[0] }}
+                                    </span>
                                 </td>
                                 <td>
                                     <span style="font-size:0.8rem;font-weight:700;color:var(--purple);">
