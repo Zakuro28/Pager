@@ -8,9 +8,13 @@
 | 4 | Interactive prototype | ✅ Live app is the prototype | [04-interactive-prototype.md](04-interactive-prototype.md) |
 | 5 | Usability testing with caregivers | 📝 Plan ready; sessions need real participants | [05-usability-test-plan.md](05-usability-test-plan.md) |
 
-## Top findings
-1. There is no way to change parent type after sign-up, which breaks the expecting → new parent transition.
-2. Milestone ticks are saved only in the browser, so they are lost on a new device.
-3. Expecting parents are shown baby milestones.
-4. The "Book a Consultation" button is a dead link.
-5. The empty journal gives no prompt for what to write.
+## Top findings and status
+| # | Finding | Status |
+|---|---|---|
+| 1 | No way to change parent type after sign-up (breaks expecting → new parent) | ✅ Fixed: Profile page (W1) + "Has your baby arrived?" banner (W2) |
+| 2 | Milestone ticks saved only in the browser | ✅ Fixed: saved to the account; old browser ticks are moved over automatically |
+| 3 | Expecting parents shown baby milestones | ✅ Fixed: pregnancy week + trimester checklist (W3) |
+| 4 | "Book a Consultation" dead link | ✅ Fixed: expert waitlist with topics (W5) |
+| 5 | Empty journal gives no prompt | ✅ Fixed: writing prompts by parent type (W4) |
+| 6 | No email verification | ⏳ Open |
+| 7 | Hard-coded admin login (`admin` / `admin123`) | ⏳ Open, must fix before a public deploy |

@@ -22,11 +22,11 @@ For sessions with remote participants, deploy the existing Dockerfile to Render,
 | Register with parent type | ✅ Real | |
 | Log in / log out | ✅ Real | |
 | Journal: write, mood, tags, delete | ✅ Real | Saved to DB |
-| Milestones checklist | ⚠️ Partial | Saved in the **browser only** (localStorage) |
+| Milestones checklist | ✅ Real | Saved to DB; pregnancy checklist + week for expecting parents |
 | AI tips | ⚠️ Rule-based | Fixed tips per parent type, no AI yet |
 | Resources search/filter | ✅ Real | |
-| Expert Guidance | ❌ Stub | "Book a Consultation" goes nowhere (wireframe W5) |
-| Profile / change parent type | ❌ Missing | Wireframe W1 |
+| Expert Guidance | ⚠️ Waitlist | "Book a Consultation" opens a waitlist (consultations are Phase 2) |
+| Profile / change parent type | ✅ Real | `/profile`, plus the arrival banner after the due date |
 | Admin panel | ✅ Real | Login `admin` / `admin123` |
 
 ## Before running sessions

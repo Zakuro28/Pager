@@ -97,7 +97,31 @@
             font-size: 0.8125rem;
             font-weight: 500;
             color: var(--sub);
+            text-decoration: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
         }
+        .nav-user:hover { color: var(--purple); background: var(--purple-bg); }
+
+        /* ── Arrival banner ── */
+        .arrival-banner {
+            display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+            background: var(--purple-bg); border: 1px solid var(--purple-mid);
+            border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+        }
+        .arrival-icon { color: var(--purple); display: flex; flex-shrink: 0; }
+        .arrival-text { flex: 1; min-width: 200px; display: grid; gap: 0.15rem; font-size: 0.85rem; color: var(--sub); }
+        .arrival-text strong { font-size: 0.95rem; color: var(--ink); }
+        .arrival-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn-arrival, .btn-arrival-ghost {
+            font-family: inherit; font-size: 0.8125rem; font-weight: 600;
+            border-radius: 7px; padding: 0.5rem 0.9rem; cursor: pointer; transition: background 0.15s;
+        }
+        .btn-arrival { background: var(--purple); color: var(--white); border: none; }
+        .btn-arrival:hover { background: var(--purple-dim); }
+        .btn-arrival-ghost { background: var(--white); color: var(--sub); border: 1px solid var(--border); }
+        .btn-arrival-ghost:hover { color: var(--ink); }
 
         .btn-logout {
             font-size: 0.8125rem;
@@ -448,6 +472,19 @@
         }
 
         .empty-icon { color: var(--purple, #7c3aed); margin-bottom: 0.5rem; display: flex; justify-content: center; }
+        .empty-title { display: block; font-size: 0.95rem; color: var(--ink); margin-bottom: 0.2rem; }
+        .prompt-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 0.9rem; }
+        .prompt-chip {
+            font-family: inherit; font-size: 0.8rem; font-weight: 500; color: var(--purple);
+            background: var(--purple-bg); border: 1px solid var(--purple-mid);
+            border-radius: 999px; padding: 0.4rem 0.85rem; cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .prompt-chip:hover { background: var(--purple-mid); border-color: var(--purple-lite); }
+
+        .ms-week { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.6rem; }
+        .ms-hint { font-size: 0.8rem; color: var(--sub); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
+        .ms-hint a { color: var(--purple); font-weight: 600; }
 
         /* ── Milestones ── */
         .ms-progress {
@@ -766,6 +803,48 @@
         .cta-strip h3 { font-size: 0.9375rem; font-weight: 800; letter-spacing: -0.02em; }
         .cta-strip p  { font-size: 0.8125rem; color: var(--sub); margin-top: 0.25rem; }
 
+        .waitlist-done {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.8125rem; font-weight: 600; color: var(--ok);
+            background: var(--ok-bg); border: 1px solid var(--ok-bdr);
+            border-radius: 8px; padding: 0.55rem 1rem;
+        }
+
+        /* ── Waitlist modal ── */
+        .modal {
+            margin: auto; /* the global reset strips <dialog>'s default centering */
+            border: none; border-radius: 16px; padding: 0;
+            width: min(420px, calc(100vw - 2rem));
+            box-shadow: 0 24px 60px rgba(17, 24, 39, 0.2);
+            color: var(--ink);
+        }
+        .modal::backdrop { background: rgba(17, 24, 39, 0.4); backdrop-filter: blur(2px); }
+        .modal form { position: relative; padding: 1.75rem; display: grid; gap: 0.75rem; }
+        .modal h3 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; }
+        .modal p { font-size: 0.85rem; color: var(--sub); line-height: 1.55; }
+        .modal p strong { color: var(--ink); font-weight: 600; }
+        .modal-icon {
+            width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+            background: var(--pink-bg); color: var(--pink);
+        }
+        .modal-close {
+            position: absolute; top: 1rem; right: 1rem; display: flex;
+            background: none; border: none; color: var(--sub); cursor: pointer; padding: 0.25rem; border-radius: 6px;
+        }
+        .modal-close:hover { color: var(--ink); background: #f3f4f6; }
+        .topic-set { border: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .topic-set legend { font-size: 0.8125rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+        .topic input { position: absolute; opacity: 0; pointer-events: none; }
+        .topic span {
+            display: inline-block; font-size: 0.8rem; font-weight: 500; color: var(--sub);
+            border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.8rem;
+            cursor: pointer; transition: all 0.15s;
+        }
+        .topic input:checked + span { color: var(--purple); background: var(--purple-bg); border-color: var(--purple); }
+        .topic input:focus-visible + span { box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25); }
+        .modal-submit { justify-self: stretch; padding: 0.7rem 1rem; font-size: 0.875rem; margin-top: 0.25rem; }
+        .modal-submit:disabled { opacity: 0.7; cursor: default; }
+
         .btn-cta {
             padding: 0.6rem 1.25rem;
             background: var(--purple);
@@ -820,7 +899,7 @@
         </div>
 
         <div class="nav-right">
-            <span class="nav-user">{{ auth()->user()->name }}</span>
+            <a class="nav-user" href="{{ route('profile.edit') }}" title="Your profile">{{ auth()->user()->name }}</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button class="btn-logout" type="submit">Log out</button>
@@ -882,6 +961,33 @@
             </div>
         </div>
     </div>
+
+    @if (auth()->user()->shouldPromptArrival())
+        <div class="arrival-banner" role="region" aria-label="Baby arrival">
+            <span class="arrival-icon"><x-icon name="baby" :size="22" /></span>
+            <div class="arrival-text">
+                <strong>Has your baby arrived? 🎉</strong>
+                <span>Switch to New Parent to get newborn tips and milestones.</span>
+            </div>
+            <div class="arrival-actions">
+                <form method="POST" action="{{ route('arrival.confirm') }}">
+                    @csrf
+                    <button type="submit" class="btn-arrival">Yes, switch to New Parent</button>
+                </form>
+                <form method="POST" action="{{ route('arrival.snooze') }}">
+                    @csrf
+                    <button type="submit" class="btn-arrival-ghost">Not yet</button>
+                </form>
+            </div>
+        </div>
+    @endif
+
+    @if (session('arrival_confirmed'))
+        <div class="toast">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Congratulations! Your dashboard now shows newborn tips and milestones.
+        </div>
+    @endif
 
     @if (session('journal_saved'))
         <div class="toast">
@@ -959,9 +1065,22 @@
                         @endif
                     </div>
                 @empty
+                    @php
+                        $prompts = [
+                            'expecting'      => ['How are you feeling about the birth?', 'What are you most looking forward to?', 'Something your body did this week that surprised you'],
+                            'working_parent' => ['What made you smile today?', 'A moment with your child you want to remember', 'What was hardest about balancing today?'],
+                            'solo_parent'    => ['What made you smile today?', 'Something you handled well this week', 'Who helped you out recently?'],
+                        ][$parentType] ?? ['What made you smile today?', 'One thing your baby did for the first time', "What's worrying you right now?"];
+                    @endphp
                     <div class="empty">
                         <div class="empty-icon"><x-icon name="notebook-pen" :size="32" /></div>
-                        No entries yet. Write your first one above.
+                        <strong class="empty-title">Your first entry starts here.</strong>
+                        <span>Not sure what to write? Try one:</span>
+                        <div class="prompt-row">
+                            @foreach ($prompts as $prompt)
+                                <button type="button" class="prompt-chip">{{ $prompt }}</button>
+                            @endforeach
+                        </div>
                     </div>
                 @endforelse
             </div>
@@ -972,33 +1091,39 @@
 
             <!-- Milestones -->
             <div class="panel" id="milestones">
-                <div class="panel-title">Milestones</div>
+                @php $isExpecting = auth()->user()->isExpecting(); $week = auth()->user()->pregnancyWeek(); @endphp
+
+                <div class="panel-title">{{ $isExpecting ? 'Pregnancy' : 'Milestones' }}</div>
+
+                @if ($isExpecting)
+                    @if ($week)
+                        <div class="ms-week">Week {{ $week }} of 40</div>
+                    @else
+                        <p class="ms-hint">
+                            <a href="{{ route('profile.edit') }}">Add your due date</a> to see which week you're in.
+                        </p>
+                    @endif
+                @endif
 
                 <div class="ms-progress">
                     <div class="ms-progress-fill" id="msProgress"></div>
                 </div>
 
-                @php
-                    $milestones = [
-                        '0–2 months'  => ['Responds to sounds','Focuses on faces','Follows moving objects','First smile'],
-                        '2–4 months'  => ['Holds head steady','Pushes up (tummy time)','Coos and babbles','Laughs out loud'],
-                        '4–6 months'  => ['Rolls over','Sits with support','Reaches for objects','Recognizes familiar faces'],
-                        '6–9 months'  => ['Sits without support','Says "mama" or "dada"','Picks up small objects','Crawls or scoots'],
-                    ];
-                @endphp
-
-                @foreach ($milestones as $group => $items)
+                @foreach ($milestoneGroups as $group => $items)
                     <div class="ms-group">
                         <div class="ms-group-label">{{ $group }}</div>
                         @foreach ($items as $i => $item)
-                            @php $id = 'ms-' . Str::slug($group) . '-' . $i; @endphp
                             <div class="ms-item">
-                                <input type="checkbox" id="{{ $id }}" class="ms-check">
-                                <label for="{{ $id }}">{{ $item }}</label>
+                                <input type="checkbox" id="{{ $item['key'] }}" class="ms-check" data-key="{{ $item['key'] }}" {{ in_array($item['key'], $checkedKeys, true) ? 'checked' : '' }} @unless($isExpecting) data-legacy="ms-{{ Str::slug($group) }}-{{ $i }}" @endunless>
+                                <label for="{{ $item['key'] }}">{{ $item['label'] }}</label>
                             </div>
                         @endforeach
                     </div>
                 @endforeach
+
+                @if ($isExpecting)
+                    <p class="ms-hint">After your baby arrives you'll see baby milestones here.</p>
+                @endif
             </div>
 
             <!-- AI Tips -->
@@ -1100,9 +1225,38 @@
                 <h3>Talk to a Parenting Expert</h3>
                 <p>Book a one-on-one consultation with a certified child development specialist.</p>
             </div>
-            <a class="btn-cta" href="#">Book a Consultation</a>
+            @if ($onWaitlist || session('waitlist_joined'))
+                <span class="waitlist-done"><x-icon name="sparkles" :size="16" /> {{ "You're on the list — we'll email you" }}</span>
+            @else
+                <button type="button" class="btn-cta" id="openWaitlist">Book a Consultation</button>
+            @endif
         </div>
     </div>
+
+    <!-- Expert waitlist modal (consultations aren't live yet) -->
+    <dialog class="modal" id="waitlistModal" aria-labelledby="waitlistTitle">
+        <form method="POST" action="{{ route('waitlist.store') }}" id="waitlistForm">
+            @csrf
+            <button type="button" class="modal-close" id="closeWaitlist" aria-label="Close">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+            <span class="modal-icon"><x-icon name="stethoscope" :size="24" /></span>
+            <h3 id="waitlistTitle">Expert consultations are coming soon</h3>
+            <p>We'll email you at <strong>{{ auth()->user()->email }}</strong> as soon as you can book a licensed specialist.</p>
+
+            <fieldset class="topic-set">
+                <legend>What do you need help with?</legend>
+                @foreach (\App\Models\WaitlistSignup::TOPICS as $topic)
+                    <label class="topic">
+                        <input type="checkbox" name="topics[]" value="{{ $topic }}">
+                        <span>{{ ucfirst($topic) }}</span>
+                    </label>
+                @endforeach
+            </fieldset>
+
+            <button type="submit" class="btn-cta modal-submit">Notify me</button>
+        </form>
+    </dialog>
 
 </main>
 
@@ -1209,9 +1363,10 @@
         anime({ targets: btn, scale:[1,0.93,1], duration:200, easing:'easeOutQuad' });
     });
 
-    /* ── Milestones: persist + progress bar ── */
+    /* ── Milestones: saved to the account + progress bar ── */
     const checks = document.querySelectorAll('.ms-check');
     const progressBar = document.getElementById('msProgress');
+    const csrf = document.querySelector('input[name="_token"]').value;
 
     function updateProgress() {
         const total   = checks.length;
@@ -1219,17 +1374,84 @@
         progressBar.style.width = (total > 0 ? (checked / total) * 100 : 0) + '%';
     }
 
+    function saveMilestone(cb) {
+        return fetch('{{ route('milestones.toggle') }}', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': csrf },
+            body: JSON.stringify({ key: cb.dataset.key, checked: cb.checked }),
+        }).then(res => {
+            if (!res.ok) throw new Error('save failed');
+        }).catch(() => {
+            // Roll back so the checkbox never shows a state that wasn't saved.
+            cb.checked = !cb.checked;
+            updateProgress();
+            alert("Couldn't save that milestone. Please check your connection and try again.");
+        });
+    }
+
     checks.forEach(cb => {
-        const key = 'pager-ms-' + cb.id;
-        if (localStorage.getItem(key) === '1') cb.checked = true;
+        // One-time move of ticks saved by the old browser-only version.
+        const legacyKey = cb.dataset.legacy && 'pager-ms-' + cb.dataset.legacy;
+        if (legacyKey && localStorage.getItem(legacyKey) !== null) {
+            if (localStorage.getItem(legacyKey) === '1' && !cb.checked) {
+                cb.checked = true;
+                saveMilestone(cb);
+            }
+            localStorage.removeItem(legacyKey);
+        }
+
         cb.addEventListener('change', () => {
-            localStorage.setItem(key, cb.checked ? '1' : '0');
             anime({ targets: cb.parentElement, backgroundColor:['rgba(124,58,237,0.06)','transparent'], duration:400, easing:'easeOutQuad' });
             updateProgress();
+            saveMilestone(cb);
         });
     });
 
     updateProgress();
+
+    /* ── Empty-state writing prompts ── */
+    document.querySelectorAll('.prompt-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            journalText.value = chip.textContent.trim() + '\n\n';
+            journalText.dispatchEvent(new Event('input'));
+            journalText.focus();
+            journalText.setSelectionRange(journalText.value.length, journalText.value.length);
+        });
+    });
+
+    /* ── Expert waitlist modal ── */
+    const waitlistModal = document.getElementById('waitlistModal');
+    const openWaitlist  = document.getElementById('openWaitlist');
+    if (openWaitlist) {
+        openWaitlist.addEventListener('click', () => waitlistModal.showModal());
+        document.getElementById('closeWaitlist').addEventListener('click', () => waitlistModal.close());
+        waitlistModal.addEventListener('click', e => { if (e.target === waitlistModal) waitlistModal.close(); });
+
+        document.getElementById('waitlistForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const form = e.target;
+            const submit = form.querySelector('.modal-submit');
+            submit.disabled = true;
+            submit.textContent = 'Saving…';
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': csrf },
+                body: new FormData(form),
+            }).then(res => {
+                if (!res.ok) throw new Error('save failed');
+                waitlistModal.close();
+                const done = document.createElement('span');
+                done.className = 'waitlist-done';
+                done.textContent = "You're on the list — we'll email you";
+                openWaitlist.replaceWith(done);
+            }).catch(() => {
+                submit.disabled = false;
+                submit.textContent = 'Notify me';
+                alert("Couldn't join the list. Please try again.");
+            });
+        });
+    }
 
     setTimeout(() => {
         const total   = checks.length;
