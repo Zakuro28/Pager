@@ -6,7 +6,9 @@
 | 2 | Wireframe creation | ✅ Done (new screens W1–W5) | [03-wireframes.md](03-wireframes.md) |
 | 3 | UI design system (colors, fonts, icons) | ✅ Done; tokens and icons shared in code | [02-design-system.md](02-design-system.md) |
 | 4 | Interactive prototype | ✅ Live app is the prototype | [04-interactive-prototype.md](04-interactive-prototype.md) |
-| 5 | Usability testing with caregivers | 📝 Plan ready; sessions need real participants | [05-usability-test-plan.md](05-usability-test-plan.md) |
+| 5 | Usability testing with caregivers | 📝 Plan + kit ready; sessions need real participants | [05-usability-test-plan.md](05-usability-test-plan.md) · [usability-kit/](usability-kit/README.md) |
+
+Deploying: see [../deploy.md](../deploy.md).
 
 ## Top findings and status
 | # | Finding | Status |

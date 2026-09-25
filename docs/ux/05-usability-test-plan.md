@@ -3,11 +3,13 @@
 ## Goals
 1. Can a first-time caregiver sign up and write a first journal entry **without help**?
 2. Do caregivers understand that PAGER is personalised to their stage, and do they trust the tips?
-3. Confirm or rule out the pain points found in the [journey map](01-user-journey-map.md):
-   - Empty journal with no prompt
-   - Milestones confusing for expecting parents
-   - Dead "Book a Consultation" button
-   - No way to change parent type
+3. Check whether the fixes for the [journey map](01-user-journey-map.md) pain points actually work for real caregivers:
+   - Writing prompts in the empty journal (W4)
+   - Pregnancy view for expecting parents (W3)
+   - Expert waitlist instead of the dead "Book" button (W5)
+   - Changing your stage on the Profile page (W1)
+
+> **Materials:** everything needed to run sessions is in [`usability-kit/`](usability-kit/README.md).
 
 ## Participants
 **5 caregivers.** Five sessions typically surface most major usability issues.
@@ -44,11 +46,11 @@ Read each task aloud. Don't use the words on the buttons.
 |---|---|---|---|
 | T1 | "From this page, tell me what you think this app is for." | Explains journal + advice + experts | First impression, trust, the "Phase 1/2" wording |
 | T2 | "Create an account for yourself." | Account created, correct parent type | Hesitation at the parent type choice |
-| T3 | "Write down something that happened today, and how you felt." | Entry saved with a mood | **Empty-state confusion**, mood picker use |
-| T4 | "Find out what milestones your child should be reaching." | Opens Milestones and understands it | **Expecting parent (P3) reaction** |
+| T3 | "Write down something that happened today, and how you felt." | Entry saved with a mood | Do they use a **writing prompt**? Mood picker use |
+| T4 | "Find out what milestones your child should be reaching." | Opens Milestones and understands it | **Expecting parent (P3):** do they understand "Week 28 of 40" and the trimester list? |
 | T5 | "Find a tip that's useful for you right now. Would you trust it?" | Opens a tip and gives a reason | Trust, relevance |
-| T6 | "You're worried about your baby's sleep and want to talk to a professional. What would you do?" | Finds Experts → Book | **Reaction to the dead button** |
-| T7 | "Your situation changed, for example your baby was born or you went back to work. Update the app so it knows." | — (not possible today) | **Where do they look?** Record every place |
+| T6 | "You're worried about your baby's sleep and want to talk to a professional. What would you do?" | Finds Experts → Book → joins the waitlist | Is "coming soon + notify me" acceptable, or disappointing? |
+| T7 | "Your situation changed, for example your baby was born or you went back to work. Update the app so it knows." | Opens Profile (via their name) and changes stage | **Where do they look first?** Is clicking your name discoverable? |
 | T8 | "Delete the entry you wrote earlier." | Entry deleted | Is the trash icon found and understood? |
 
 ### Wrap-up (5 min)

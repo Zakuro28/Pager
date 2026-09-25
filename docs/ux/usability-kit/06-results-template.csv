@@ -1,0 +1,3 @@
+participant,stage,device,task,result,time_mm_ss,what_they_tried_first,issue_observed,quote,severity_1_to_4,sus_score,use_again_1_to_5
+P1,new_parent,phone,T3,difficulty,1:40,Scrolled down past the journal,Didn't notice the writing prompts at first,"What am I supposed to put here?",2,,
+P1,new_parent,phone,SUMMARY,,,,,,,72.5,4
