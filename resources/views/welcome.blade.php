@@ -72,7 +72,7 @@
         .btn-nav-ghost:hover { color: var(--ink); border-color: #d1d5db; background: #f9fafb; }
         .btn-nav-solid { font-size: 0.875rem; font-weight: 600; color: var(--white); background: var(--purple); padding: 0.4rem 0.875rem; border-radius: 6px; transition: background 0.15s, box-shadow 0.2s; }
         .btn-nav-solid:hover { background: var(--purple-dim); box-shadow: 0 0 16px rgba(124,58,237,0.35); }
-        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--ink); }
+        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--ink); min-width: 40px; min-height: 40px; align-items: center; justify-content: center; }
         .nav-mobile { display: none; border-top: 1px solid var(--border); padding: 1rem 0; }
         .nav-mobile.open { display: block; }
         .nav-mobile a { display: block; font-size: 0.9rem; font-weight: 500; color: var(--sub); padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
@@ -182,12 +182,11 @@
         /* ── How it works ── */
         .flow-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 0;
             position: relative;
         }
-        @media (max-width: 860px) { .flow-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 480px) { .flow-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 860px) { .flow-grid { grid-template-columns: 1fr; } }
 
         .flow-step {
             padding: 2rem 1.5rem 2rem 0;
@@ -340,7 +339,7 @@
         .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
         .footer-logo { font-size: 0.9rem; font-weight: 800; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
         .footer-logo img { height: 22px; width: auto; }
-        .footer-links { display: flex; list-style: none; gap: 1.5rem; }
+        .footer-links { display: flex; flex-wrap: wrap; list-style: none; gap: 0.75rem 1.5rem; }
         .footer-links a { font-size: 0.875rem; color: var(--sub); transition: color 0.15s; }
         .footer-links a:hover { color: var(--ink); }
         .footer-copy { font-size: 0.8125rem; color: #9ca3af; }
@@ -431,7 +430,7 @@
                 <span class="ticker-item">Resource Library</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Expert Guidance</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Secure &amp; Private</span><span class="ticker-sep">·</span>
-                <span class="ticker-item">Phase 1 Live Now</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Free to Start</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Free Core Features</span><span class="ticker-sep">·</span>
             </div>
         </div>
@@ -458,7 +457,7 @@
         <div class="features-grid">
             <!-- Journal -->
             <div class="feat-card anim-up" style="--accent:#7c3aed; --icon-bg:#f5f3ff;">
-                <span class="feat-badge">✓ Live in Phase 1</span>
+                <span class="feat-badge">✓ Available now</span>
                 <div class="feat-icon"><x-icon name="book-open" :size="22" /></div>
                 <div class="feat-num">01</div>
                 <h3>Parenting Journal</h3>
@@ -474,7 +473,7 @@
 
             <!-- AI Advice -->
             <div class="feat-card anim-up" style="--accent:#2563eb; --icon-bg:#eff6ff;">
-                <span class="feat-badge">✓ Rule-based live · <span class="feat-badge-soon" style="display:inline-flex;margin:0;border:none;padding:0;background:none;font-size:inherit;font-weight:inherit;">AI in Phase 2</span></span>
+                <span class="feat-badge">✓ Available now · <span class="feat-badge-soon" style="display:inline-flex;margin:0;border:none;padding:0;background:none;font-size:inherit;font-weight:inherit;">Smarter AI coming soon</span></span>
                 <div class="feat-icon" style="background:#eff6ff;"><x-icon name="bot" :size="22" /></div>
                 <div class="feat-num">02</div>
                 <h3>AI-Driven Parenting Advice</h3>
@@ -488,7 +487,7 @@
 
             <!-- Resources -->
             <div class="feat-card anim-up" style="--accent:#059669; --icon-bg:#ecfdf5;">
-                <span class="feat-badge">✓ Live in Phase 1</span>
+                <span class="feat-badge">✓ Available now</span>
                 <div class="feat-icon" style="background:#ecfdf5;"><x-icon name="library" :size="22" /></div>
                 <div class="feat-num">03</div>
                 <h3>Resource Library</h3>
@@ -502,22 +501,22 @@
 
             <!-- Milestones -->
             <div class="feat-card feat-wide anim-up" style="--accent:#d97706; --icon-bg:#fffbeb;">
-                <span class="feat-badge">✓ Live in Phase 1</span>
+                <span class="feat-badge">✓ Available now</span>
                 <div class="feat-icon" style="background:#fffbeb;"><x-icon name="target" :size="22" /></div>
                 <div class="feat-num">04</div>
                 <h3>Milestone Tracking</h3>
-                <p>Structured developmental checklists from 0–9 months, with a visual progress bar tracking how many milestones your child has reached. Alerts and reminders coming in Phase 2.</p>
+                <p>A pregnancy week tracker and to-do list, then developmental checklists from 0–9 months, with a visual progress bar tracking how many milestones your child has reached. Reminders are coming soon.</p>
                 <div class="feat-tags">
                     <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Developmental checklists</span>
                     <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Progress dashboard</span>
-                    <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Alerts in Phase 2</span>
-                    <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Localization in Phase 3</span>
+                    <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Reminders coming soon</span>
+                    <span class="feat-tag" style="background:#fffbeb;color:#d97706;">More languages planned</span>
                 </div>
             </div>
 
             <!-- Expert Guidance -->
             <div class="feat-card anim-up" style="--accent:#db2777; --icon-bg:#fdf2f8;">
-                <span class="feat-badge feat-badge-soon">Coming Phase 2–3</span>
+                <span class="feat-badge feat-badge-soon">Coming soon · join the waitlist</span>
                 <div class="feat-icon" style="background:#fdf2f8;"><x-icon name="stethoscope" :size="22" /></div>
                 <div class="feat-num">05</div>
                 <h3>Expert Parenting Guidance</h3>
@@ -535,19 +534,14 @@
 <!-- How It Works -->
 <section class="section" id="how-it-works">
     <div class="wrap">
-        <div class="eyebrow anim-up">User Flow</div>
-        <h2 class="section-h anim-up">How PAGER works for you.</h2>
-        <p class="section-p anim-up">A continuous loop of logging, learning, and support — designed to grow alongside your family.</p>
+        <div class="eyebrow anim-up">How It Works</div>
+        <h2 class="section-h anim-up">Three steps. Two minutes to start.</h2>
+        <p class="section-p anim-up">Tell us where you are, write things down, and get guidance that fits your stage.</p>
 
         <div class="flow-grid" id="flowGrid">
-            <div class="flow-step"><div class="flow-num">1</div><h4>Sign up &amp; profile</h4><p>Create your account and tell us your parent type so we can personalize everything.</p></div>
-            <div class="flow-step"><div class="flow-num">2</div><h4>Log your journey</h4><p>Write journal entries with moods and tags. Track milestones as your child hits each one.</p></div>
-            <div class="flow-step"><div class="flow-num">3</div><h4>AI analyzes &amp; guides</h4><p>The platform reads your data and delivers personalized advice and smart daily tips.</p></div>
-            <div class="flow-step"><div class="flow-num">4</div><h4>Expert support</h4><p>If you need more, connect with a licensed professional who can build a care plan for your family.</p></div>
-            <div class="flow-step"><div class="flow-num">5</div><h4>System adapts</h4><p>As your child grows and your entries evolve, PAGER continuously refines its recommendations.</p></div>
-            <div class="flow-step"><div class="flow-num">6</div><h4>Access resources</h4><p>Browse expert-backed articles and videos filtered to your child's age and current concerns.</p></div>
-            <div class="flow-step"><div class="flow-num">7</div><h4>Track progress</h4><p>Watch your milestone completion grow and celebrate your child's development visually.</p></div>
-            <div class="flow-step"><div class="flow-num">8</div><h4>Loop continues</h4><p>The more you use PAGER, the smarter and more personalized your experience becomes.</p></div>
+            <div class="flow-step"><div class="flow-num">1</div><h4>Tell us your stage</h4><p>Sign up and choose expecting, new, working, or solo parent. You can change it any time, for example when your baby arrives.</p></div>
+            <div class="flow-step"><div class="flow-num">2</div><h4>Write &amp; track</h4><p>Keep a private journal with moods and tags, and tick off milestones or pregnancy to-dos as they happen.</p></div>
+            <div class="flow-step"><div class="flow-num">3</div><h4>Get guidance that fits</h4><p>See tips and expert-backed resources for your stage, and join the list for 1:1 expert support when it opens.</p></div>
         </div>
     </div>
 </section>

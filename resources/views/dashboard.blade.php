@@ -148,7 +148,12 @@
 
         .btn-logout:hover { color: var(--ink); border-color: #d1d5db; background: #f9fafb; }
 
-        @media (max-width: 640px) { .nav-user, .nav-links { display: none; } }
+        /* Phones: hide section links, but keep the name — it's the only way into Profile. */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .nav-user { max-width: 9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            .nav-user, .btn-logout { min-height: 40px; display: inline-flex; align-items: center; }
+        }
 
         /* ── Main ── */
         .main {
@@ -890,6 +895,16 @@
             letter-spacing: 0.04em;
             text-transform: uppercase;
         }
+
+        /* Phones: bigger thumb targets for the journal controls (often used one-handed).
+           Kept last so it overrides the base rules above. */
+        @media (max-width: 640px) {
+            .mood-pill { min-height: 40px; padding: 0.45rem 0.9rem; }
+            .tag-pill { padding: 0.5rem 0.85rem; }
+            .btn-del { min-width: 36px; min-height: 36px; justify-content: center; align-items: center; }
+            .prompt-chip { min-height: 40px; }
+            .topic span { padding: 0.55rem 0.95rem; }
+        }
     </style>
 </head>
 <body>
@@ -1229,7 +1244,7 @@
     <div class="expert-section" id="experts">
         <div class="sec-hd">
             <h2>Expert Guidance</h2>
-            <span class="coming-badge">Phase 2 — Coming Soon</span>
+            <span class="coming-badge">Coming soon</span>
         </div>
 
         <div class="expert-grid">

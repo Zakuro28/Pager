@@ -656,6 +656,19 @@
             transition: opacity 0.2s, transform 0.2s;
             z-index: 10;
         }
+
+        /* ── Expert waitlist ── */
+        .waitlist-card { margin-bottom: 1.25rem; }
+        .waitlist-head { display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid var(--border); }
+        .waitlist-icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--pink-bg); color: var(--pink); flex-shrink: 0; }
+        .waitlist-empty { padding: 1.5rem 1.375rem; font-size: 0.85rem; color: var(--sub); }
+        .topic-bars { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem 1.5rem; padding: 1.125rem 1.375rem; border-bottom: 1px solid var(--border); }
+        .topic-bar { display: grid; grid-template-columns: 90px 1fr 2rem; align-items: center; gap: 0.6rem; font-size: 0.8rem; }
+        .topic-name { font-weight: 600; color: var(--ink); }
+        .topic-track { height: 8px; border-radius: 999px; background: var(--purple-bg); overflow: hidden; }
+        .topic-fill { display: block; height: 100%; border-radius: 999px; background: var(--purple); }
+        .topic-count { text-align: right; font-weight: 700; color: var(--purple); font-variant-numeric: tabular-nums; }
+        .topic-badge { background: var(--purple-bg); color: var(--purple); margin: 0.1rem 0.25rem 0.1rem 0; }
     </style>
 </head>
 <body>
@@ -924,6 +937,58 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <!-- Expert waitlist -->
+    <div class="card waitlist-card" id="waitlist">
+        <div class="card-pad waitlist-head">
+            <span class="waitlist-icon"><x-icon name="stethoscope" :size="20" /></span>
+            <div>
+                <div class="section-title">Expert waitlist</div>
+                <div class="section-sub" style="margin-bottom:0;">
+                    {{ $waitlist->count() }} {{ Str::plural('parent', $waitlist->count()) }} waiting for 1:1 consultations
+                </div>
+            </div>
+        </div>
+
+        @if ($waitlist->isEmpty())
+            <p class="waitlist-empty">No one has joined the waitlist yet. Parents join from "Book a Consultation" on their dashboard.</p>
+        @else
+            @php $maxTopic = max(1, $waitlistTopics->max()); @endphp
+            <div class="topic-bars">
+                @foreach ($waitlistTopics as $topic => $count)
+                    <div class="topic-bar" data-topic="{{ $topic }}" data-count="{{ $count }}">
+                        <span class="topic-name">{{ ucfirst($topic) }}</span>
+                        <span class="topic-track"><span class="topic-fill" style="width: {{ round($count / $maxTopic * 100) }}%"></span></span>
+                        <span class="topic-count">{{ $count }}</span>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Email</th><th>Needs help with</th><th>Joined</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($waitlist as $signup)
+                            <tr>
+                                <td style="font-weight:600;">{{ $signup->user?->name ?? '—' }}</td>
+                                <td style="color:var(--sub);">{{ $signup->user?->email ?? '—' }}</td>
+                                <td>
+                                    @forelse ($signup->topics ?? [] as $topic)
+                                        <span class="badge topic-badge">{{ ucfirst($topic) }}</span>
+                                    @empty
+                                        <span style="color:var(--sub);font-size:0.8rem;">Not specified</span>
+                                    @endforelse
+                                </td>
+                                <td style="color:var(--sub);font-size:0.8rem;white-space:nowrap;">{{ $signup->created_at->format('M j, Y') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
     </div>
 
     <!-- Recent members -->

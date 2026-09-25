@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JournalEntry;
 use App\Models\User;
+use App\Models\WaitlistSignup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,8 +67,15 @@ class AdminController extends Controller
         $newUserRate     = $totalUsers > 0 ? (int) round(($newUsers7d      / $totalUsers) * 100) : 0;
         $unverifiedRate  = $totalUsers > 0 ? (int) round(($unverifiedUsers / $totalUsers) * 100) : 0;
 
+        $waitlist = WaitlistSignup::with('user')->latest()->get();
+        $waitlistTopics = collect(WaitlistSignup::TOPICS)->mapWithKeys(fn (string $topic) => [
+            $topic => $waitlist->filter(fn ($signup) => in_array($topic, $signup->topics ?? [], true))->count(),
+        ]);
+
         return view('admin', [
             'users' => $users,
+            'waitlist' => $waitlist,
+            'waitlistTopics' => $waitlistTopics,
             'stats' => [
                 'total_users'      => $totalUsers,
                 'verified_users'   => $verifiedUsers,

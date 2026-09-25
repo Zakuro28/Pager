@@ -48,7 +48,7 @@
         }
         .field input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
         .field-hint { font-size: 0.775rem; color: var(--sub); margin-top: 0.3rem; }
-        .static-value { font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .static-value { font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; overflow-wrap: anywhere; }
         .pill { font-size: 0.7rem; font-weight: 700; border-radius: 999px; padding: 0.15rem 0.55rem; }
         .pill-ok { background: var(--ok-bg); color: var(--ok); }
         .pill-warn { background: var(--amber-bg); color: var(--amber); }
