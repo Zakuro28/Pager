@@ -254,14 +254,14 @@
         @csrf
 
         <div class="form-field">
-            <label for="username">Username</label>
+            <label for="email">Admin email</label>
             <div class="input-wrap">
                 <span class="input-icon">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </span>
-                <input type="text" id="username" name="username"
-                    placeholder="Enter username"
-                    value="{{ old('username') }}"
+                <input type="email" id="email" name="email"
+                    placeholder="you@example.com"
+                    value="{{ old('email') }}"
                     autocomplete="username"
                     required autofocus>
             </div>

@@ -6,22 +6,16 @@ use App\Models\JournalEntry;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
+/** Admin panel. Access is limited to users with is_admin = true (see EnsureUserIsAdmin). */
 class AdminController extends Controller
 {
-    private function requireAdminAuth(): ?RedirectResponse
+    public function showLogin(Request $request): View|RedirectResponse
     {
-        if (!session('admin_logged_in')) {
-            return redirect()->route('admin.login');
-        }
-        return null;
-    }
-
-    public function showLogin(): View|RedirectResponse
-    {
-        if (session('admin_logged_in')) {
+        if ($request->user()?->is_admin) {
             return redirect()->route('admin.index');
         }
         return view('admin.login');
@@ -29,29 +23,36 @@ class AdminController extends Controller
 
     public function login(Request $request): RedirectResponse
     {
-        $request->validate([
-            'username' => ['required'],
+        $credentials = $request->validate([
+            'email'    => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if ($request->username === 'admin' && $request->password === 'admin123') {
-            $request->session()->put('admin_logged_in', true);
-            return redirect()->route('admin.index');
+        // Only admins may sign in here; everyone else gets the same generic error.
+        if (Auth::attempt($credentials + ['is_admin' => true])) {
+            $request->session()->regenerate();
+
+            // Only return to a remembered page if it was an admin page, not e.g. /dashboard.
+            $intended = $request->session()->pull('url.intended');
+            $adminUrl = route('admin.index');
+
+            return redirect()->to($intended && str_starts_with($intended, $adminUrl) ? $intended : $adminUrl);
         }
 
-        return back()->withErrors(['username' => 'Invalid username or password.'])->onlyInput('username');
+        return back()->withErrors(['email' => 'Invalid email or password.'])->onlyInput('email');
     }
 
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->forget('admin_logged_in');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route('admin.login');
     }
 
-    public function index(): View|RedirectResponse
+    public function index(): View
     {
-        if ($redirect = $this->requireAdminAuth()) return $redirect;
-
         $users = User::query()->withCount('journalEntries')->latest()->get();
 
         $totalUsers      = $users->count();
@@ -81,10 +82,8 @@ class AdminController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse|View
+    public function store(Request $request): RedirectResponse
     {
-        if ($redirect = $this->requireAdminAuth()) return $redirect;
-
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -102,9 +101,11 @@ class AdminController extends Controller
             ->with('status', 'Account added successfully.');
     }
 
-    public function destroy(User $user): RedirectResponse
+    public function destroy(Request $request, User $user): RedirectResponse
     {
-        if ($redirect = $this->requireAdminAuth()) return $redirect;
+        if ($user->is($request->user())) {
+            return back()->withErrors(['delete' => "You can't remove your own admin account from here."]);
+        }
 
         $user->delete();
 

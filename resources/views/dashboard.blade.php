@@ -104,6 +104,16 @@
         }
         .nav-user:hover { color: var(--purple); background: var(--purple-bg); }
 
+        /* ── Verify-email banner ── */
+        .verify-banner {
+            display: flex; align-items: center; gap: 0.875rem; flex-wrap: wrap;
+            background: var(--amber-bg); border: 1px solid #fde68a;
+            border-radius: 12px; padding: 0.875rem 1.125rem; margin-bottom: 1.25rem;
+        }
+        .verify-icon { color: var(--amber); display: flex; flex-shrink: 0; }
+        .verify-text { flex: 1; min-width: 200px; display: grid; gap: 0.1rem; font-size: 0.8125rem; color: var(--sub); }
+        .verify-text strong { font-size: 0.9rem; color: var(--ink); }
+
         /* ── Arrival banner ── */
         .arrival-banner {
             display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
@@ -961,6 +971,31 @@
             </div>
         </div>
     </div>
+
+    @if (request()->boolean('verified'))
+        <div class="toast">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Your email is verified. Thanks!
+        </div>
+    @elseif (! auth()->user()->hasVerifiedEmail())
+        <div class="verify-banner" role="region" aria-label="Email verification">
+            <span class="verify-icon"><x-icon name="lock" :size="18" /></span>
+            <div class="verify-text">
+                <strong>Please verify your email</strong>
+                <span>
+                    @if (session('verification_sent'))
+                        A new link is on its way to {{ auth()->user()->email }}.
+                    @else
+                        We sent a link to {{ auth()->user()->email }}. It keeps your journal safe and lets you reset your password.
+                    @endif
+                </span>
+            </div>
+            <form method="POST" action="{{ route('verification.send') }}">
+                @csrf
+                <button type="submit" class="btn-arrival-ghost">Resend email</button>
+            </form>
+        </div>
+    @endif
 
     @if (auth()->user()->shouldPromptArrival())
         <div class="arrival-banner" role="region" aria-label="Baby arrival">

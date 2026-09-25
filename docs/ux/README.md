@@ -16,5 +16,6 @@
 | 3 | Expecting parents shown baby milestones | ✅ Fixed: pregnancy week + trimester checklist (W3) |
 | 4 | "Book a Consultation" dead link | ✅ Fixed: expert waitlist with topics (W5) |
 | 5 | Empty journal gives no prompt | ✅ Fixed: writing prompts by parent type (W4) |
-| 6 | No email verification | ⏳ Open |
-| 7 | Hard-coded admin login (`admin` / `admin123`) | ⏳ Open, must fix before a public deploy |
+| 6 | No email verification | ✅ Fixed: verification email on sign-up + dashboard reminder (not blocking) |
+| 7 | Hard-coded admin login | ✅ Fixed: admins are real accounts (`is_admin`); create with `php artisan pager:create-admin` |
+| 8 | No "forgot password" | ✅ Fixed: reset-by-email flow on the login page |
