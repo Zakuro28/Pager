@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    @include('partials.favicon')
     @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,8 +64,6 @@
             flex-shrink: 0;
         }
 
-        .nav-brand img { height: 28px; width: auto; transition: transform 0.3s; }
-        .nav-brand:hover img { transform: rotate(-8deg) scale(1.1); }
 
         .nav-links {
             display: flex;
@@ -199,19 +198,39 @@
             margin-top: 0.5rem;
         }
 
-        /* ── Toast ── */
+        /* ── Toasts (bottom-right, auto-hide) ── */
+        .toast-stack {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+            max-width: calc(100vw - 2.5rem);
+            pointer-events: none;
+        }
+
         .toast {
-            background: var(--ok-bg);
-            border: 1px solid #a7f3d0;
-            border-radius: 8px;
+            pointer-events: auto;
+            background: var(--ink);
+            color: var(--white);
+            border-radius: 10px;
             padding: 0.7rem 1rem;
             font-size: 0.8125rem;
             font-weight: 600;
-            color: var(--ok);
-            margin-bottom: 1.25rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.55rem;
+            box-shadow: 0 12px 32px rgba(17,24,39,0.2);
+        }
+
+        .toast svg { color: #6ee7b7; flex-shrink: 0; }
+        .toast.is-error svg { color: #fca5a5; }
+
+        @media (max-width: 640px) {
+            .toast-stack { left: 1rem; right: 1rem; bottom: 1rem; max-width: none; align-items: stretch; }
         }
 
         /* ── Grid layout ── */
@@ -393,26 +412,133 @@
             box-shadow: 0 6px 18px rgba(124,58,237,0.3);
         }
 
-        /* ── Entries ── */
-        .entries { margin-top: 1.375rem; }
+        /* ── Journal search ── */
+        .jfilter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.375rem;
+        }
+
+        .jfilter-search {
+            flex: 1 1 200px;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0 0.7rem;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            color: #9ca3af;
+            transition: border-color 0.18s, box-shadow 0.18s, color 0.18s;
+        }
+
+        .jfilter-search:focus-within {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+            color: var(--purple);
+        }
+
+        .jfilter-search input {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 0.5rem 0;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            color: var(--ink);
+        }
+
+        .jfilter select {
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 0.45rem 0.6rem;
+            background: var(--white);
+            font-family: inherit;
+            font-size: 0.8rem;
+            color: var(--ink);
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+
+        .jfilter select:hover, .jfilter select:focus { border-color: #c4b5fd; outline: none; }
+
+        /* ── Entries timeline ── */
+        .entries { margin-top: 1.125rem; transition: opacity 0.15s; }
+        .entries.is-loading { opacity: 0.45; }
 
         .entries-hd {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--sub);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .clear-filters { color: var(--purple); text-transform: none; letter-spacing: 0; font-weight: 600; }
+        .clear-filters:hover { text-decoration: underline; }
+
+        .tl-month-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0.9rem 0 0.2rem;
+        }
+
+        .tl-items {
+            position: relative;
+            margin-left: 0.3rem;
+            padding-left: 1.25rem;
+            border-left: 2px solid var(--purple-mid);
         }
 
         .entry {
-            padding: 0.9rem 0;
-            border-top: 1px solid var(--border);
-            transition: background 0.15s;
+            position: relative;
+            padding: 0.75rem 0;
             border-radius: 6px;
         }
 
-        .entry:first-child { border-top: none; }
+        .tl-dot {
+            position: absolute;
+            left: calc(-1.25rem - 6px);
+            top: 1rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--purple-lite);
+            transition: transform 0.2s;
+        }
+
+        .entry:hover .tl-dot { transform: scale(1.35); }
+        .entry[data-mood="happy"] .tl-dot       { border-color: var(--green); background: var(--green-bg); }
+        .entry[data-mood="okay"] .tl-dot        { border-color: var(--blue);  background: var(--blue-bg); }
+        .entry[data-mood="tired"] .tl-dot       { border-color: var(--amber); background: var(--amber-bg); }
+        .entry[data-mood="overwhelmed"] .tl-dot { border-color: var(--pink);  background: var(--pink-bg); }
+
+        .entry mark { background: #fef08a; color: inherit; border-radius: 3px; padding: 0 1px; }
+
+        .btn-more {
+            display: block;
+            margin-top: 0.75rem;
+            padding: 0.55rem;
+            text-align: center;
+            border: 1.5px dashed var(--border);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--sub);
+            text-decoration: none;
+            transition: border-color 0.15s, color 0.15s, background 0.15s;
+        }
+
+        .btn-more:hover { border-color: #c4b5fd; color: var(--purple); background: var(--purple-bg); }
 
         .entry-meta {
             display: flex;
@@ -461,9 +587,16 @@
             font-size: 0.65rem;
             font-weight: 700;
             color: var(--sub);
-            text-transform: capitalize;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
         }
+
+        .entry-tag:hover { background: var(--purple-mid); color: var(--purple); }
+
+        .btn-del-text { display: none; }
+        .btn-del.is-confirming { color: var(--danger); background: var(--danger-bg); }
+        .btn-del.is-confirming .btn-del-text { display: inline; margin-left: 0.3rem; font-size: 0.72rem; font-weight: 700; }
 
         .btn-del {
             background: none;
@@ -501,12 +634,84 @@
         .ms-hint { font-size: 0.8rem; color: var(--sub); margin: 0.25rem 0 0.75rem; line-height: 1.5; }
         .ms-hint a { color: var(--purple); font-weight: 600; }
 
+        /* ── Milestone reminder ── */
+        .reminder {
+            border: 1px solid var(--purple-mid);
+            background: linear-gradient(135deg, var(--purple-bg), var(--white));
+            border-radius: 10px;
+            padding: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .reminder-hd { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.65rem; }
+        .reminder-hd strong { display: block; font-size: 0.8125rem; color: var(--ink); }
+        .reminder-hd div span { font-size: 0.72rem; color: var(--sub); }
+
+        .reminder-icon {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            background: var(--purple);
+            color: var(--white);
+        }
+
+        .reminder-icon svg { transform-origin: top center; animation: bell-ring 2.4s ease-in-out 1.2s 2; }
+        @keyframes bell-ring {
+            0%, 50%, 100% { transform: rotate(0); }
+            10%, 30%      { transform: rotate(14deg); }
+            20%, 40%      { transform: rotate(-14deg); }
+        }
+
+        .reminder-list { list-style: none; display: grid; gap: 0.3rem; }
+
+        .reminder-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding: 0.35rem 0.35rem 0.35rem 0.65rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.78rem;
+            color: var(--ink);
+        }
+
+        .reminder-text { display: inline-flex; align-items: center; gap: 0.35rem; line-height: 1.35; }
+        .reminder-list li.is-overdue .reminder-text { color: var(--amber); }
+
+        .reminder-done {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border: 1.5px solid var(--border);
+            border-radius: 7px;
+            background: var(--white);
+            color: var(--sub);
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.12s;
+        }
+
+        .reminder-done:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-bg); }
+        .reminder-done:active { transform: scale(0.88); }
+
+        .reminder-clear { display: flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; font-weight: 600; color: var(--ok); }
+        .reminder-clear[hidden] { display: none; }
+
         /* ── Milestones ── */
+        .ms-progress-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.125rem; }
+        .ms-progress-label { font-size: 0.72rem; font-weight: 700; color: var(--sub); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
         .ms-progress {
+            flex: 1;
             background: var(--border);
             border-radius: 999px;
             height: 5px;
-            margin-bottom: 1.125rem;
             overflow: hidden;
         }
 
@@ -527,7 +732,22 @@
             letter-spacing: 0.09em;
             color: var(--purple);
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
+
+        .ms-now {
+            font-size: 0.6rem;
+            letter-spacing: 0.06em;
+            color: var(--white);
+            background: var(--purple);
+            border-radius: 999px;
+            padding: 0.05rem 0.45rem;
+        }
+
+        .ms-group-done { margin-left: auto; display: inline-flex; align-items: center; gap: 0.2rem; font-size: 0.62rem; color: var(--ok); }
+        .ms-group-done[hidden] { display: none; }
 
         .ms-item {
             display: flex;
@@ -541,14 +761,42 @@
 
         .ms-item:last-child { border-bottom: none; }
 
+        /* Custom checkbox with a tick that pops in */
         .ms-item input[type="checkbox"] {
-            width: 14px;
-            height: 14px;
-            accent-color: var(--purple);
-            margin-top: 2px;
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            margin-top: 1px;
             flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border: 1.5px solid #d1d5db;
+            border-radius: 5px;
+            background: var(--white);
             cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, transform 0.12s;
         }
+
+        .ms-item input[type="checkbox"]::after {
+            content: '';
+            width: 4px;
+            height: 8px;
+            margin-top: -2px;
+            border: solid var(--white);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .ms-item input[type="checkbox"]:hover { border-color: var(--purple); }
+        .ms-item input[type="checkbox"]:checked { background: var(--purple); border-color: var(--purple); }
+        .ms-item input[type="checkbox"]:checked::after { transform: rotate(45deg) scale(1); }
+        .ms-item input[type="checkbox"]:active { transform: scale(0.85); }
+        .ms-item input[type="checkbox"]:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+
+        /* Confetti pieces for a finished milestone group */
+        .burst-bit { position: fixed; width: 7px; height: 7px; border-radius: 2px; pointer-events: none; z-index: 300; }
 
         .ms-item label { cursor: pointer; line-height: 1.45; color: var(--ink); transition: color 0.15s; }
         .ms-item input:checked + label { text-decoration: line-through; color: var(--sub); }
@@ -904,6 +1152,19 @@
             .btn-del { min-width: 36px; min-height: 36px; justify-content: center; align-items: center; }
             .prompt-chip { min-height: 40px; }
             .topic span { padding: 0.55rem 0.95rem; }
+            .jfilter select { flex: 1 1 40%; min-height: 40px; }
+            .jfilter-search input { min-height: 38px; }
+            .ms-item input[type="checkbox"] { width: 20px; height: 20px; }
+            .reminder-done { width: 36px; height: 36px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 </head>
@@ -913,12 +1174,12 @@
 
 <nav class="topnav" id="topNav">
     <div class="nav-inner">
-        <a class="nav-brand" href="/"><img src="{{ asset('logo.png') }}" alt="Pager"> PAGER</a>
+        <a class="nav-brand" href="/" aria-label="PAGER home"><x-logo :size="32" /></a>
 
         <div class="nav-links">
             <a class="nav-link active" href="#journal">Journal</a>
             <a class="nav-link" href="#milestones">Milestones</a>
-            <a class="nav-link" href="#ai-tips">AI Tips</a>
+            <a class="nav-link" href="#ai-tips">Tips</a>
             <a class="nav-link" href="#resources">Resources</a>
             <a class="nav-link" href="#experts">Experts</a>
         </div>
@@ -987,12 +1248,22 @@
         </div>
     </div>
 
-    @if (request()->boolean('verified'))
-        <div class="toast">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Your email is verified. Thanks!
-        </div>
-    @elseif (! auth()->user()->hasVerifiedEmail())
+    {{-- Toasts: server messages render here; JS adds more with showToast() and hides them after a few seconds. --}}
+    @php
+        $flash = array_filter([
+            request()->boolean('verified')   ? 'Your email is verified. Thanks!' : null,
+            session('arrival_confirmed')     ? 'Congratulations! Your dashboard now shows newborn tips and milestones.' : null,
+            session('journal_saved')         ? 'Entry saved to your journal.' : null,
+            session('journal_deleted')       ? 'Entry deleted.' : null,
+        ]);
+    @endphp
+    <div class="toast-stack" id="toasts" role="status" aria-live="polite">
+        @foreach ($flash as $message)
+            <div class="toast"><x-icon name="check" :size="15" :stroke-width="2.5" /> <span>{{ $message }}</span></div>
+        @endforeach
+    </div>
+
+    @if (! auth()->user()->hasVerifiedEmail())
         <div class="verify-banner" role="region" aria-label="Email verification">
             <span class="verify-icon"><x-icon name="lock" :size="18" /></span>
             <div class="verify-text">
@@ -1029,20 +1300,6 @@
                     <button type="submit" class="btn-arrival-ghost">Not yet</button>
                 </form>
             </div>
-        </div>
-    @endif
-
-    @if (session('arrival_confirmed'))
-        <div class="toast">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Congratulations! Your dashboard now shows newborn tips and milestones.
-        </div>
-    @endif
-
-    @if (session('journal_saved'))
-        <div class="toast">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Entry saved successfully.
         </div>
     @endif
 
@@ -1086,57 +1343,35 @@
                 </div>
             </form>
 
-            <div class="entries">
-                @if ($entries->count())
-                    <div class="entries-hd">Recent entries</div>
-                @endif
+            @if ($hasEntries)
+                {{-- Works as a normal GET form without JS; with JS results swap in live (see "Journal search"). --}}
+                <form class="jfilter" id="journalFilter" method="GET" action="{{ route('dashboard') }}#journal" role="search" data-endpoint="{{ route('journal.index') }}">
+                    <label class="jfilter-search">
+                        <x-icon name="search" :size="15" />
+                        <input type="search" name="q" value="{{ $filters['q'] }}" placeholder="Search your journal…" aria-label="Search your journal" maxlength="100" autocomplete="off">
+                    </label>
+                    <select name="mood" aria-label="Filter by mood">
+                        <option value="">All moods</option>
+                        @foreach (\App\Models\JournalEntry::MOODS as $mood)
+                            <option value="{{ $mood }}" @selected($filters['mood'] === $mood)>{{ ucfirst($mood) }}</option>
+                        @endforeach
+                    </select>
+                    <select name="tag" aria-label="Filter by tag">
+                        <option value="">All tags</option>
+                        @foreach (\App\Models\JournalEntry::TAGS as $tag)
+                            <option value="{{ $tag }}" @selected($filters['tag'] === $tag)>{{ ucfirst($tag) }}</option>
+                        @endforeach
+                    </select>
+                    <noscript><button type="submit" class="btn-save">Search</button></noscript>
+                </form>
+            @endif
 
-                @forelse ($entries as $entry)
-                    <div class="entry" style="opacity:0;" data-entry>
-                        <div class="entry-meta">
-                            <div class="entry-info">
-                                <span>{{ $entry->created_at->format('M j, Y') }}</span>
-                                @if ($entry->mood)
-                                    <span class="entry-mood">{{ $entry->mood }}</span>
-                                @endif
-                            </div>
-                            <form method="POST" action="{{ route('journal.destroy', $entry) }}">
-                                @csrf @method('DELETE')
-                                <button class="btn-del" type="submit" title="Delete"><x-icon name="trash-2" :size="14" /></button>
-                            </form>
-                        </div>
-                        <div class="entry-text">{{ $entry->content }}</div>
-                        @if ($entry->tags && count($entry->tags))
-                            <div class="entry-tags">
-                                @foreach ($entry->tags as $t)
-                                    <span class="entry-tag">{{ ucfirst($t) }}</span>
-                                @endforeach
-                            </div>
-                        @endif
-                    </div>
-                @empty
-                    @php
-                        $prompts = [
-                            'expecting'      => ['How are you feeling about the birth?', 'What are you most looking forward to?', 'Something your body did this week that surprised you'],
-                            'working_parent' => ['What made you smile today?', 'A moment with your child you want to remember', 'What was hardest about balancing today?'],
-                            'solo_parent'    => ['What made you smile today?', 'Something you handled well this week', 'Who helped you out recently?'],
-                        ][$parentType] ?? ['What made you smile today?', 'One thing your baby did for the first time', "What's worrying you right now?"];
-                    @endphp
-                    <div class="empty">
-                        <div class="empty-icon"><x-icon name="notebook-pen" :size="32" /></div>
-                        <strong class="empty-title">Your first entry starts here.</strong>
-                        <span>Not sure what to write? Try one:</span>
-                        <div class="prompt-row">
-                            @foreach ($prompts as $prompt)
-                                <button type="button" class="prompt-chip">{{ $prompt }}</button>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforelse
+            <div class="entries" id="journalEntries">
+                @include('journal.entries')
             </div>
         </div>
 
-        <!-- Right column: Milestones + AI Tips -->
+        <!-- Right column: Milestones + stage tips -->
         <div class="right-col">
 
             <!-- Milestones -->
@@ -1155,13 +1390,54 @@
                     @endif
                 @endif
 
-                <div class="ms-progress">
-                    <div class="ms-progress-fill" id="msProgress"></div>
+                @if ($reminders)
+                    <div class="reminder" id="reminder" data-group="{{ $reminders['group'] }}">
+                        <div class="reminder-hd">
+                            <span class="reminder-icon"><x-icon name="bell" :size="15" /></span>
+                            <div>
+                                <strong>Coming up</strong>
+                                <span>{{ $reminders['stage'] }}</span>
+                            </div>
+                        </div>
+                        <ul class="reminder-list">
+                            @foreach ($reminders['overdue'] as $item)
+                                <li data-for="{{ $item['key'] }}" class="is-overdue">
+                                    <span class="reminder-text"><x-icon name="circle-alert" :size="13" /> {{ $item['label'] }}</span>
+                                    <button type="button" class="reminder-done" data-tick="{{ $item['key'] }}" aria-label="Mark {{ $item['label'] }} as done"><x-icon name="check" :size="13" :stroke-width="2.5" /></button>
+                                </li>
+                            @endforeach
+                            @foreach ($reminders['due'] as $item)
+                                <li data-for="{{ $item['key'] }}">
+                                    <span class="reminder-text">{{ $item['label'] }}</span>
+                                    <button type="button" class="reminder-done" data-tick="{{ $item['key'] }}" aria-label="Mark {{ $item['label'] }} as done"><x-icon name="check" :size="13" :stroke-width="2.5" /></button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <p class="reminder-clear" @if (count($reminders['due']) + count($reminders['overdue'])) hidden @endif>
+                            <x-icon name="sparkles" :size="14" /> All caught up for {{ $reminders['group'] }}.
+                            @if ($reminders['next']) Next: {{ $reminders['next'] }}. @endif
+                        </p>
+                    </div>
+                @elseif (! $isExpecting && ! auth()->user()->child_date)
+                    <p class="ms-hint">
+                        <a href="{{ route('profile.edit') }}">Add your baby's birthday</a> to get reminders for their age.
+                    </p>
+                @endif
+
+                <div class="ms-progress-row">
+                    <div class="ms-progress" role="progressbar" aria-label="Milestones done" aria-valuemin="0" aria-valuemax="100">
+                        <div class="ms-progress-fill" id="msProgress"></div>
+                    </div>
+                    <span class="ms-progress-label" id="msProgressLabel"></span>
                 </div>
 
                 @foreach ($milestoneGroups as $group => $items)
-                    <div class="ms-group">
-                        <div class="ms-group-label">{{ $group }}</div>
+                    <div class="ms-group" data-group="{{ $group }}">
+                        <div class="ms-group-label">
+                            {{ $group }}
+                            @if ($reminders && $reminders['group'] === $group)<span class="ms-now">Now</span>@endif
+                            <span class="ms-group-done" hidden><x-icon name="check" :size="11" :stroke-width="3" /> Done</span>
+                        </div>
                         @foreach ($items as $i => $item)
                             <div class="ms-item">
                                 <input type="checkbox" id="{{ $item['key'] }}" class="ms-check" data-key="{{ $item['key'] }}" {{ in_array($item['key'], $checkedKeys, true) ? 'checked' : '' }} @unless($isExpecting) data-legacy="ms-{{ Str::slug($group) }}-{{ $i }}" @endunless>
@@ -1176,10 +1452,10 @@
                 @endif
             </div>
 
-            <!-- AI Tips -->
+            <!-- Stage tips -->
             <div class="panel" id="ai-tips">
                 <div class="panel-title">
-                    AI Tips
+                    Tips for your stage
                     <span class="tag">{{ ucfirst(str_replace('_', ' ', $parentType)) }}</span>
                 </div>
                 <div class="tips-grid">
@@ -1312,6 +1588,11 @@
 
 <script>
 (() => {
+    /* ── Respect "reduce motion": run anime.js animations near-instantly ── */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) anime.speed = 20;
+
+    const csrf = document.querySelector('input[name="_token"]').value;
+
     /* ── Scroll progress ── */
     const prog = document.getElementById('scroll-progress');
     window.addEventListener('scroll', () => {
@@ -1325,6 +1606,32 @@
         nav.style.boxShadow = window.scrollY > 4 ? '0 1px 16px rgba(0,0,0,0.06)' : 'none';
     }, { passive: true });
 
+    /* ── Toasts ── */
+    const toastStack = document.getElementById('toasts');
+    const tickSvg  = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+    const alertSvg = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>';
+
+    function hideToast(toast, delay) {
+        setTimeout(() => {
+            anime({ targets: toast, opacity: 0, translateY: 12, duration: 300, easing: 'easeInQuad', complete: () => toast.remove() });
+        }, delay);
+    }
+
+    function showToast(message, isError = false) {
+        const toast = document.createElement('div');
+        toast.className = 'toast' + (isError ? ' is-error' : '');
+        toast.innerHTML = (isError ? alertSvg : tickSvg) + '<span></span>';
+        toast.querySelector('span').textContent = message;
+        toastStack.appendChild(toast);
+        anime({ targets: toast, opacity: [0, 1], translateY: [16, 0], scale: [0.96, 1], duration: 450, easing: 'easeOutExpo' });
+        hideToast(toast, isError ? 6000 : 3500);
+    }
+
+    toastStack.querySelectorAll('.toast').forEach((toast, i) => {
+        anime({ targets: toast, opacity: [0, 1], translateY: [16, 0], duration: 450, delay: 400 + i * 100, easing: 'easeOutExpo' });
+        hideToast(toast, 4500);
+    });
+
     /* ── Page entrance ── */
     const tl = anime.timeline({ easing: 'easeOutExpo' });
     tl.add({ targets: '#welcome',    opacity:[0,1], translateY:[20,0], duration:700 })
@@ -1332,16 +1639,11 @@
       .add({ targets: '#milestones', opacity:[0,1], translateY:[24,0], duration:650 }, '-=500')
       .add({ targets: '#ai-tips',    opacity:[0,1], translateY:[24,0], duration:650 }, '-=400');
 
-    /* ── Journal entry stagger ── */
-    const entries = document.querySelectorAll('[data-entry]');
-    anime({
-        targets: entries,
-        opacity: [0, 1],
-        translateY: [14, 0],
-        duration: 500,
-        delay: anime.stagger(70, { start: 600 }),
-        easing: 'easeOutExpo'
-    });
+    /* ── Journal entries: fade/slide in ── */
+    function animateEntries(nodes, startDelay = 0) {
+        anime({ targets: nodes, opacity: [0, 1], translateY: [12, 0], duration: 450, delay: anime.stagger(55, { start: startDelay }), easing: 'easeOutExpo' });
+    }
+    animateEntries(document.querySelectorAll('[data-entry]'), 600);
 
     /* ── Scroll-triggered ── */
     const obs = new IntersectionObserver(els => {
@@ -1360,7 +1662,7 @@
 
     document.querySelectorAll('#resGrid, .expert-grid, #ctaStrip').forEach(el => obs.observe(el));
 
-    /* ── AI tips stagger (scroll-triggered) ── */
+    /* ── Stage tips stagger (scroll-triggered) ── */
     const tipsObs = new IntersectionObserver(els => {
         els.forEach(e => {
             if (!e.isIntersecting) return;
@@ -1407,21 +1709,193 @@
         charCount.classList.toggle('near-limit', len > 1800);
     });
 
-    /* ── Save button animation ── */
-    document.getElementById('journalForm').addEventListener('submit', function() {
+    /* ── Save button: press + busy state ── */
+    document.getElementById('journalForm').addEventListener('submit', function () {
         const btn = this.querySelector('.btn-save');
         anime({ targets: btn, scale:[1,0.93,1], duration:200, easing:'easeOutQuad' });
+        btn.disabled = true;
+        btn.textContent = 'Saving…';
     });
 
-    /* ── Milestones: saved to the account + progress bar ── */
-    const checks = document.querySelectorAll('.ms-check');
-    const progressBar = document.getElementById('msProgress');
-    const csrf = document.querySelector('input[name="_token"]').value;
+    /* ── Journal search, filters, load more and delete (entries list is swapped in without a reload) ── */
+    const filterForm = document.getElementById('journalFilter');
+    const entriesBox = document.getElementById('journalEntries');
+    const dashboardUrl = '{{ route('dashboard') }}';
+    let searchTimer, inflight;
 
-    function updateProgress() {
+    function entriesUrl(params) {
+        return filterForm.dataset.endpoint + (params.toString() ? '?' + params : '');
+    }
+
+    function loadEntries(params, { append = false } = {}) {
+        if (inflight) inflight.abort();
+        inflight = new AbortController();
+        if (!append) entriesBox.classList.add('is-loading');
+
+        return fetch(entriesUrl(params), { headers: { 'Accept': 'text/html' }, signal: inflight.signal })
+            .then(res => { if (!res.ok) throw new Error('load failed'); return res.text(); })
+            .then(html => {
+                const fresh = document.createElement('div');
+                fresh.innerHTML = html;
+
+                if (append) {
+                    entriesBox.querySelector('[data-more]')?.remove();
+                    const added = [];
+                    fresh.querySelectorAll('.tl-month').forEach(month => {
+                        const existing = entriesBox.querySelector(`.tl-month[data-month="${month.dataset.month}"] .tl-items`);
+                        const items = [...month.querySelectorAll('[data-entry]')];
+                        added.push(...items);
+                        if (existing) items.forEach(item => existing.appendChild(item));
+                        else entriesBox.appendChild(month);
+                    });
+                    const more = fresh.querySelector('[data-more]');
+                    if (more) entriesBox.appendChild(more);
+                    animateEntries(added);
+                } else {
+                    entriesBox.innerHTML = html;
+                    animateEntries(entriesBox.querySelectorAll('[data-entry]'));
+                    const query = params.toString();
+                    history.replaceState(null, '', dashboardUrl + (query ? '?' + query : '') + '#journal');
+                }
+            })
+            .catch(err => {
+                if (err.name !== 'AbortError') showToast("Couldn't load your entries. Please try again.", true);
+            })
+            .finally(() => entriesBox.classList.remove('is-loading'));
+    }
+
+    function currentFilters() {
+        const params = new URLSearchParams();
+        new FormData(filterForm).forEach((value, key) => { if (String(value).trim() !== '') params.set(key, value); });
+        return params;
+    }
+
+    if (filterForm) {
+        filterForm.addEventListener('submit', e => { e.preventDefault(); loadEntries(currentFilters()); });
+        filterForm.q.addEventListener('input', () => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => loadEntries(currentFilters()), 250);
+        });
+        filterForm.querySelectorAll('select').forEach(select => select.addEventListener('change', () => loadEntries(currentFilters())));
+    }
+
+    entriesBox.addEventListener('click', e => {
+        const clear = e.target.closest('[data-clear]');
+        const tag   = e.target.closest('[data-tag]');
+        const more  = e.target.closest('[data-more]');
+        const chip  = e.target.closest('.prompt-chip');
+
+        if (clear && filterForm) {
+            e.preventDefault();
+            filterForm.reset();
+            filterForm.q.value = '';
+            filterForm.querySelectorAll('select').forEach(s => { s.value = ''; });
+            loadEntries(new URLSearchParams());
+        } else if (tag && filterForm) {
+            e.preventDefault();
+            filterForm.tag.value = tag.dataset.tag;
+            loadEntries(currentFilters());
+            filterForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else if (more) {
+            e.preventDefault();
+            more.textContent = 'Loading…';
+            loadEntries(new URL(more.href).searchParams, { append: true });
+        } else if (chip) {
+            // Empty-state writing prompts
+            journalText.value = chip.textContent.trim() + '\n\n';
+            journalText.dispatchEvent(new Event('input'));
+            journalText.focus();
+            journalText.setSelectionRange(journalText.value.length, journalText.value.length);
+        }
+    });
+
+    // Delete asks once ("Delete?") before it goes through, then the entry slides away.
+    entriesBox.addEventListener('submit', e => {
+        const form = e.target.closest('.delete-form');
+        if (!form) return;
+        e.preventDefault();
+        const btn = form.querySelector('.btn-del');
+
+        if (!btn.classList.contains('is-confirming')) {
+            btn.classList.add('is-confirming');
+            anime({ targets: btn, translateX: [0, -3, 3, 0], duration: 300, easing: 'easeInOutSine' });
+            clearTimeout(btn._reset);
+            btn._reset = setTimeout(() => btn.classList.remove('is-confirming'), 3000);
+            return;
+        }
+
+        const entry = form.closest('[data-entry]');
+        anime({ targets: entry, opacity: 0, translateX: 24, duration: 280, easing: 'easeInQuad', complete: () => form.submit() });
+    });
+
+    /* ── Milestones: saved to the account, progress, reminders, celebration ── */
+    const checks = [...document.querySelectorAll('.ms-check')];
+    const progressBar   = document.getElementById('msProgress');
+    const progressLabel = document.getElementById('msProgressLabel');
+    const reminder      = document.getElementById('reminder');
+
+    function groupOf(cb) { return cb.closest('.ms-group'); }
+
+    function isGroupDone(group) {
+        return [...group.querySelectorAll('.ms-check')].every(c => c.checked);
+    }
+
+    function updateProgress(animate = true) {
         const total   = checks.length;
-        const checked = [...checks].filter(c => c.checked).length;
-        progressBar.style.width = (total > 0 ? (checked / total) * 100 : 0) + '%';
+        const checked = checks.filter(c => c.checked).length;
+        const pct     = total > 0 ? (checked / total) * 100 : 0;
+
+        if (animate) anime({ targets: progressBar, width: pct + '%', duration: 600, easing: 'easeOutExpo' });
+        else progressBar.style.width = pct + '%';
+        progressBar.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+        progressLabel.textContent = checked + ' of ' + total + ' done';
+
+        document.querySelectorAll('.ms-group').forEach(group => {
+            group.querySelector('.ms-group-done').hidden = !isGroupDone(group);
+        });
+    }
+
+    function syncReminder(cb) {
+        if (!reminder) return;
+        const row = reminder.querySelector(`li[data-for="${cb.dataset.key}"]`);
+        if (!row) return;
+
+        const allDone = () => {
+            reminder.querySelector('.reminder-clear').hidden = [...reminder.querySelectorAll('li[data-for]')].some(li => !li.hidden);
+        };
+
+        if (cb.checked) {
+            anime({ targets: row, opacity: 0, translateX: 16, duration: 260, easing: 'easeInQuad', complete: () => { row.hidden = true; row.style.opacity = ''; row.style.transform = ''; allDone(); } });
+        } else {
+            row.hidden = false;
+            anime({ targets: row, opacity: [0, 1], translateX: [16, 0], duration: 300, easing: 'easeOutExpo' });
+            allDone();
+        }
+    }
+
+    function celebrate(origin) {
+        const r = origin.getBoundingClientRect();
+        const colors = ['#7c3aed', '#a78bfa', '#f23de0', '#3d8bff', '#059669', '#d97706'];
+        const bits = Array.from({ length: 18 }, (_, i) => {
+            const bit = document.createElement('span');
+            bit.className = 'burst-bit';
+            bit.style.background = colors[i % colors.length];
+            bit.style.left = (r.left + 20) + 'px';
+            bit.style.top  = (r.top + r.height / 2) + 'px';
+            document.body.appendChild(bit);
+            return bit;
+        });
+        anime({
+            targets: bits,
+            translateX: () => anime.random(-90, 90),
+            translateY: () => anime.random(-90, 30),
+            rotate: () => anime.random(-180, 180),
+            scale: [1, 0.3],
+            opacity: [1, 0],
+            duration: () => anime.random(700, 1100),
+            easing: 'easeOutExpo',
+            complete: () => bits.forEach(b => b.remove()),
+        });
     }
 
     function saveMilestone(cb) {
@@ -1435,7 +1909,8 @@
             // Roll back so the checkbox never shows a state that wasn't saved.
             cb.checked = !cb.checked;
             updateProgress();
-            alert("Couldn't save that milestone. Please check your connection and try again.");
+            syncReminder(cb);
+            showToast("Couldn't save that milestone. Check your connection and try again.", true);
         });
     }
 
@@ -1446,34 +1921,46 @@
             if (localStorage.getItem(legacyKey) === '1' && !cb.checked) {
                 cb.checked = true;
                 saveMilestone(cb);
+                syncReminder(cb);
             }
             localStorage.removeItem(legacyKey);
         }
 
         cb.addEventListener('change', () => {
-            anime({ targets: cb.parentElement, backgroundColor:['rgba(124,58,237,0.06)','transparent'], duration:400, easing:'easeOutQuad' });
+            anime({ targets: cb.parentElement, backgroundColor:['rgba(124,58,237,0.08)','rgba(124,58,237,0)'], duration:500, easing:'easeOutQuad' });
             updateProgress();
+            syncReminder(cb);
             saveMilestone(cb);
+
+            const group = groupOf(cb);
+            if (cb.checked && isGroupDone(group)) {
+                celebrate(group.querySelector('.ms-group-label'));
+                showToast(group.dataset.group + ' — all done! 🎉');
+            }
         });
     });
 
-    updateProgress();
-
-    /* ── Empty-state writing prompts ── */
-    document.querySelectorAll('.prompt-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-            journalText.value = chip.textContent.trim() + '\n\n';
-            journalText.dispatchEvent(new Event('input'));
-            journalText.focus();
-            journalText.setSelectionRange(journalText.value.length, journalText.value.length);
-        });
+    // "Coming up" tick buttons just tick the real checkbox.
+    reminder?.addEventListener('click', e => {
+        const btn = e.target.closest('[data-tick]');
+        if (!btn) return;
+        const cb = document.getElementById(btn.dataset.tick);
+        if (cb && !cb.checked) cb.click();
     });
+
+    // Fill the label now, then grow the bar from empty once the panel has faded in.
+    updateProgress(false);
+    progressBar.style.width = '0%';
+    setTimeout(() => updateProgress(), 500);
 
     /* ── Expert waitlist modal ── */
     const waitlistModal = document.getElementById('waitlistModal');
     const openWaitlist  = document.getElementById('openWaitlist');
     if (openWaitlist) {
-        openWaitlist.addEventListener('click', () => waitlistModal.showModal());
+        openWaitlist.addEventListener('click', () => {
+            waitlistModal.showModal();
+            anime({ targets: waitlistModal, opacity: [0, 1], scale: [0.96, 1], duration: 350, easing: 'easeOutExpo' });
+        });
         document.getElementById('closeWaitlist').addEventListener('click', () => waitlistModal.close());
         waitlistModal.addEventListener('click', e => { if (e.target === waitlistModal) waitlistModal.close(); });
 
@@ -1495,20 +1982,15 @@
                 done.className = 'waitlist-done';
                 done.textContent = "You're on the list — we'll email you";
                 openWaitlist.replaceWith(done);
+                anime({ targets: done, opacity: [0, 1], scale: [0.9, 1], duration: 400, easing: 'easeOutBack' });
+                showToast("You're on the expert waitlist.");
             }).catch(() => {
                 submit.disabled = false;
                 submit.textContent = 'Notify me';
-                alert("Couldn't join the list. Please try again.");
+                showToast("Couldn't join the list. Please try again.", true);
             });
         });
     }
-
-    setTimeout(() => {
-        const total   = checks.length;
-        const checked = [...checks].filter(c => c.checked).length;
-        const pct = total > 0 ? (checked / total) * 100 : 0;
-        anime({ targets: progressBar, width: pct + '%', duration: 1000, easing: 'easeOutExpo', delay: 500 });
-    }, 0);
 
     /* ── Resource search + filter ── */
     const resCards   = document.querySelectorAll('.res-card');

@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    @include('partials.favicon')
     @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,23 +63,46 @@
         }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; gap: 2rem; }
         .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
-        .nav-logo img { height: 34px; width: auto; transition: transform 0.3s; }
-        .nav-logo:hover img { transform: rotate(-8deg) scale(1.1); }
-        .nav-links { display: flex; list-style: none; gap: 0.25rem; }
-        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--sub); padding: 0.375rem 0.75rem; border-radius: 6px; transition: color 0.15s, background 0.15s; }
-        .nav-links a:hover { color: var(--ink); background: var(--purple-bg); }
+        /* Section links sit in one soft pill; a white "indicator" slides to the hovered or current section */
+        .nav-links {
+            position: relative; display: flex; list-style: none; gap: 0.125rem; padding: 0.25rem;
+            background: rgba(245,243,255,0.7); border: 1px solid var(--purple-mid); border-radius: 999px;
+        }
+        .nav-links a {
+            position: relative; z-index: 1; display: block; white-space: nowrap;
+            font-size: 0.85rem; font-weight: 500; color: var(--sub);
+            padding: 0.375rem 0.9rem; border-radius: 999px; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--ink); }
+        .nav-links a.active { color: var(--purple); }
+        .nav-links a:focus-visible { outline: 2px solid var(--purple); outline-offset: 1px; }
+        .nav-indicator {
+            position: absolute; top: 0.25rem; bottom: 0.25rem; left: 0; width: 0; border-radius: 999px;
+            background: var(--white); pointer-events: none; opacity: 0;
+            box-shadow: 0 1px 3px rgba(17,24,39,0.08), 0 0 0 1px rgba(124,58,237,0.1);
+            transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), width 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
+        }
         .nav-actions { display: flex; align-items: center; gap: 0.625rem; flex-shrink: 0; }
         .btn-nav-ghost { font-size: 0.875rem; font-weight: 500; color: var(--sub); padding: 0.4rem 0.875rem; border: 1px solid var(--border); border-radius: 6px; transition: all 0.15s; }
         .btn-nav-ghost:hover { color: var(--ink); border-color: #d1d5db; background: #f9fafb; }
         .btn-nav-solid { font-size: 0.875rem; font-weight: 600; color: var(--white); background: var(--purple); padding: 0.4rem 0.875rem; border-radius: 6px; transition: background 0.15s, box-shadow 0.2s; }
         .btn-nav-solid:hover { background: var(--purple-dim); box-shadow: 0 0 16px rgba(124,58,237,0.35); }
         .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--ink); min-width: 40px; min-height: 40px; align-items: center; justify-content: center; }
-        .nav-mobile { display: none; border-top: 1px solid var(--border); padding: 1rem 0; }
+        .nav-mobile { display: none; border-top: 1px solid var(--border); padding: 0.75rem 0 1rem; }
         .nav-mobile.open { display: block; }
-        .nav-mobile a { display: block; font-size: 0.9rem; font-weight: 500; color: var(--sub); padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
-        .nav-mobile a:last-child { border-bottom: none; }
-        .nav-mobile a:hover { color: var(--ink); }
-        @media (max-width: 680px) { .nav-links, .nav-actions { display: none; } .nav-hamburger { display: flex; } }
+        .nav-mobile-link {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.95rem; font-weight: 500; color: var(--ink);
+            padding: 0.7rem 0.75rem; border-radius: 10px; transition: background 0.15s, color 0.15s;
+        }
+        .nav-mobile-link .lucide-icon { color: var(--purple); flex-shrink: 0; }
+        .nav-mobile-link:hover { background: #f9fafb; }
+        .nav-mobile-link.active { background: var(--purple-bg); color: var(--purple); font-weight: 600; }
+        .nav-mobile-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem; padding-top: 0.875rem; border-top: 1px solid var(--border); }
+        .nav-mobile-actions a { text-align: center; padding: 0.65rem; font-size: 0.9rem; }
+        .nav-mobile-actions a:only-child { grid-column: 1 / -1; }
+        @media (max-width: 920px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
+        @media (max-width: 680px) { .nav-actions { display: none; } }
 
         /* ── Buttons ── */
         .btn-solid {
@@ -95,7 +119,20 @@
         .btn-text:hover { color: var(--ink); gap: 0.6rem; }
 
         /* ── Hero ── */
-        .hero { padding: 6rem 0 5rem; border-bottom: 1px solid var(--border); position: relative; }
+        .hero { padding: 6rem 0 5rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+
+        /* Orchid Bloom aura (auragradients.vercel.app) — hero only, fades out before the stats */
+        .hero-aura {
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background: #faf8f2; isolation: isolate;
+            -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+                    mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+        }
+        .hero-aura span { position: absolute; inset: -15% -10%; filter: blur(36px); animation: auraDrift 18s ease-in-out infinite alternate; }
+        .hero-aura .aura-1 { background: linear-gradient(110deg, rgba(0,0,0,0) 0%, rgba(242,61,224,0.12) 28%, rgb(255,255,255) 18%, rgb(139,92,246) 68%, rgb(61,139,255) 100%); mix-blend-mode: hard-light; }
+        .hero-aura .aura-2 { background: linear-gradient(130deg, rgba(0,0,0,0) 0%, rgba(242,61,224,0.22) 34%, rgb(255,255,255) 66%, rgb(139,92,246) 82%, rgb(61,139,255) 100%); mix-blend-mode: soft-light; animation-duration: 24s; animation-direction: alternate-reverse; }
+        @keyframes auraDrift { from { transform: translate3d(-3%, 0, 0) scale(1); } to { transform: translate3d(3%, -4%, 0) scale(1.08); } }
+        @media (prefers-reduced-motion: reduce) { .hero-aura span { animation: none; } }
         .hero-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple); margin-bottom: 2rem; opacity: 0; }
         .hero-label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulse-dot 2s ease-in-out infinite; }
         @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.6); } 50% { box-shadow: 0 0 0 6px rgba(124,58,237,0); } }
@@ -338,7 +375,6 @@
         .site-footer { border-top: 1px solid var(--border); padding: 2rem 0; }
         .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
         .footer-logo { font-size: 0.9rem; font-weight: 800; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
-        .footer-logo img { height: 22px; width: auto; }
         .footer-links { display: flex; flex-wrap: wrap; list-style: none; gap: 0.75rem 1.5rem; }
         .footer-links a { font-size: 0.875rem; color: var(--sub); transition: color 0.15s; }
         .footer-links a:hover { color: var(--ink); }
@@ -370,14 +406,24 @@
 <!-- Nav -->
 <header class="site-nav" id="siteNav">
     <div class="wrap nav-inner">
-        <a class="nav-logo" href="/"><img src="{{ asset('logo.png') }}" alt="Pager Logo">PAGER</a>
-        <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
-            <li><a href="#experts">Experts</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
+        <a class="nav-logo" href="/" aria-label="PAGER home"><x-logo :size="36" tagline /></a>
+        @php
+            $sections = [
+                'features'     => ['Features', 'sparkles'],
+                'how-it-works' => ['How it works', 'target'],
+                'roadmap'      => ['Roadmap', 'calendar'],
+                'experts'      => ['Experts', 'stethoscope'],
+                'about'        => ['About', 'heart'],
+            ];
+        @endphp
+        <nav aria-label="Page sections">
+            <ul class="nav-links" id="navLinks">
+                <li class="nav-indicator" id="navIndicator" aria-hidden="true"></li>
+                @foreach ($sections as $id => [$label])
+                    <li><a href="#{{ $id }}" data-section="{{ $id }}">{{ $label }}</a></li>
+                @endforeach
+            </ul>
+        </nav>
         <div class="nav-actions">
             @auth
                 <a class="btn-nav-solid" href="{{ route('dashboard') }}">Dashboard</a>
@@ -392,20 +438,27 @@
         </button>
     </div>
     <div class="wrap nav-mobile" id="mobileMenu">
-        <a href="#features">Features</a><a href="#how-it-works">How It Works</a>
-        <a href="#roadmap">Roadmap</a><a href="#experts">Experts</a><a href="#about">About</a>
-        @auth <a href="{{ route('dashboard') }}">Dashboard</a>
-        @else <a href="{{ $loginUrl }}">Log in</a><a href="{{ $registerUrl }}">Get started</a>
-        @endauth
+        @foreach ($sections as $id => [$label, $icon])
+            <a class="nav-mobile-link" href="#{{ $id }}" data-section="{{ $id }}"><x-icon :name="$icon" :size="18" /> {{ $label }}</a>
+        @endforeach
+        <div class="nav-mobile-actions">
+            @auth
+                <a class="btn-nav-solid" href="{{ route('dashboard') }}">Go to dashboard</a>
+            @else
+                <a class="btn-nav-ghost" href="{{ $loginUrl }}">Log in</a>
+                <a class="btn-nav-solid" href="{{ $registerUrl }}">Get started free</a>
+            @endauth
+        </div>
     </div>
 </header>
 
 <!-- Hero -->
 <section class="hero" id="hero">
+    <div class="hero-aura" aria-hidden="true"><span class="aura-1"></span><span class="aura-2"></span></div>
     <div class="wrap">
         <div class="hero-label"><span class="hero-label-dot"></span>The Parenting Manager</div>
-        <h1 id="heroHeading">Everything a caregiver needs — journal, guidance, and <span class="highlight">expert support.</span></h1>
-        <p class="hero-sub">PAGER is a unified caregiving platform with a smart journal, AI-driven advice, milestone tracking, a curated resource library, and access to licensed parenting professionals.</p>
+        <h1 id="heroHeading">Everything a caregiver needs: journal, guidance, and <span class="highlight">expert support.</span></h1>
+        <p class="hero-sub">Keep a private journal, track milestones with reminders for your child's age, and get tips for your stage. Explore a curated resource library, with licensed parenting experts coming soon.</p>
         <div class="hero-actions">
             <a class="btn-solid btn-solid-pulse" href="{{ $registerUrl }}">Get started free
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -416,7 +469,7 @@
         </div>
         <div class="hero-chips">
             <span class="hero-chip"><x-icon name="book-open" :size="14" /> Journal</span>
-            <span class="hero-chip"><x-icon name="bot" :size="14" /> AI Advice</span>
+            <span class="hero-chip"><x-icon name="lightbulb" :size="14" /> Stage Tips</span>
             <span class="hero-chip"><x-icon name="library" :size="14" /> Resources</span>
             <span class="hero-chip"><x-icon name="target" :size="14" /> Milestones</span>
             <span class="hero-chip"><x-icon name="stethoscope" :size="14" /> Expert Guidance</span>
@@ -425,7 +478,7 @@
         <div class="ticker-wrap">
             <div class="ticker-track" id="tickerTrack">
                 <span class="ticker-item">Parenting Journal</span><span class="ticker-sep">·</span>
-                <span class="ticker-item">AI-Driven Advice</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Tips for Your Stage</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Milestone Tracking</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Resource Library</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Expert Guidance</span><span class="ticker-sep">·</span>
@@ -467,21 +520,21 @@
                     <span class="feat-tag">Mood tracking</span>
                     <span class="feat-tag">Tagging system</span>
                     <span class="feat-tag">Timeline view</span>
-                    <span class="feat-tag">AI summaries</span>
+                    <span class="feat-tag">Search &amp; filter</span>
                 </div>
             </div>
 
-            <!-- AI Advice -->
+            <!-- Stage Tips -->
             <div class="feat-card anim-up" style="--accent:#2563eb; --icon-bg:#eff6ff;">
-                <span class="feat-badge">✓ Available now · <span class="feat-badge-soon" style="display:inline-flex;margin:0;border:none;padding:0;background:none;font-size:inherit;font-weight:inherit;">Smarter AI coming soon</span></span>
-                <div class="feat-icon" style="background:#eff6ff;"><x-icon name="bot" :size="22" /></div>
+                <span class="feat-badge">✓ Available now</span>
+                <div class="feat-icon" style="background:#eff6ff;"><x-icon name="lightbulb" :size="22" /></div>
                 <div class="feat-num">02</div>
-                <h3>AI-Driven Parenting Advice</h3>
-                <p>Personalized recommendations based on your parent type and child's developmental stage. Context-aware guidance covering sleep, feeding, behaviour, and mood.</p>
+                <h3>Tips for Your Stage</h3>
+                <p>Practical tips matched to your parent type — expecting, new, working, or solo — covering sleep, feeding, routines, and self-care, each linked to a trusted source.</p>
                 <div class="feat-tags">
-                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Age-based guidance</span>
-                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Smart alerts</span>
-                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Behaviour insights</span>
+                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Stage-based tips</span>
+                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Trusted sources</span>
+                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Personalised tips coming soon</span>
                 </div>
             </div>
 
@@ -505,11 +558,11 @@
                 <div class="feat-icon" style="background:#fffbeb;"><x-icon name="target" :size="22" /></div>
                 <div class="feat-num">04</div>
                 <h3>Milestone Tracking</h3>
-                <p>A pregnancy week tracker and to-do list, then developmental checklists from 0–9 months, with a visual progress bar tracking how many milestones your child has reached. Reminders are coming soon.</p>
+                <p>A pregnancy week tracker and to-do list, then developmental checklists from 0–9 months, with a visual progress bar and a “Coming up” card that reminds you what fits your child's age or your trimester.</p>
                 <div class="feat-tags">
                     <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Developmental checklists</span>
                     <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Progress dashboard</span>
-                    <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Reminders coming soon</span>
+                    <span class="feat-tag" style="background:#fffbeb;color:#d97706;">Age-based reminders</span>
                     <span class="feat-tag" style="background:#fffbeb;color:#d97706;">More languages planned</span>
                 </div>
             </div>
@@ -563,7 +616,7 @@
                     <li>Parenting Journal (text + tags + mood)</li>
                     <li>Milestone tracking with checklists</li>
                     <li>Static resource library</li>
-                    <li>Basic AI tips (rule-based)</li>
+                    <li>Stage-based tips</li>
                     <li>Parent type personalization</li>
                 </ul>
             </div>
@@ -613,7 +666,7 @@
         <div class="expert-grid">
             <div>
                 <div class="eyebrow anim-up">Expert Guidance</div>
-                <h2 class="section-h anim-up">Human-backed support, beyond AI.</h2>
+                <h2 class="section-h anim-up">Human-backed support, when you need it.</h2>
                 <p class="anim-up" style="font-size:0.9375rem;color:var(--sub);line-height:1.8;margin-bottom:1.5rem;">For complex situations, PAGER connects you with licensed professionals — the people who've dedicated their careers to child development and family wellbeing.</p>
                 <div class="expert-types">
                     <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="brain" :size="22" /></span><div><h4>Psychologists</h4><p>Behavioural &amp; emotional support</p></div></div>
@@ -673,7 +726,7 @@
 <!-- Footer -->
 <footer class="site-footer">
     <div class="wrap footer-inner">
-        <div class="footer-logo"><img src="{{ asset('logo.png') }}" alt="Pager">PAGER</div>
+        <a class="footer-logo" href="/" aria-label="PAGER home"><x-logo :size="28" /></a>
         <ul class="footer-links">
             <li><a href="#features">Features</a></li>
             <li><a href="#roadmap">Roadmap</a></li>
@@ -790,6 +843,53 @@
         mobileMenu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false');
         iconMenu.style.display = 'block'; iconClose.style.display = 'none';
     }));
+
+    /* Section links: highlight the section you're reading, slide the indicator on hover */
+    const navLinks  = document.getElementById('navLinks');
+    const indicator = document.getElementById('navIndicator');
+    const sectionLinks = [...document.querySelectorAll('[data-section]')];
+    const sectionEls = [...new Set(sectionLinks.map(a => a.dataset.section))].map(id => document.getElementById(id)).filter(Boolean);
+    let current = null;
+
+    function moveIndicator(link) {
+        if (!link || !link.offsetParent) { indicator.style.opacity = 0; return; }
+        indicator.style.width = link.offsetWidth + 'px';
+        indicator.style.transform = `translateX(${link.offsetLeft}px)`;
+        indicator.style.opacity = 1;
+    }
+
+    function desktopLink(id) { return navLinks.querySelector(`a[data-section="${id}"]`); }
+
+    function updateCurrent() {
+        const line = 140; // just under the sticky nav
+        let found = null;
+        sectionEls.forEach(el => { if (el.getBoundingClientRect().top <= line) found = el.id; });
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) found = sectionEls.at(-1).id;
+        if (found === current) return;
+        current = found;
+        sectionLinks.forEach(a => {
+            const on = a.dataset.section === current;
+            a.classList.toggle('active', on);
+            if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+        moveIndicator(current && desktopLink(current));
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => { updateCurrent(); ticking = false; });
+    }, { passive: true });
+    window.addEventListener('resize', () => moveIndicator(current && desktopLink(current)));
+
+    navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('mouseenter', () => moveIndicator(a));
+        a.addEventListener('focus', () => moveIndicator(a));
+    });
+    navLinks.addEventListener('mouseleave', () => moveIndicator(current && desktopLink(current)));
+
+    updateCurrent();
 
     /* Smooth scroll */
     document.querySelectorAll('a[href^="#"]').forEach(a => {

@@ -8,6 +8,7 @@ use App\Http\Controllers\MilestoneController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WaitlistController;
+use App\Models\JournalEntry;
 use App\Support\Milestones;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -38,17 +39,23 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // Authenticated user routes
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        $user = auth()->user();
+    Route::get('/dashboard', function (Request $request) {
+        $user        = $request->user();
+        $filters     = JournalEntry::filtersFrom($request);
+        $checkedKeys = $user->milestoneChecks()->pluck('milestone_key')->all();
 
         return view('dashboard', [
-            'entries'         => $user->journalEntries()->latest()->take(10)->get(),
+            'entries'         => JournalController::entriesFor($request, $filters),
+            'filters'         => $filters,
+            'hasEntries'      => $user->journalEntries()->exists(),
             'milestoneGroups' => Milestones::groupsFor($user->parent_type),
-            'checkedKeys'     => $user->milestoneChecks()->pluck('milestone_key')->all(),
+            'checkedKeys'     => $checkedKeys,
+            'reminders'       => Milestones::remindersFor($user, $checkedKeys),
             'onWaitlist'      => $user->waitlistSignup()->exists(),
         ]);
     })->name('dashboard');
 
+    Route::get('/journal', [JournalController::class, 'index'])->name('journal.index');
     Route::post('/journal', [JournalController::class, 'store'])->name('journal.store');
     Route::delete('/journal/{entry}', [JournalController::class, 'destroy'])->name('journal.destroy');
 

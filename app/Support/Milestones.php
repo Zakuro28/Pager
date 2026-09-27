@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 
 /**
@@ -45,6 +46,68 @@ class Milestones
         }
 
         return $groups;
+    }
+
+    /** Age in months (baby) or pregnancy week at which each group starts, in the same order as the lists above. */
+    private const BABY_STARTS_AT_MONTH = [0, 2, 4, 6];
+
+    private const PREGNANCY_STARTS_AT_WEEK = [1, 14, 28];
+
+    /**
+     * What to focus on right now: the unticked items for the child's current age
+     * (or current trimester), plus anything unticked from earlier stages.
+     * Null when we don't know the date yet.
+     *
+     * @param  list<string>  $checkedKeys
+     * @return array{stage: string, group: string, due: list<array{key: string, label: string}>, overdue: list<array{key: string, label: string}>, next: ?string}|null
+     */
+    public static function remindersFor(User $user, array $checkedKeys): ?array
+    {
+        if (! $user->child_date) {
+            return null;
+        }
+
+        if ($user->isExpecting()) {
+            $week   = $user->pregnancyWeek();
+            $starts = self::PREGNANCY_STARTS_AT_WEEK;
+            $value  = $week;
+        } else {
+            if ($user->child_date->isFuture()) {
+                return null;
+            }
+            $months = (int) floor($user->child_date->diffInMonths(today()));
+            $starts = self::BABY_STARTS_AT_MONTH;
+            $value  = $months;
+        }
+
+        $groups = self::groupsFor($user->parent_type);
+        $names  = array_keys($groups);
+
+        $current = 0;
+        foreach ($starts as $i => $start) {
+            if ($value >= $start) {
+                $current = $i;
+            }
+        }
+
+        $unticked = fn (array $items) => array_values(array_filter($items, fn ($item) => ! in_array($item['key'], $checkedKeys, true)));
+
+        $overdue = [];
+        foreach (array_slice($names, 0, $current) as $name) {
+            $overdue = array_merge($overdue, $unticked($groups[$name]));
+        }
+
+        $stage = $user->isExpecting()
+            ? "Week {$week} · {$names[$current]}"
+            : ($months === 0 ? 'Your baby is under a month old' : 'Your baby is ' . $months . ' ' . Str::plural('month', $months) . ' old');
+
+        return [
+            'stage'   => $stage,
+            'group'   => $names[$current],
+            'due'     => $unticked($groups[$names[$current]]),
+            'overdue' => $overdue,
+            'next'    => $names[$current + 1] ?? null,
+        ];
     }
 
     /** @return list<string> */
