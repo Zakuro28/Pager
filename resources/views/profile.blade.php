@@ -6,6 +6,7 @@
     <title>Your Profile — PAGER</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
+    @include('partials.favicon')
     @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +23,6 @@
         .topnav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); }
         .nav-inner { max-width: 720px; margin: 0 auto; padding: 0 1.25rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
         .nav-brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 0.95rem; letter-spacing: -0.02em; }
-        .nav-brand img { height: 28px; width: auto; }
         .back { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: var(--sub); transition: color 0.15s; }
         .back:hover { color: var(--ink); }
 
@@ -83,7 +83,7 @@
 
 <nav class="topnav">
     <div class="nav-inner">
-        <a class="nav-brand" href="/"><img src="{{ asset('logo.png') }}" alt="Pager"> PAGER</a>
+        <a class="nav-brand" href="/" aria-label="PAGER home"><x-logo :size="32" /></a>
         <a class="back" href="{{ route('dashboard') }}">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
             Back to dashboard

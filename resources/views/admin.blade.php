@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    @include('partials.favicon')
     @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,7 +49,6 @@
             letter-spacing: -0.02em;
         }
 
-        .nav-brand img { height: 28px; width: auto; }
 
         .nav-badge {
             font-size: 0.68rem;
@@ -685,9 +685,8 @@
 
 <!-- Nav -->
 <nav class="nav" id="adminNav">
-    <a class="nav-brand" href="/">
-        <img src="{{ asset('logo.png') }}" alt="Pager">
-        PAGER
+    <a class="nav-brand" href="/" aria-label="PAGER home">
+        <x-logo :size="30" />
         <span class="nav-badge">Admin</span>
     </a>
 

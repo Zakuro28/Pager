@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    @include('partials.favicon')
     @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,7 +32,6 @@
             background: var(--purple-bg);
         }
         .left-brand { font-size: 0.95rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 0.4rem; text-decoration: none; }
-        .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--purple); }
         .left-quote { max-width: 380px; }
         .left-quote blockquote { font-size: 1.4rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.25rem; }
         .left-quote blockquote span { color: var(--purple); }
@@ -110,7 +110,7 @@
 <body>
 
 <div class="left">
-    <a class="left-brand" href="/"><span class="logo-dot"></span> PAGER</a>
+    <a class="left-brand" href="/" aria-label="PAGER home"><x-logo :size="34" tagline /></a>
 
     <div class="left-quote">
         <blockquote>"Parenting is the greatest work you'll ever do. You deserve <span>the right support.</span>"</blockquote>

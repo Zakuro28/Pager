@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    @include('partials.favicon')
     @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,15 +68,6 @@
             justify-content: center;
             gap: 0.5rem;
             margin-bottom: 1.25rem;
-        }
-
-        .login-logo img { height: 40px; width: auto; }
-
-        .login-logo-text {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--ink);
         }
 
         .login-badge {
@@ -235,8 +227,7 @@
 
     <div class="login-header">
         <div class="login-logo">
-            <img src="{{ asset('logo.png') }}" alt="Pager Logo">
-            <span class="login-logo-text">PAGER</span>
+            <x-logo :size="44" tagline />
         </div>
         <div class="login-badge">Admin Panel</div>
         <h1>Welcome back</h1>

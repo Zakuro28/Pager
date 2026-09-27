@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    @include('partials.favicon')
     @include('partials.tokens')
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +44,6 @@
             text-decoration: none;
         }
 
-        .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--purple); }
 
         .left-steps { max-width: 360px; }
 
@@ -262,7 +262,7 @@
 <body>
 
 <div class="left">
-    <a class="left-brand" href="/"><span class="logo-dot"></span> PAGER</a>
+    <a class="left-brand" href="/" aria-label="PAGER home"><x-logo :size="34" tagline /></a>
 
     <div class="left-steps">
         <h2>Start your parenting journey with <span>confidence.</span></h2>
