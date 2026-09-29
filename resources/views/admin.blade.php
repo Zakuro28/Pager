@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin — PAGER</title>
+    <title>Admin | PAGER</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
@@ -226,7 +226,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--purple), #a78bfa);
+            background: linear-gradient(90deg, var(--purple), #9d88d6);
             border-radius: 14px 14px 0 0;
             transform: scaleX(0);
             transform-origin: left;
@@ -332,7 +332,7 @@
         }
 
         .bar-signup { fill: var(--purple); rx: 3; }
-        .bar-session { fill: #c4b5fd; rx: 3; }
+        .bar-session { fill: #c3b6e6; rx: 3; }
 
         .bar-group rect {
             transform-origin: bottom;
@@ -385,7 +385,7 @@
             transition: background 0.15s, box-shadow 0.15s;
         }
 
-        .ring-card:hover { background: var(--purple-bg); box-shadow: 0 2px 12px rgba(124,58,237,0.08); }
+        .ring-card:hover { background: var(--purple-bg); box-shadow: 0 2px 12px rgba(106,79,179,0.08); }
 
         .donut-wrap {
             position: relative;
@@ -448,7 +448,7 @@
 
         .form-field input:focus {
             border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+            box-shadow: 0 0 0 3px rgba(106,79,179,0.1);
         }
 
         .form-field input::placeholder { color: #9ca3af; }
@@ -470,7 +470,7 @@
         .btn-primary:hover {
             background: var(--purple-dim);
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(124,58,237,0.3);
+            box-shadow: 0 6px 20px rgba(106,79,179,0.3);
         }
 
         /* ── Table ── */
@@ -587,12 +587,12 @@
             transition: background 0.15s, box-shadow 0.15s;
         }
 
-        .member-chip:hover { background: var(--purple-mid); box-shadow: 0 2px 10px rgba(124,58,237,0.12); }
+        .member-chip:hover { background: var(--purple-mid); box-shadow: 0 2px 10px rgba(106,79,179,0.12); }
 
         .member-avatar {
             width: 30px; height: 30px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--purple), #a78bfa);
+            background: linear-gradient(135deg, var(--purple), #9d88d6);
             display: grid;
             place-items: center;
             font-size: 0.72rem;
@@ -807,7 +807,7 @@
             </div>
             <div class="chart-legend">
                 <div class="legend-item"><span class="legend-dot" style="background:var(--purple);"></span> Signups</div>
-                <div class="legend-item"><span class="legend-dot" style="background:#c4b5fd;"></span> Sessions</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#c3b6e6;"></span> Sessions</div>
             </div>
         </div>
 
@@ -1096,7 +1096,7 @@
         rSe.setAttribute('width', barW);
         rSe.setAttribute('height', hSe);
         rSe.setAttribute('rx', 3);
-        rSe.setAttribute('fill', '#c4b5fd');
+        rSe.setAttribute('fill', '#c3b6e6');
         rSe.setAttribute('transform-origin', `${cx + barW/2 + gap/2} ${H - 22}`);
         rSe.style.transform = 'scaleY(0)';
         rSe.style.transformBox = 'fill-box';

@@ -44,7 +44,7 @@
         .row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
         code { font-size: 0.72rem; background: var(--purple-bg); color: var(--purple); border-radius: 4px; padding: 0.05rem 0.35rem; }
 
-        /* ── Colours ── */
+        /* ── Colors ── */
         .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.625rem; }
         .swatch { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 0.72rem; }
         .swatch-color { height: 56px; }
@@ -59,9 +59,9 @@
 
         /* ── Buttons (same as welcome/dashboard) ── */
         .btn-solid { display: inline-flex; align-items: center; gap: 0.45rem; font: inherit; font-size: 0.9375rem; font-weight: 700; color: var(--white); background: var(--purple); padding: 0.75rem 1.625rem; border: none; border-radius: 8px; cursor: pointer; transition: background 0.15s, transform 0.15s, box-shadow 0.25s; }
-        .btn-solid:hover { background: var(--purple-dim); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.35); }
+        .btn-solid:hover { background: var(--purple-dim); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(106,79,179,0.35); }
         .btn-save { font: inherit; font-size: 0.8125rem; font-weight: 700; color: var(--white); background: var(--purple); padding: 0.575rem 1.25rem; border: none; border-radius: 8px; cursor: pointer; transition: background 0.15s, transform 0.12s, box-shadow 0.2s; }
-        .btn-save:hover { background: var(--purple-dim); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(124,58,237,0.3); }
+        .btn-save:hover { background: var(--purple-dim); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(106,79,179,0.3); }
         .btn-save:active, .btn-solid:active { transform: scale(0.96); }
         .btn-ghost { font: inherit; font-size: 0.875rem; font-weight: 500; color: var(--sub); background: var(--white); padding: 0.4rem 0.875rem; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; transition: all 0.15s; }
         .btn-ghost:hover { color: var(--ink); border-color: #d1d5db; background: #f9fafb; }
@@ -73,22 +73,22 @@
 
         /* ── Pills & badges ── */
         .pill { padding: 0.3rem 0.75rem; border: 1.5px solid var(--border); border-radius: 999px; font: inherit; font-size: 0.8rem; font-weight: 600; color: var(--sub); background: var(--white); cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s; }
-        .pill:hover { border-color: #c4b5fd; color: var(--ink); transform: translateY(-1px); }
+        .pill:hover { border-color: #c3b6e6; color: var(--ink); transform: translateY(-1px); }
         .pill.active { border-color: var(--purple); background: var(--purple-bg); color: var(--purple); }
         .badge { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; }
         .badge-ok { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok-bdr); }
-        .badge-soon { background: var(--amber-bg); color: var(--amber); border: 1px solid #fde68a; }
+        .badge-soon { background: var(--yellow-bg); color: var(--yellow-ink); border: 1px solid var(--yellow); }
         .badge-brand { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-mid); }
         .badge-now { background: var(--purple); color: var(--white); font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
         /* ── Inputs ── */
         .field { display: grid; gap: 0.35rem; font-size: 0.8rem; font-weight: 600; }
         .input, .select { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: 0.55rem 0.75rem; font: inherit; font-size: 0.875rem; color: var(--ink); background: var(--white); outline: none; transition: border-color 0.18s, box-shadow 0.18s; }
-        .input:focus, .select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.08); }
+        .input:focus, .select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(106,79,179,0.08); }
         .input.is-error { border-color: var(--danger); }
         .error-text { font-size: 0.75rem; font-weight: 500; color: var(--danger); }
         .search { display: flex; align-items: center; gap: 0.45rem; padding: 0 0.75rem; border: 1.5px solid var(--border); border-radius: 8px; background: var(--white); color: #9ca3af; transition: border-color 0.18s, box-shadow 0.18s, color 0.18s; }
-        .search:focus-within { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.08); color: var(--purple); }
+        .search:focus-within { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(106,79,179,0.08); color: var(--purple); }
         .search input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; padding: 0.55rem 0; font: inherit; font-size: 0.875rem; color: var(--ink); }
         .inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
         @media (max-width: 560px) { .inputs { grid-template-columns: 1fr; } }
@@ -104,7 +104,7 @@
         .ms-item input:active { transform: scale(0.85); }
         .ms-item input:checked + span { text-decoration: line-through; color: var(--sub); }
         .progress { height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; margin: 0.25rem 0 0.75rem; }
-        .progress div { height: 100%; width: 40%; background: linear-gradient(90deg, var(--purple), #a78bfa); border-radius: 999px; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .progress div { height: 100%; width: 40%; background: linear-gradient(90deg, var(--purple), #9d88d6); border-radius: 999px; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
         /* ── Reminder card ── */
         .reminder { border: 1px solid var(--purple-mid); background: linear-gradient(135deg, var(--purple-bg), var(--white)); border-radius: 10px; padding: 0.85rem; }
@@ -124,7 +124,7 @@
         .tl-dot { position: absolute; left: calc(-1.25rem - 6px); top: 0.85rem; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--green); background: var(--green-bg); }
         .entry-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--sub); gap: 0.5rem; }
         .entry-text { font-size: 0.875rem; margin: 0.3rem 0; }
-        .entry-text mark { background: #fef08a; color: inherit; border-radius: 3px; padding: 0 1px; }
+        .entry-text mark { background: var(--yellow-bg); box-shadow: inset 0 -2px 0 var(--yellow); color: inherit; border-radius: 3px; padding: 0 1px; }
         .entry-tag { font-size: 0.65rem; font-weight: 700; color: var(--sub); background: #f3f4f6; border-radius: 999px; padding: 0.1rem 0.45rem; }
 
         /* ── Toast ── */
@@ -160,7 +160,7 @@
     <div class="wrap">
         <div>
             <h1>PAGER UI Kit</h1>
-            <p>The colours, type and components used across PAGER. Everything here is live, so try clicking things.</p>
+            <p>The colors, type and components used across PAGER. Everything here is live, so try clicking things.</p>
         </div>
         <a class="btn-ghost" href="{{ url('/') }}" style="text-decoration:none;">← Back to website</a>
     </div>
@@ -168,16 +168,16 @@
 
 <main class="wrap">
 
-    {{-- Colours --}}
+    {{-- Colors --}}
     <section class="block">
-        <h2>Colours</h2>
-        <p class="note">Defined once in <code>partials/tokens.blade.php</code>. Purple is the brand; the accents colour-code the five features.</p>
+        <h2>Colors</h2>
+        <p class="note">Defined once in <code>partials/tokens.blade.php</code>. Purple is the brand; the accents color-code the five features.</p>
         @php
             $swatches = [
-                ['Purple', '--purple', '#7c3aed'], ['Purple dim', '--purple-dim', '#6d28d9'], ['Purple bg', '--purple-bg', '#f5f3ff'], ['Purple mid', '--purple-mid', '#ede9fe'],
+                ['Purple', '--purple', '#6a4fb3'], ['Purple dim', '--purple-dim', '#58409a'], ['Purple bg', '--purple-bg', '#f5f2fb'], ['Purple mid', '--purple-mid', '#ebe6f6'],
                 ['Ink', '--ink', '#111827'], ['Sub', '--sub', '#6b7280'], ['Border', '--border', '#e5e7eb'], ['Background', '--bg', '#f8f7ff'],
                 ['Green · Resources', '--green', '#059669'], ['Blue · Tips', '--blue', '#2563eb'], ['Amber · Milestones', '--amber', '#d97706'], ['Pink · Experts', '--pink', '#db2777'],
-                ['Danger', '--danger', '#dc2626'],
+                ['Yellow · Accent', '--yellow', '#f4c542'], ['Danger', '--danger', '#dc2626'],
             ];
         @endphp
         <div class="swatches">
@@ -291,7 +291,7 @@
         {{-- Timeline entry --}}
         <section class="block">
             <h2>Journal timeline</h2>
-            <p class="note">The dot colour shows the mood. Search matches are highlighted.</p>
+            <p class="note">The dot color shows the mood. Search matches are highlighted.</p>
             <div class="tl-items">
                 <article class="entry">
                     <span class="tl-dot"></span>
@@ -326,7 +326,7 @@
     {{-- Icons --}}
     <section class="block">
         <h2>Icons</h2>
-        <p class="note">Lucide, inlined server-side: <code>&lt;x-icon name="bell" :size="16" /&gt;</code>. Icons use <code>currentColor</code>, so they take the text colour.</p>
+        <p class="note">Lucide, inlined server-side: <code>&lt;x-icon name="bell" :size="16" /&gt;</code>. Icons use <code>currentColor</code>, so they take the text color.</p>
         <div class="icons">
             @foreach (['book-open', 'notebook-pen', 'target', 'lightbulb', 'library', 'stethoscope', 'bell', 'search', 'calendar', 'check', 'x', 'circle-alert', 'trash-2', 'heart', 'baby', 'briefcase', 'sparkles', 'lock', 'brain', 'hand-heart', 'moon', 'milk', 'users', 'video'] as $icon)
                 <div class="icon-cell"><x-icon :name="$icon" :size="20" />{{ $icon }}</div>

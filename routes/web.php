@@ -9,6 +9,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WaitlistController;
 use App\Models\JournalEntry;
+use App\Support\DailyQuote;
 use App\Support\Milestones;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function () {
             'checkedKeys'     => $checkedKeys,
             'reminders'       => Milestones::remindersFor($user, $checkedKeys),
             'onWaitlist'      => $user->waitlistSignup()->exists(),
+            'quote'           => DailyQuote::for(today()),
         ]);
     })->name('dashboard');
 

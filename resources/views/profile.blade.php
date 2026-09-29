@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Your Profile — PAGER</title>
+    <title>Your Profile | PAGER</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     @include('partials.favicon')
@@ -46,7 +46,7 @@
             font-family: inherit; font-size: 0.9rem; color: var(--ink); background: var(--white);
             outline: none; transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .field input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
+        .field input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(106,79,179, 0.1); }
         .field-hint { font-size: 0.775rem; color: var(--sub); margin-top: 0.3rem; }
         .static-value { font-size: 0.9rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; overflow-wrap: anywhere; }
         .pill { font-size: 0.7rem; font-weight: 700; border-radius: 999px; padding: 0.15rem 0.55rem; }
@@ -59,7 +59,7 @@
         .type-card { display: block; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: var(--white); transition: border-color 0.15s, background 0.15s; }
         .type-card:hover { border-color: #d8b4fe; background: var(--purple-bg); }
         .type-opt input:checked + .type-card { border-color: var(--purple); background: var(--purple-bg); }
-        .type-opt input:focus-visible + .type-card { box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25); }
+        .type-opt input:focus-visible + .type-card { box-shadow: 0 0 0 3px rgba(106,79,179, 0.25); }
         .t-icon { color: var(--purple); margin-bottom: 0.2rem; display: block; }
         .t-name { font-size: 0.8125rem; font-weight: 600; display: block; }
         .t-desc { font-size: 0.75rem; color: var(--sub); margin-top: 0.1rem; display: block; }

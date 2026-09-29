@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard — PAGER</title>
+    <title>Dashboard | PAGER</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
@@ -27,7 +27,7 @@
             position: fixed;
             top: 0; left: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--purple), #a78bfa);
+            background: linear-gradient(90deg, var(--purple), #9d88d6);
             z-index: 9999;
             width: 0%;
         }
@@ -184,6 +184,18 @@
 
         .welcome-sub { font-size: 0.875rem; color: var(--sub); }
 
+        /* ── Quote of the day ── */
+        .daily-quote {
+            max-width: 380px;
+            padding: 0.9rem 1.1rem;
+            border-left: 3px solid var(--yellow);
+            border-radius: 0 10px 10px 0;
+            background: var(--yellow-bg);
+        }
+        .daily-quote-label { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--yellow-ink); }
+        .daily-quote blockquote { margin: 0.35rem 0 0.3rem; font-size: 0.9rem; font-weight: 600; line-height: 1.5; color: var(--ink); }
+        .daily-quote figcaption { font-size: 0.75rem; color: var(--sub); }
+
         .badge {
             display: inline-flex;
             align-items: center;
@@ -304,7 +316,7 @@
             user-select: none;
         }
 
-        .mood-pill:hover { border-color: #c4b5fd; color: var(--ink); transform: translateY(-1px); }
+        .mood-pill:hover { border-color: #c3b6e6; color: var(--ink); transform: translateY(-1px); }
 
         .mood-pill.active {
             border-color: var(--purple);
@@ -346,7 +358,7 @@
             user-select: none;
         }
 
-        .tag-pill:hover { border-color: #c4b5fd; color: var(--purple); }
+        .tag-pill:hover { border-color: #c3b6e6; color: var(--purple); }
 
         .tag-pill.active {
             border-color: var(--purple);
@@ -373,7 +385,7 @@
 
         .journal-area:focus {
             border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+            box-shadow: 0 0 0 3px rgba(106,79,179,0.08);
         }
 
         .journal-area::placeholder { color: #9ca3af; }
@@ -409,7 +421,7 @@
         .btn-save:hover {
             background: var(--purple-dim);
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(124,58,237,0.3);
+            box-shadow: 0 6px 18px rgba(106,79,179,0.3);
         }
 
         /* ── Journal search ── */
@@ -435,7 +447,7 @@
 
         .jfilter-search:focus-within {
             border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+            box-shadow: 0 0 0 3px rgba(106,79,179,0.08);
             color: var(--purple);
         }
 
@@ -463,7 +475,7 @@
             transition: border-color 0.15s;
         }
 
-        .jfilter select:hover, .jfilter select:focus { border-color: #c4b5fd; outline: none; }
+        .jfilter select:hover, .jfilter select:focus { border-color: #c3b6e6; outline: none; }
 
         /* ── Entries timeline ── */
         .entries { margin-top: 1.125rem; transition: opacity 0.15s; }
@@ -522,7 +534,7 @@
         .entry[data-mood="tired"] .tl-dot       { border-color: var(--amber); background: var(--amber-bg); }
         .entry[data-mood="overwhelmed"] .tl-dot { border-color: var(--pink);  background: var(--pink-bg); }
 
-        .entry mark { background: #fef08a; color: inherit; border-radius: 3px; padding: 0 1px; }
+        .entry mark { background: var(--yellow-bg); box-shadow: inset 0 -2px 0 var(--yellow); color: inherit; border-radius: 3px; padding: 0 1px; }
 
         .btn-more {
             display: block;
@@ -538,7 +550,7 @@
             transition: border-color 0.15s, color 0.15s, background 0.15s;
         }
 
-        .btn-more:hover { border-color: #c4b5fd; color: var(--purple); background: var(--purple-bg); }
+        .btn-more:hover { border-color: #c3b6e6; color: var(--purple); background: var(--purple-bg); }
 
         .entry-meta {
             display: flex;
@@ -619,7 +631,7 @@
             color: var(--sub);
         }
 
-        .empty-icon { color: var(--purple, #7c3aed); margin-bottom: 0.5rem; display: flex; justify-content: center; }
+        .empty-icon { color: var(--purple, #6a4fb3); margin-bottom: 0.5rem; display: flex; justify-content: center; }
         .empty-title { display: block; font-size: 0.95rem; color: var(--ink); margin-bottom: 0.2rem; }
         .prompt-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 0.9rem; }
         .prompt-chip {
@@ -717,7 +729,7 @@
 
         .ms-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--purple), #a78bfa);
+            background: linear-gradient(90deg, var(--purple), #9d88d6);
             border-radius: 999px;
             width: 0%;
             transition: width 0.6s ease;
@@ -822,10 +834,10 @@
             opacity: 0;
         }
 
-        .tip-card:hover { border-color: #c4b5fd; background: var(--purple-bg); }
+        .tip-card:hover { border-color: #c3b6e6; background: var(--purple-bg); }
 
         .tip-icon {
-            color: var(--purple, #7c3aed);
+            color: var(--purple, #6a4fb3);
             flex-shrink: 0;
             margin-top: 1px;
             display: flex;
@@ -886,7 +898,7 @@
 
         .filter-input:focus {
             border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+            box-shadow: 0 0 0 3px rgba(106,79,179,0.08);
         }
 
         .filter-input::placeholder { color: #9ca3af; }
@@ -910,7 +922,7 @@
             transition: border-color 0.15s, background 0.15s, color 0.15s;
         }
 
-        .filter-tab:hover { border-color: #c4b5fd; color: var(--purple); }
+        .filter-tab:hover { border-color: #c3b6e6; color: var(--purple); }
 
         .filter-tab.active {
             border-color: var(--purple);
@@ -949,17 +961,17 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--purple), #a78bfa);
+            background: linear-gradient(90deg, var(--purple), #9d88d6);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s;
         }
 
         .res-card:hover {
-            border-color: #c4b5fd;
+            border-color: #c3b6e6;
             background: var(--purple-bg);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(124,58,237,0.1);
+            box-shadow: 0 6px 20px rgba(106,79,179,0.1);
         }
 
         .res-card:hover::before { transform: scaleX(1); }
@@ -1012,21 +1024,21 @@
             position: absolute;
             bottom: 0; left: 0; right: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--purple), #a78bfa);
+            background: linear-gradient(90deg, var(--purple), #9d88d6);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s;
         }
 
         .expert-card:hover {
-            border-color: #c4b5fd;
+            border-color: #c3b6e6;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(124,58,237,0.1);
+            box-shadow: 0 8px 24px rgba(106,79,179,0.1);
         }
 
         .expert-card:hover::after { transform: scaleX(1); }
 
-        .expert-icon { color: var(--purple, #7c3aed); margin-bottom: 0.625rem; display: block; }
+        .expert-icon { color: var(--purple, #6a4fb3); margin-bottom: 0.625rem; display: block; }
 
         .expert-card h3 {
             font-size: 0.875rem;
@@ -1059,7 +1071,7 @@
             position: absolute;
             top: -30px; right: -30px;
             width: 200px; height: 200px;
-            background: radial-gradient(circle, rgba(124,58,237,0.08), transparent 70%);
+            background: radial-gradient(circle, rgba(106,79,179,0.08), transparent 70%);
             pointer-events: none;
         }
 
@@ -1104,7 +1116,7 @@
             cursor: pointer; transition: all 0.15s;
         }
         .topic input:checked + span { color: var(--purple); background: var(--purple-bg); border-color: var(--purple); }
-        .topic input:focus-visible + span { box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25); }
+        .topic input:focus-visible + span { box-shadow: 0 0 0 3px rgba(106,79,179, 0.25); }
         .modal-submit { justify-self: stretch; padding: 0.7rem 1rem; font-size: 0.875rem; margin-top: 0.25rem; }
         .modal-submit:disabled { opacity: 0.7; cursor: default; }
 
@@ -1126,7 +1138,7 @@
         .btn-cta:hover {
             background: var(--purple-dim);
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(124,58,237,0.3);
+            box-shadow: 0 6px 18px rgba(106,79,179,0.3);
         }
 
         .coming-badge {
@@ -1135,11 +1147,11 @@
             gap: 0.3rem;
             padding: 0.2rem 0.6rem;
             border-radius: 999px;
-            background: #fef3c7;
-            border: 1px solid #fde68a;
+            background: var(--yellow-bg);
+            border: 1px solid var(--yellow);
             font-size: 0.68rem;
             font-weight: 700;
-            color: #92400e;
+            color: var(--yellow-ink);
             letter-spacing: 0.04em;
             text-transform: uppercase;
         }
@@ -1216,7 +1228,7 @@
                 ['icon' => 'moon', 'title' => 'Rest Well', 'tip' => 'Sleep on your left side to improve blood flow. A pregnancy pillow makes a big difference.', 'url' => 'https://www.nhs.uk/pregnancy/common-symptoms/tiredness/'],
             ],
             'new_parent' => [
-                ['icon' => 'milk', 'title' => 'Feeding Cues', 'tip' => 'Watch for rooting, sucking motions, and hand-to-mouth movement — feed before crying starts.', 'url' => 'https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html'],
+                ['icon' => 'milk', 'title' => 'Feeding Cues', 'tip' => 'Watch for rooting, sucking motions, and hand-to-mouth movement. Feed before crying starts.', 'url' => 'https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html'],
                 ['icon' => 'moon', 'title' => 'Safe Sleep', 'tip' => 'Always place baby on their back on a firm, flat surface with no pillows or loose bedding.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/a-parents-guide-to-safe-sleep.aspx'],
                 ['icon' => 'sunrise', 'title' => 'Tummy Time', 'tip' => '2–3 minutes, 3–5 times daily from day one helps build neck and shoulder strength.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/back-to-sleep-tummy-to-play.aspx'],
                 ['icon' => 'stethoscope', 'title' => 'Checkup Prep', 'tip' => 'Schedule visits at 1, 2, 4, 6, and 9 months. Bring a written list of questions each time.', 'url' => 'https://www.healthychildren.org/English/family-life/health-management/Pages/Well-Child-Care-A-Check-Up-for-Success.aspx'],
@@ -1225,13 +1237,13 @@
                 ['icon' => 'scale', 'title' => 'Work-Life Balance', 'tip' => 'Set a hard stop time each day and protect family moments. Boundaries reduce long-term guilt.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/paid-family-and-medical-leave-caring-for-a-new-baby-or-sick-family-member.aspx'],
                 ['icon' => 'school', 'title' => 'Daycare Transition', 'tip' => 'Start with short visits before full days. A consistent drop-off routine reduces anxiety for both of you.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/preparing-your-child-for-child-care.aspx'],
                 ['icon' => 'phone', 'title' => 'Caregiver Comms', 'tip' => 'Share your baby\'s schedule, preferences, and health notes clearly with your care team every week.', 'url' => 'https://www.healthychildren.org/English/family-life/work-and-child-care/Pages/choosing-a-child-care-center.aspx'],
-                ['icon' => 'wind', 'title' => 'Micro Self-Care', 'tip' => '5–10 minutes of intentional rest — breathing, walking, or stretching — can reset your entire day.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/Pages/Importance-of-Self-Care.aspx'],
+                ['icon' => 'wind', 'title' => 'Micro Self-Care', 'tip' => '5–10 minutes of intentional rest (breathing, walking, or stretching) can reset your entire day.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/Pages/Importance-of-Self-Care.aspx'],
             ],
             'solo_parent' => [
-                ['icon' => 'users', 'title' => 'Build Your Village', 'tip' => 'Identify 3 people you can call in an emergency — friends, family, neighbours, or a community group.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/types-of-families/Pages/Stresses-of-Single-Parenting.aspx'],
-                ['icon' => 'dollar-sign', 'title' => 'Financial Help', 'tip' => 'Check eligibility for childcare subsidies, parental tax credits, and local support programmes.', 'url' => 'https://childcare.gov/consumer-education/get-help-paying-for-child-care/child-care-financial-assistance-options'],
+                ['icon' => 'users', 'title' => 'Build Your Village', 'tip' => 'Identify 3 people you can call in an emergency: friends, family, neighbors, or a community group.', 'url' => 'https://www.healthychildren.org/English/family-life/family-dynamics/types-of-families/Pages/Stresses-of-Single-Parenting.aspx'],
+                ['icon' => 'dollar-sign', 'title' => 'Financial Help', 'tip' => 'Check eligibility for childcare subsidies, parental tax credits, and local support programs.', 'url' => 'https://childcare.gov/consumer-education/get-help-paying-for-child-care/child-care-financial-assistance-options'],
                 ['icon' => 'heart', 'title' => 'You\'re Enough', 'tip' => 'Solo parenting is demanding. One present, loving parent is exactly what children need most.', 'url' => 'https://www.healthychildren.org/English/ages-stages/baby/Pages/Challenges-of-Being-a-New-Mom.aspx'],
-                ['icon' => 'globe', 'title' => 'Community', 'tip' => 'Parent groups — online or local — reduce isolation and open doors to shared resources and friendships.', 'url' => 'https://www.healthychildren.org/English/family-life/Community/Pages/default.aspx'],
+                ['icon' => 'globe', 'title' => 'Community', 'tip' => 'Parent groups, online or local, reduce isolation and open doors to shared resources and friendships.', 'url' => 'https://www.healthychildren.org/English/family-life/Community/Pages/default.aspx'],
             ],
         ];
         $parentType = auth()->user()->parent_type ?? 'new_parent';
@@ -1242,9 +1254,14 @@
         <div class="welcome-top">
             <div>
                 <h1>{{ $greeting }}, {{ auth()->user()->name }} 👋</h1>
-                <p class="welcome-sub">Your parenting dashboard — everything in one place.</p>
+                <p class="welcome-sub">Your parenting dashboard: everything in one place.</p>
                 <span class="badge">@if($typeIcon)<x-icon :name="$typeIcon" :size="14" />@endif {{ $typeLabel }}</span>
             </div>
+            <figure class="daily-quote" aria-label="Quote of the day">
+                <span class="daily-quote-label"><x-icon name="sparkles" :size="13" /> Quote of the day</span>
+                <blockquote>“{{ $quote['text'] }}”</blockquote>
+                <figcaption>{{ $quote['author'] }}</figcaption>
+            </figure>
         </div>
     </div>
 
@@ -1502,7 +1519,7 @@
                     ['Article',   'Caregiver Self-Care',         'Why caring for yourself is one of the best things you can do for your child.', 'https://kidshealth.org/en/parents/caregiver-burnout.html'],
                     ['Guide',     'Baby-Proofing Your Home',     'Room-by-room safety checklist as your baby starts to move and explore.', 'https://www.cpsc.gov/safety-education/safety-guides/kids-and-babies/Childproofing-Your-Home'],
                     ['Video',     'Reading Baby\'s Cues',        'Learn to decode your baby\'s body language, sounds, and signals in real time.', 'https://raisingchildren.net.au/newborns/connecting-communicating/communicating/baby-cues'],
-                    ['Checklist', 'Hospital Bag Essentials',     'Everything to pack before your due date — for you, your partner, and baby.', 'https://americanpregnancy.org/giving-birth/hospital-bag-packing-list/'],
+                    ['Checklist', 'Hospital Bag Essentials',     'Everything to pack before your due date, for you, your partner, and baby.', 'https://americanpregnancy.org/giving-birth/hospital-bag-packing-list/'],
                     ['Guide',     'Returning to Work Guide',     'Practical steps to plan your return, manage childcare, and ease the transition.', 'https://aspe.hhs.gov/parents-guide-choosing-safe-healthy-child-care'],
                 ];
             @endphp
@@ -1527,7 +1544,7 @@
             <div class="expert-card">
                 <span class="expert-icon"><x-icon name="brain" :size="24" /></span>
                 <h3>Child Psychologists</h3>
-                <p>Behavioural, emotional, and developmental support tailored to your child's needs.</p>
+                <p>Behavioral, emotional, and developmental support tailored to your child's needs.</p>
             </div>
             <div class="expert-card">
                 <span class="expert-icon"><x-icon name="baby" :size="24" /></span>
@@ -1552,7 +1569,7 @@
                 <p>Book a one-on-one consultation with a certified child development specialist.</p>
             </div>
             @if ($onWaitlist || session('waitlist_joined'))
-                <span class="waitlist-done"><x-icon name="sparkles" :size="16" /> {{ "You're on the list — we'll email you" }}</span>
+                <span class="waitlist-done"><x-icon name="sparkles" :size="16" /> {{ "You're on the list. We'll email you." }}</span>
             @else
                 <button type="button" class="btn-cta" id="openWaitlist">Book a Consultation</button>
             @endif
@@ -1875,7 +1892,7 @@
 
     function celebrate(origin) {
         const r = origin.getBoundingClientRect();
-        const colors = ['#7c3aed', '#a78bfa', '#f23de0', '#3d8bff', '#059669', '#d97706'];
+        const colors = ['#6a4fb3', '#9d88d6', '#f4c542', '#3d8bff', '#059669', '#d97706'];
         const bits = Array.from({ length: 18 }, (_, i) => {
             const bit = document.createElement('span');
             bit.className = 'burst-bit';
@@ -1927,7 +1944,7 @@
         }
 
         cb.addEventListener('change', () => {
-            anime({ targets: cb.parentElement, backgroundColor:['rgba(124,58,237,0.08)','rgba(124,58,237,0)'], duration:500, easing:'easeOutQuad' });
+            anime({ targets: cb.parentElement, backgroundColor:['rgba(106,79,179,0.08)','rgba(106,79,179,0)'], duration:500, easing:'easeOutQuad' });
             updateProgress();
             syncReminder(cb);
             saveMilestone(cb);
@@ -1935,7 +1952,7 @@
             const group = groupOf(cb);
             if (cb.checked && isGroupDone(group)) {
                 celebrate(group.querySelector('.ms-group-label'));
-                showToast(group.dataset.group + ' — all done! 🎉');
+                showToast(group.dataset.group + ': all done! 🎉');
             }
         });
     });
@@ -1980,7 +1997,7 @@
                 waitlistModal.close();
                 const done = document.createElement('span');
                 done.className = 'waitlist-done';
-                done.textContent = "You're on the list — we'll email you";
+                done.textContent = "You're on the list. We'll email you.";
                 openWaitlist.replaceWith(done);
                 anime({ targets: done, opacity: [0, 1], scale: [0.9, 1], duration: 400, easing: 'easeOutBack' });
                 showToast("You're on the expert waitlist.");

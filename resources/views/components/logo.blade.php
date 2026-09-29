@@ -12,10 +12,10 @@
     .pg-logo { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--ink, #111827); text-decoration: none; line-height: 1; }
     .pg-logo-tile {
         display: block; flex-shrink: 0; border-radius: 26%;
-        box-shadow: 0 4px 12px rgba(124,58,237,0.28), inset 0 0 0 1px rgba(255,255,255,0.15);
+        box-shadow: 0 4px 12px rgba(106,79,179,0.28), inset 0 0 0 1px rgba(255,255,255,0.15);
         transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
     }
-    a:hover > .pg-logo .pg-logo-tile, a.pg-logo:hover .pg-logo-tile { transform: rotate(-8deg) scale(1.06); box-shadow: 0 8px 20px rgba(124,58,237,0.35); }
+    a:hover > .pg-logo .pg-logo-tile, a.pg-logo:hover .pg-logo-tile { transform: rotate(-8deg) scale(1.06); box-shadow: 0 8px 20px rgba(106,79,179,0.35); }
     .pg-logo-text { display: flex; flex-direction: column; gap: 0.2em; }
     .pg-logo-name { font-weight: 800; letter-spacing: 0.08em; }
     .pg-logo-tag { font-size: 0.58em; font-weight: 600; letter-spacing: 0.04em; color: var(--sub, #6b7280); white-space: nowrap; }

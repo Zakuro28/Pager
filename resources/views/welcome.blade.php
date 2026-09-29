@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PAGER — The Parenting Manager</title>
+    <title>PAGER | The Parenting Manager</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
@@ -29,7 +29,7 @@
         #scroll-progress {
             position: fixed; top: 0; left: 0;
             height: 2.5px;
-            background: linear-gradient(90deg, #7c3aed, #a78bfa, #7c3aed);
+            background: linear-gradient(90deg, #6a4fb3, #9d88d6, #6a4fb3);
             background-size: 200% 100%;
             z-index: 9999; width: 0%;
             animation: gradientShift 2s linear infinite;
@@ -39,14 +39,14 @@
         /* ── Background ── */
         .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
         .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.1; }
-        .orb-1 { width: 600px; height: 600px; background: #7c3aed; top: -200px; right: -100px; animation: floatOrb 12s ease-in-out infinite; }
-        .orb-2 { width: 400px; height: 400px; background: #a78bfa; bottom: 20%; left: -100px; animation: floatOrb 16s ease-in-out infinite reverse; }
-        .orb-3 { width: 300px; height: 300px; background: #7c3aed; top: 60%; right: 10%; animation: floatOrb 10s ease-in-out infinite 4s; }
+        .orb-1 { width: 600px; height: 600px; background: #6a4fb3; top: -200px; right: -100px; animation: floatOrb 12s ease-in-out infinite; }
+        .orb-2 { width: 400px; height: 400px; background: #9d88d6; bottom: 20%; left: -100px; animation: floatOrb 16s ease-in-out infinite reverse; }
+        .orb-3 { width: 300px; height: 300px; background: #6a4fb3; top: 60%; right: 10%; animation: floatOrb 10s ease-in-out infinite 4s; }
         @keyframes floatOrb { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-30px) scale(1.05); } 66% { transform: translate(-20px,20px) scale(0.97); } }
 
         .dot-grid {
             position: fixed; inset: 0; pointer-events: none; z-index: 0;
-            background-image: radial-gradient(circle, #7c3aed22 1px, transparent 1px);
+            background-image: radial-gradient(circle, #6a4fb322 1px, transparent 1px);
             background-size: 32px 32px; opacity: 0.35;
             mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
         }
@@ -79,14 +79,14 @@
         .nav-indicator {
             position: absolute; top: 0.25rem; bottom: 0.25rem; left: 0; width: 0; border-radius: 999px;
             background: var(--white); pointer-events: none; opacity: 0;
-            box-shadow: 0 1px 3px rgba(17,24,39,0.08), 0 0 0 1px rgba(124,58,237,0.1);
+            box-shadow: 0 1px 3px rgba(17,24,39,0.08), 0 0 0 1px rgba(106,79,179,0.1);
             transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), width 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
         }
         .nav-actions { display: flex; align-items: center; gap: 0.625rem; flex-shrink: 0; }
         .btn-nav-ghost { font-size: 0.875rem; font-weight: 500; color: var(--sub); padding: 0.4rem 0.875rem; border: 1px solid var(--border); border-radius: 6px; transition: all 0.15s; }
         .btn-nav-ghost:hover { color: var(--ink); border-color: #d1d5db; background: #f9fafb; }
         .btn-nav-solid { font-size: 0.875rem; font-weight: 600; color: var(--white); background: var(--purple); padding: 0.4rem 0.875rem; border-radius: 6px; transition: background 0.15s, box-shadow 0.2s; }
-        .btn-nav-solid:hover { background: var(--purple-dim); box-shadow: 0 0 16px rgba(124,58,237,0.35); }
+        .btn-nav-solid:hover { background: var(--purple-dim); box-shadow: 0 0 16px rgba(106,79,179,0.35); }
         .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; color: var(--ink); min-width: 40px; min-height: 40px; align-items: center; justify-content: center; }
         .nav-mobile { display: none; border-top: 1px solid var(--border); padding: 0.75rem 0 1rem; }
         .nav-mobile.open { display: block; }
@@ -112,16 +112,16 @@
             border-radius: 8px; transition: background 0.15s, transform 0.15s, box-shadow 0.25s;
             position: relative; overflow: hidden;
         }
-        .btn-solid:hover { background: var(--purple-dim); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.35); }
+        .btn-solid:hover { background: var(--purple-dim); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(106,79,179,0.35); }
         .btn-solid-pulse { animation: glow-pulse 3s ease-in-out infinite; }
-        @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(124,58,237,0); } 50% { box-shadow: 0 0 20px 4px rgba(124,58,237,0.25); } }
+        @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(106,79,179,0); } 50% { box-shadow: 0 0 20px 4px rgba(106,79,179,0.25); } }
         .btn-text { font-size: 0.9375rem; font-weight: 500; color: var(--sub); display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.15s, gap 0.15s; }
         .btn-text:hover { color: var(--ink); gap: 0.6rem; }
 
         /* ── Hero ── */
         .hero { padding: 6rem 0 5rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
 
-        /* Orchid Bloom aura (auragradients.vercel.app) — hero only, fades out before the stats */
+        /* Orchid Bloom aura (auragradients.vercel.app): hero only, fades out at the bottom */
         .hero-aura {
             position: absolute; inset: 0; z-index: 0; pointer-events: none;
             background: #faf8f2; isolation: isolate;
@@ -134,10 +134,8 @@
         @keyframes auraDrift { from { transform: translate3d(-3%, 0, 0) scale(1); } to { transform: translate3d(3%, -4%, 0) scale(1.08); } }
         @media (prefers-reduced-motion: reduce) { .hero-aura span { animation: none; } }
         .hero-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple); margin-bottom: 2rem; opacity: 0; }
-        .hero-label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulse-dot 2s ease-in-out infinite; }
-        @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.6); } 50% { box-shadow: 0 0 0 6px rgba(124,58,237,0); } }
         .hero h1 { font-size: clamp(2.6rem, 5.5vw, 4.25rem); font-weight: 800; line-height: 1.06; letter-spacing: -0.04em; color: var(--ink); max-width: 18ch; margin-bottom: 1.75rem; opacity: 0; }
-        .hero h1 .highlight { color: var(--purple); }
+        .hero h1 .highlight { color: var(--purple); background: linear-gradient(transparent 72%, rgba(244,197,66,0.55) 72%, rgba(244,197,66,0.55) 92%, transparent 92%); padding: 0 0.05em; }
         .hero-sub { font-size: 1.0625rem; color: var(--sub); max-width: 52ch; line-height: 1.75; margin-bottom: 2.75rem; opacity: 0; }
         .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; opacity: 0; }
         .hero-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2.5rem; opacity: 0; }
@@ -149,28 +147,9 @@
         .ticker-item { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sub); padding: 0 1.75rem; flex-shrink: 0; }
         .ticker-sep { color: var(--purple); font-size: 0.78rem; flex-shrink: 0; padding: 0 0.25rem; }
 
-        /* ── Stats ── */
-        .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
-        .stat { padding: 2.5rem 0; padding-right: 2rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background 0.2s; }
-        .stat:hover { background: var(--purple-bg); }
-        .stat:first-child { padding-left: 0; }
-        .stat:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
-        .stat:nth-child(2), .stat:nth-child(3) { padding-left: 2rem; }
-        .stat-num { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; color: var(--purple); margin-bottom: 0.35rem; font-variant-numeric: tabular-nums; }
-        .stat-desc { font-size: 0.875rem; color: var(--sub); line-height: 1.5; }
-        @media (max-width: 700px) {
-            .stats { grid-template-columns: 1fr 1fr; }
-            .stat:nth-child(2) { border-right: none; }
-            .stat:nth-child(3) { border-right: 1px solid var(--border); padding-left: 0; }
-            .stat:last-child { padding-left: 0; }
-            .stat { padding: 1.75rem 0; padding-right: 1.5rem; }
-            .stat:nth-child(2n) { padding-right: 0; padding-left: 1.5rem; }
-        }
-
         /* ── Section base ── */
         .section { padding: 5.5rem 0; border-bottom: 1px solid var(--border); position: relative; }
         .eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
-        .eyebrow::before { content: ""; width: 20px; height: 1.5px; background: var(--purple); }
         .section-h { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.12; color: var(--ink); max-width: 24ch; margin-bottom: 1rem; }
         .section-p { font-size: 1rem; color: var(--sub); max-width: 56ch; line-height: 1.75; margin-bottom: 3.5rem; }
 
@@ -214,93 +193,7 @@
         .feat-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; }
         .feat-tag { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--icon-bg, var(--purple-bg)); color: var(--accent, var(--purple)); border: 1px solid var(--border); }
         .feat-badge { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--green-bg); color: var(--green); border: 1px solid #a7f3d0; margin-bottom: 0.5rem; }
-        .feat-badge-soon { background: var(--amber-bg); color: var(--amber); border-color: #fde68a; }
-
-        /* ── How it works ── */
-        .flow-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            position: relative;
-        }
-        @media (max-width: 860px) { .flow-grid { grid-template-columns: 1fr; } }
-
-        .flow-step {
-            padding: 2rem 1.5rem 2rem 0;
-            border-right: 1px solid var(--border);
-            position: relative;
-        }
-        .flow-step:last-child { border-right: none; }
-        .flow-step + .flow-step { padding-left: 1.5rem; }
-
-        @media (max-width: 860px) {
-            .flow-step { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
-            .flow-step:last-child { border-bottom: none; }
-            .flow-step + .flow-step { padding-left: 0; }
-        }
-
-        .flow-num {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: var(--purple-bg); color: var(--purple);
-            font-size: 0.825rem; font-weight: 800;
-            display: grid; place-items: center;
-            margin-bottom: 1rem;
-            border: 1.5px solid var(--purple-mid);
-        }
-        .flow-step h4 { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; letter-spacing: -0.01em; }
-        .flow-step p { font-size: 0.825rem; color: var(--sub); line-height: 1.6; }
-
-        /* ── Roadmap ── */
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-        }
-        @media (max-width: 900px) { .roadmap-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 480px) { .roadmap-grid { grid-template-columns: 1fr; } }
-
-        .roadmap-card {
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.625rem;
-            background: var(--white);
-            position: relative;
-            overflow: hidden;
-            transition: box-shadow 0.2s;
-        }
-        .roadmap-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
-        .roadmap-card.active { border-color: var(--purple-mid); background: var(--purple-bg); }
-
-        .roadmap-phase {
-            font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;
-            text-transform: uppercase; color: var(--purple);
-            margin-bottom: 0.35rem;
-        }
-        .roadmap-timeline {
-            font-size: 0.78rem; font-weight: 600; color: var(--sub);
-            margin-bottom: 1rem;
-            display: flex; align-items: center; gap: 0.35rem;
-        }
-        .roadmap-card h3 { font-size: 0.95rem; font-weight: 800; color: var(--ink); margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-
-        .roadmap-items { list-style: none; display: grid; gap: 0.4rem; }
-        .roadmap-items li {
-            display: flex; align-items: flex-start; gap: 0.5rem;
-            font-size: 0.8rem; color: var(--sub); line-height: 1.45;
-        }
-        .roadmap-items li::before {
-            content: ''; width: 5px; height: 5px; border-radius: 50%;
-            background: var(--purple); flex-shrink: 0; margin-top: 6px; opacity: 0.6;
-        }
-        .roadmap-card.active .roadmap-items li::before { opacity: 1; }
-
-        .now-badge {
-            position: absolute; top: 1rem; right: 1rem;
-            font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.06em; color: var(--green);
-            background: var(--green-bg); border: 1px solid #a7f3d0;
-            border-radius: 999px; padding: 0.15rem 0.55rem;
-        }
+        .feat-badge-soon { background: var(--yellow-bg); color: var(--yellow-ink); border-color: var(--yellow); }
 
         /* ── About / Values ── */
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -367,7 +260,7 @@
             background: linear-gradient(135deg, var(--purple-bg), rgba(245,243,255,0.4));
             position: relative; overflow: hidden;
         }
-        .cta-inner::before { content: ''; position: absolute; top: -50%; right: -50%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(124,58,237,0.07), transparent 70%); pointer-events: none; }
+        .cta-inner::before { content: ''; position: absolute; top: -50%; right: -50%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(106,79,179,0.07), transparent 70%); pointer-events: none; }
         .cta-inner h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; letter-spacing: -0.03em; color: var(--ink); max-width: 30ch; line-height: 1.2; }
         .cta-inner h2 span { color: var(--purple); }
 
@@ -410,8 +303,6 @@
         @php
             $sections = [
                 'features'     => ['Features', 'sparkles'],
-                'how-it-works' => ['How it works', 'target'],
-                'roadmap'      => ['Roadmap', 'calendar'],
                 'experts'      => ['Experts', 'stethoscope'],
                 'about'        => ['About', 'heart'],
             ];
@@ -429,7 +320,7 @@
                 <a class="btn-nav-solid" href="{{ route('dashboard') }}">Dashboard</a>
             @else
                 <a class="btn-nav-ghost" href="{{ $loginUrl }}">Log in</a>
-                <a class="btn-nav-solid" href="{{ $registerUrl }}">Get started free</a>
+                <a class="btn-nav-solid" href="{{ $registerUrl }}">Get Started</a>
             @endauth
         </div>
         <button class="nav-hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
@@ -446,7 +337,7 @@
                 <a class="btn-nav-solid" href="{{ route('dashboard') }}">Go to dashboard</a>
             @else
                 <a class="btn-nav-ghost" href="{{ $loginUrl }}">Log in</a>
-                <a class="btn-nav-solid" href="{{ $registerUrl }}">Get started free</a>
+                <a class="btn-nav-solid" href="{{ $registerUrl }}">Get Started</a>
             @endauth
         </div>
     </div>
@@ -456,20 +347,17 @@
 <section class="hero" id="hero">
     <div class="hero-aura" aria-hidden="true"><span class="aura-1"></span><span class="aura-2"></span></div>
     <div class="wrap">
-        <div class="hero-label"><span class="hero-label-dot"></span>The Parenting Manager</div>
-        <h1 id="heroHeading">Everything a caregiver needs: journal, guidance, and <span class="highlight">expert support.</span></h1>
+        <div class="hero-label"><x-logo :size="22" mark-only />The Parenting Manager</div>
+        <h1 id="heroHeading">Everything a caregiver needs: journal, milestones, and <span class="highlight">guidance.</span></h1>
         <p class="hero-sub">Keep a private journal, track milestones with reminders for your child's age, and get tips for your stage. Explore a curated resource library, with licensed parenting experts coming soon.</p>
         <div class="hero-actions">
-            <a class="btn-solid btn-solid-pulse" href="{{ $registerUrl }}">Get started free
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a class="btn-text" href="#features">Explore features
+            <a class="btn-solid" href="#features">Explore features
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
         <div class="hero-chips">
             <span class="hero-chip"><x-icon name="book-open" :size="14" /> Journal</span>
-            <span class="hero-chip"><x-icon name="lightbulb" :size="14" /> Stage Tips</span>
+            <span class="hero-chip"><x-icon name="lightbulb" :size="14" /> Parenting Stage Tips</span>
             <span class="hero-chip"><x-icon name="library" :size="14" /> Resources</span>
             <span class="hero-chip"><x-icon name="target" :size="14" /> Milestones</span>
             <span class="hero-chip"><x-icon name="stethoscope" :size="14" /> Expert Guidance</span>
@@ -478,43 +366,31 @@
         <div class="ticker-wrap">
             <div class="ticker-track" id="tickerTrack">
                 <span class="ticker-item">Parenting Journal</span><span class="ticker-sep">·</span>
-                <span class="ticker-item">Tips for Your Stage</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Parenting Stage Tips</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Milestone Tracking</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Resource Library</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Expert Guidance</span><span class="ticker-sep">·</span>
                 <span class="ticker-item">Secure &amp; Private</span><span class="ticker-sep">·</span>
-                <span class="ticker-item">Free to Start</span><span class="ticker-sep">·</span>
-                <span class="ticker-item">Free Core Features</span><span class="ticker-sep">·</span>
+                <span class="ticker-item">Made for Caregivers</span><span class="ticker-sep">·</span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Stats -->
-<div class="wrap">
-    <div class="stats" id="statsBar">
-        <div class="stat"><div class="stat-num" data-to="5" data-suffix=" features">0</div><div class="stat-desc">Core modules live in the platform today</div></div>
-        <div class="stat"><div class="stat-num" data-to="4" data-suffix=" phases">0</div><div class="stat-desc">Product roadmap from MVP to full scale</div></div>
-        <div class="stat"><div class="stat-num">$0 upfront</div><div class="stat-desc">Free core journal &amp; milestone tracking always</div></div>
-        <div class="stat"><div class="stat-num" data-to="4" data-suffix=" types">0</div><div class="stat-desc">Parent profiles — expecting, new, working, solo</div></div>
-    </div>
-</div>
-
 <!-- Features -->
 <section class="section" id="features">
     <div class="wrap">
         <div class="eyebrow anim-up">Core Features</div>
-        <h2 class="section-h anim-up">Five modules. One caregiving platform.</h2>
-        <p class="section-p anim-up">Built around the real needs of parents at every stage — from pregnancy to school age.</p>
+        <p class="section-p anim-up">Built around the real needs of parents at every stage, from pregnancy to school age.</p>
 
         <div class="features-grid">
             <!-- Journal -->
-            <div class="feat-card anim-up" style="--accent:#7c3aed; --icon-bg:#f5f3ff;">
+            <div class="feat-card anim-up" style="--accent:#6a4fb3; --icon-bg:#f5f2fb;">
                 <span class="feat-badge">✓ Available now</span>
                 <div class="feat-icon"><x-icon name="book-open" :size="22" /></div>
                 <div class="feat-num">01</div>
                 <h3>Parenting Journal</h3>
-                <p>A multimedia diary for documenting your parenting journey — text entries with mood tracking, tags, and a growing timeline of your family's most important moments.</p>
+                <p>A multimedia diary for documenting your parenting journey: text entries with mood tracking, tags, and a growing timeline of your family's most important moments.</p>
                 <div class="feat-tags">
                     <span class="feat-tag">Text entries</span>
                     <span class="feat-tag">Mood tracking</span>
@@ -529,12 +405,12 @@
                 <span class="feat-badge">✓ Available now</span>
                 <div class="feat-icon" style="background:#eff6ff;"><x-icon name="lightbulb" :size="22" /></div>
                 <div class="feat-num">02</div>
-                <h3>Tips for Your Stage</h3>
-                <p>Practical tips matched to your parent type — expecting, new, working, or solo — covering sleep, feeding, routines, and self-care, each linked to a trusted source.</p>
+                <h3>Parenting Stage Tips</h3>
+                <p>Practical tips matched to your parent type (expecting, new, working, or solo), covering sleep, feeding, routines, and self-care, each linked to a trusted source.</p>
                 <div class="feat-tags">
                     <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Stage-based tips</span>
                     <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Trusted sources</span>
-                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Personalised tips coming soon</span>
+                    <span class="feat-tag" style="background:#eff6ff;color:#2563eb;">Personalized tips coming soon</span>
                 </div>
             </div>
 
@@ -544,7 +420,7 @@
                 <div class="feat-icon" style="background:#ecfdf5;"><x-icon name="library" :size="22" /></div>
                 <div class="feat-num">03</div>
                 <h3>Resource Library</h3>
-                <p>A searchable, filterable database of expert-backed articles, videos, and guides — covering sleep, feeding, wellness, and development from pregnancy to school age.</p>
+                <p>A searchable, filterable database of expert-backed articles, videos, and guides, covering sleep, feeding, wellness, and development from pregnancy to school age.</p>
                 <div class="feat-tags">
                     <span class="feat-tag" style="background:#ecfdf5;color:#059669;">Articles &amp; videos</span>
                     <span class="feat-tag" style="background:#ecfdf5;color:#059669;">Search &amp; filter</span>
@@ -569,11 +445,11 @@
 
             <!-- Expert Guidance -->
             <div class="feat-card anim-up" style="--accent:#db2777; --icon-bg:#fdf2f8;">
-                <span class="feat-badge feat-badge-soon">Coming soon · join the waitlist</span>
+                <a class="feat-badge feat-badge-soon" href="{{ $registerUrl }}" title="Create an account, then tap “Book a Consultation” on your dashboard">Coming soon · join the waitlist →</a>
                 <div class="feat-icon" style="background:#fdf2f8;"><x-icon name="stethoscope" :size="22" /></div>
                 <div class="feat-num">05</div>
                 <h3>Expert Parenting Guidance</h3>
-                <p>Access licensed psychologists, early childhood specialists, and occupational therapists via Ask-an-Expert and live 1:1 video consultations.</p>
+                <p>We're preparing access to licensed psychologists, early childhood specialists, and occupational therapists. Join the waitlist from your dashboard to hear first when it opens.</p>
                 <div class="feat-tags">
                     <span class="feat-tag" style="background:#fdf2f8;color:#db2777;">1:1 consultations</span>
                     <span class="feat-tag" style="background:#fdf2f8;color:#db2777;">Ask-an-Expert</span>
@@ -584,92 +460,16 @@
     </div>
 </section>
 
-<!-- How It Works -->
-<section class="section" id="how-it-works">
-    <div class="wrap">
-        <div class="eyebrow anim-up">How It Works</div>
-        <h2 class="section-h anim-up">Three steps. Two minutes to start.</h2>
-        <p class="section-p anim-up">Tell us where you are, write things down, and get guidance that fits your stage.</p>
-
-        <div class="flow-grid" id="flowGrid">
-            <div class="flow-step"><div class="flow-num">1</div><h4>Tell us your stage</h4><p>Sign up and choose expecting, new, working, or solo parent. You can change it any time, for example when your baby arrives.</p></div>
-            <div class="flow-step"><div class="flow-num">2</div><h4>Write &amp; track</h4><p>Keep a private journal with moods and tags, and tick off milestones or pregnancy to-dos as they happen.</p></div>
-            <div class="flow-step"><div class="flow-num">3</div><h4>Get guidance that fits</h4><p>See tips and expert-backed resources for your stage, and join the list for 1:1 expert support when it opens.</p></div>
-        </div>
-    </div>
-</section>
-
-<!-- Roadmap -->
-<section class="section" id="roadmap">
-    <div class="wrap">
-        <div class="eyebrow anim-up">Product Roadmap</div>
-        <h2 class="section-h anim-up">From MVP to the world's most trusted parenting platform.</h2>
-        <p class="section-p anim-up">A phased approach that ships value fast and scales to global caregiving support.</p>
-
-        <div class="roadmap-grid">
-            <div class="roadmap-card active anim-up">
-                <span class="now-badge">Live Now</span>
-                <div class="roadmap-phase">Phase 1</div>
-                <div class="roadmap-timeline">⏱ 0–6 months · MVP</div>
-                <h3>Core Platform</h3>
-                <ul class="roadmap-items">
-                    <li>Parenting Journal (text + tags + mood)</li>
-                    <li>Milestone tracking with checklists</li>
-                    <li>Static resource library</li>
-                    <li>Stage-based tips</li>
-                    <li>Parent type personalization</li>
-                </ul>
-            </div>
-            <div class="roadmap-card anim-up">
-                <div class="roadmap-phase">Phase 2</div>
-                <div class="roadmap-timeline">⏱ 6–12 months · Growth</div>
-                <h3>Intelligence Layer</h3>
-                <ul class="roadmap-items">
-                    <li>AI personalization (journal-based)</li>
-                    <li>Smart notifications &amp; alerts</li>
-                    <li>Advanced resource search/filter</li>
-                    <li>Dashboard analytics</li>
-                    <li>Ask-an-Expert (async messaging)</li>
-                </ul>
-            </div>
-            <div class="roadmap-card anim-up">
-                <div class="roadmap-phase">Phase 3</div>
-                <div class="roadmap-timeline">⏱ 12–24 months · Expansion</div>
-                <h3>Expert Ecosystem</h3>
-                <ul class="roadmap-items">
-                    <li>Live 1:1 video consultations</li>
-                    <li>Community features</li>
-                    <li>Parenting marketplace</li>
-                    <li>Localization &amp; global rollout</li>
-                    <li>Personalized care plans</li>
-                </ul>
-            </div>
-            <div class="roadmap-card anim-up">
-                <div class="roadmap-phase">Phase 4</div>
-                <div class="roadmap-timeline">⏱ 2+ years · Scale</div>
-                <h3>Full Ecosystem</h3>
-                <ul class="roadmap-items">
-                    <li>Predictive parenting insights</li>
-                    <li>Full AI copilot for caregivers</li>
-                    <li>Integrated expert ecosystem</li>
-                    <li>Health device &amp; wearable sync</li>
-                    <li>Full care plans platform</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Expert Section -->
 <section class="section" id="experts">
     <div class="wrap">
         <div class="expert-grid">
             <div>
-                <div class="eyebrow anim-up">Expert Guidance</div>
+                <div class="eyebrow anim-up">Expert Guidance · Coming soon</div>
                 <h2 class="section-h anim-up">Human-backed support, when you need it.</h2>
-                <p class="anim-up" style="font-size:0.9375rem;color:var(--sub);line-height:1.8;margin-bottom:1.5rem;">For complex situations, PAGER connects you with licensed professionals — the people who've dedicated their careers to child development and family wellbeing.</p>
+                <p class="anim-up" style="font-size:0.9375rem;color:var(--sub);line-height:1.8;margin-bottom:1.5rem;">Coming soon: for complex situations, PAGER will connect you with licensed professionals, the people who have dedicated their careers to child development and family wellbeing.</p>
                 <div class="expert-types">
-                    <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="brain" :size="22" /></span><div><h4>Psychologists</h4><p>Behavioural &amp; emotional support</p></div></div>
+                    <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="brain" :size="22" /></span><div><h4>Psychologists</h4><p>Behavioral &amp; emotional support</p></div></div>
                     <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="baby" :size="22" /></span><div><h4>ECD Specialists</h4><p>Early childhood development</p></div></div>
                     <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="hand-heart" :size="22" /></span><div><h4>Occupational Therapists</h4><p>Sensory &amp; physical development</p></div></div>
                     <div class="expert-card anim-up"><span class="expert-card-icon"><x-icon name="clipboard-list" :size="22" /></span><div><h4>Care Plan Builders</h4><p>Tailored family strategies</p></div></div>
@@ -677,10 +477,10 @@
             </div>
 
             <ul class="expert-capabilities anim-up">
-                <li class="expert-cap"><span class="cap-icon"><x-icon name="video" :size="18" /></span><div><h4>1:1 Consultations</h4><p>Video, chat, or voice sessions with licensed specialists at your convenience.</p></div></li>
-                <li class="expert-cap"><span class="cap-icon"><x-icon name="message-circle" :size="18" /></span><div><h4>Ask-an-Expert</h4><p>Submit questions and receive professional, thoughtful responses within 24 hours.</p></div></li>
-                <li class="expert-cap"><span class="cap-icon"><x-icon name="file-text" :size="18" /></span><div><h4>Personalized Care Plans</h4><p>Tailored strategies for development concerns, co-created with your assigned expert.</p></div></li>
-                <li class="expert-cap"><span class="cap-icon"><x-icon name="link" :size="18" /></span><div><h4>Local Referrals</h4><p>Get connected to verified professionals near you when in-person care is needed.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="video" :size="18" /></span><div><h4>1:1 Consultations</h4><p>Planned: video, chat, or voice sessions with licensed specialists.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="message-circle" :size="18" /></span><div><h4>Ask-an-Expert</h4><p>Planned: send a question and get a thoughtful answer from a professional.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="file-text" :size="18" /></span><div><h4>Personalized Care Plans</h4><p>Planned: tailored strategies for development concerns, made with an expert.</p></div></li>
+                <li class="expert-cap"><span class="cap-icon"><x-icon name="link" :size="18" /></span><div><h4>Local Referrals</h4><p>Planned: connections to verified professionals near you for in-person care.</p></div></li>
             </ul>
         </div>
     </div>
@@ -693,11 +493,11 @@
             <div class="about-text">
                 <div class="eyebrow anim-up">Our mission</div>
                 <h2 class="section-h anim-up">Simplify and enrich the parenting experience.</h2>
-                <p class="anim-up">PAGER was built for the caregivers who carry the weight of love and responsibility every single day. We believe every family deserves personalized support — not generic advice.</p>
+                <p class="anim-up">PAGER was built for the caregivers who carry the weight of love and responsibility every single day. We believe every family deserves personalized support, not generic advice.</p>
                 <p class="anim-up">Our platform combines a smart digital journal with professional-grade guidance to help you feel capable and confident in every stage of parenthood.</p>
                 <div class="about-ctas anim-up">
-                    <a class="btn-solid" href="{{ $registerUrl }}">Get started free</a>
-                    <a class="btn-text" href="#experts">Meet the experts →</a>
+                    <a class="btn-solid" href="{{ $registerUrl }}">Get Started</a>
+                    <a class="btn-text" href="#experts">About expert support →</a>
                 </div>
             </div>
             <ul class="values">
@@ -716,7 +516,7 @@
         <div class="cta-inner anim-up">
             <h2>Ready to start your parenting journey with <span>confidence?</span></h2>
             <a class="btn-solid btn-solid-pulse" href="{{ $registerUrl }}">
-                Create a free account
+                Get Started
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
@@ -729,7 +529,6 @@
         <a class="footer-logo" href="/" aria-label="PAGER home"><x-logo :size="28" /></a>
         <ul class="footer-links">
             <li><a href="#features">Features</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
             <li><a href="#experts">Experts</a></li>
             <li><a href="#about">About</a></li>
             @auth <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
@@ -789,33 +588,8 @@
 
     document.querySelectorAll('.anim-up, .anim-left').forEach(el => obs.observe(el));
 
-    /* Flow grid stagger */
-    const flowObs = new IntersectionObserver(entries => {
-        if (!entries[0].isIntersecting) return;
-        flowObs.disconnect();
-        anime({ targets: '#flowGrid .flow-step', opacity:[0,1], translateY:[20,0], duration:600, easing:'easeOutExpo', delay:anime.stagger(70) });
-    }, { threshold: 0.1 });
-    const flowGrid = document.getElementById('flowGrid');
-    if (flowGrid) { flowGrid.querySelectorAll('.flow-step').forEach(s => { s.style.opacity = 0; }); flowObs.observe(flowGrid); }
-
-    /* Stats count-up */
-    const statsSection = document.getElementById('statsBar');
-    if (statsSection) {
-        const countObs = new IntersectionObserver(entries => {
-            if (!entries[0].isIntersecting) return;
-            countObs.disconnect();
-            document.querySelectorAll('.stat-num[data-to]').forEach(el => {
-                const obj = { val: 0 };
-                anime({ targets: obj, val: +el.dataset.to, round: 1, duration: 1600, easing:'easeOutExpo',
-                    update() { el.textContent = obj.val + (el.dataset.suffix || ''); }
-                });
-            });
-        }, { threshold: 0.5 });
-        countObs.observe(statsSection);
-    }
-
     /* Card tilt */
-    document.querySelectorAll('.feat-card, .roadmap-card, .expert-cap').forEach(card => {
+    document.querySelectorAll('.feat-card, .expert-cap').forEach(card => {
         card.addEventListener('mousemove', e => {
             const r = card.getBoundingClientRect();
             const x = (e.clientX - r.left) / r.width - 0.5;

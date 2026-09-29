@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Create Account — PAGER</title>
+    <title>Create Account | PAGER</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
@@ -164,7 +164,7 @@
 
         .field input:focus {
             border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+            box-shadow: 0 0 0 3px rgba(106,79,179, 0.1);
         }
 
         .field input::placeholder { color: #9ca3af; }
@@ -228,7 +228,7 @@
             background: var(--purple-bg);
         }
 
-        .type-card .t-icon { color: var(--purple, #7c3aed); margin-bottom: 0.2rem; display: block; }
+        .type-card .t-icon { color: var(--purple, #6a4fb3); margin-bottom: 0.2rem; display: block; }
         .type-card .t-name { font-size: 0.8125rem; font-weight: 600; color: var(--ink); display: block; }
         .type-card .t-desc { font-size: 0.75rem; color: var(--sub); margin-top: 0.1rem; display: block; }
 

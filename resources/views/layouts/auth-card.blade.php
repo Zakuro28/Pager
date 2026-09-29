@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') — PAGER</title>
+    <title>@yield('title') | PAGER</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
@@ -61,7 +61,7 @@
             font-family: "Inter", sans-serif; font-size: 0.9rem; color: var(--ink); background: var(--white);
             outline: none; transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .field input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
+        .field input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(106,79,179, 0.1); }
         .field input::placeholder { color: #9ca3af; }
         .field input[readonly] { background: #f9fafb; color: var(--sub); }
 
@@ -114,7 +114,7 @@
 
     <div class="left-quote">
         <blockquote>"Parenting is the greatest work you'll ever do. You deserve <span>the right support.</span>"</blockquote>
-        <p>PAGER gives caregivers a personalized journal, milestone tracker, and expert resource library — all in one place.</p>
+        <p>PAGER gives caregivers a personalized journal, milestone tracker, and expert resource library, all in one place.</p>
     </div>
 
     <p class="left-bottom">© {{ date('Y') }} PAGER. All rights reserved.</p>

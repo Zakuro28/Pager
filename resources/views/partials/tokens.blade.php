@@ -10,11 +10,14 @@
         --border:      #e5e7eb;
 
         /* Brand */
-        --purple:      #7c3aed;
-        --purple-dim:  #6d28d9;
-        --purple-bg:   #f5f3ff;
-        --purple-mid:  #ede9fe;
-        --purple-lite: #ddd6fe;
+        --purple:      #6a4fb3;
+        --purple-dim:  #58409a;
+        --purple-bg:   #f5f2fb;
+        --purple-mid:  #ebe6f6;
+        --purple-lite: #d9d0ef;
+        --yellow:      #f4c542;
+        --yellow-bg:   #fdf5d9;
+        --yellow-ink:  #7a5c00;
 
         /* Accents (feature colors) */
         --green:       #059669;

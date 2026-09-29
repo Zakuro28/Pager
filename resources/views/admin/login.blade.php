@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Login — PAGER</title>
+    <title>Admin Login | PAGER</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
@@ -34,8 +34,8 @@
             filter: blur(80px);
             opacity: 0.1;
         }
-        .orb-1 { width: 500px; height: 500px; background: #7c3aed; top: -150px; right: -100px; animation: floatOrb 12s ease-in-out infinite; }
-        .orb-2 { width: 350px; height: 350px; background: #a78bfa; bottom: -100px; left: -80px; animation: floatOrb 16s ease-in-out infinite reverse; }
+        .orb-1 { width: 500px; height: 500px; background: #6a4fb3; top: -150px; right: -100px; animation: floatOrb 12s ease-in-out infinite; }
+        .orb-2 { width: 350px; height: 350px; background: #9d88d6; bottom: -100px; left: -80px; animation: floatOrb 16s ease-in-out infinite reverse; }
 
         @keyframes floatOrb {
             0%, 100% { transform: translate(0, 0); }
@@ -137,7 +137,7 @@
 
         .form-field input:focus {
             border-color: var(--purple);
-            box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+            box-shadow: 0 0 0 3px rgba(106,79,179,0.1);
         }
 
         .form-field input::placeholder { color: #9ca3af; }
@@ -175,7 +175,7 @@
         .btn-login:hover {
             background: var(--purple-dim);
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(124,58,237,0.3);
+            box-shadow: 0 6px 20px rgba(106,79,179,0.3);
         }
 
         .btn-login:active { transform: scale(0.97); }
